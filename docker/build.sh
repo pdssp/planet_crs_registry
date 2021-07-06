@@ -14,6 +14,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License v3  for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License v3 
+# You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 docker build --no-cache=true --build-arg SSH_PRIVATE_KEY="`more ~/.ssh/id_rsa`" -t dev/planet_crs_registry .

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
 # Copyright (C) 2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)
 #
@@ -19,28 +20,25 @@
 
 import logging
 import pathlib
-
-from tortoise.queryset import ExistsQuery, QuerySet
-from planet_crs_registry.core.models.pydantic import wkt
 import re
 from typing import List, Optional
 
-from fastapi import APIRouter, HTTPException, Path, Query, status
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Path, Query, status
+from starlette.exceptions import HTTPException
+
 from planet_crs_registry.config import tortoise_config
+from planet_crs_registry.core.models.pydantic import wkt
 from starlette.status import HTTP_400_BAD_REQUEST
 from tortoise import Tortoise
 from tortoise.contrib.fastapi import HTTPNotFoundError
 from tortoise.functions import Lower
 
 from ..business import WktDatabase
-from ..models import WKT_model, Wkt_Pydantic
-from ..models import CenterCs
+from ..models import CenterCs, WKT_model, Wkt_Pydantic
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
-# https://datacarpentry.org/python-ecology-lesson/09-working-with-sql/index.html
 
 
 async def get_wkt_obj(wkt_id: str) -> WKT_model:

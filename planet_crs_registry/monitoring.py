@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2020-2021 - Centre National d'Etudes Spatiales
 # jean-christophe.malapert@cnes.fr
 #

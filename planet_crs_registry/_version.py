@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
 # Copyright (C) 2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)
 #
@@ -30,4 +31,6 @@ __url__ = "https://github.com/pole-surfaces-planetaires/planet_crs_registry"
 __author__ = "Jean-Christophe Malapert"
 __author_email__ = "jean-christophe.malapert@cnes.fr"
 __license__ = "GNU Lesser General Public License v3"
-__copyright__ = "2021, CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)"
+__copyright__ = (
+    "2021, CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)"
+)

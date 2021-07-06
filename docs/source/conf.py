@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -19,7 +20,9 @@ import planet_crs_registry
 # -- Project information -----------------------------------------------------
 
 project = "Planet CRS Registry"
-copyright = "2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)"
+copyright = (
+    "2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)"
+)
 author = "Jean-Christophe Malapert"
 version = planet_crs_registry.__version__
 release = planet_crs_registry.__version__
@@ -30,27 +33,27 @@ release = planet_crs_registry.__version__
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.autosummary'
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.autosummary",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build']
+exclude_patterns = ["_build"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
@@ -71,7 +74,7 @@ html_logo = "logo.png"
 html_static_path = ["_static"]
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'planet_crs_registrydoc'
+htmlhelp_basename = "planet_crs_registrydoc"
 
 # -- Options for LaTeX output ------------------------------------------
 
@@ -79,15 +82,12 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': '',
-
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
@@ -97,9 +97,13 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass
 # [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'planet_crs_registry.tex',
-     'Planet CRS Registry Documentation',
-     'Jean-Christophe Malapert', 'manual'),
+    (
+        master_doc,
+        "planet_crs_registry.tex",
+        "Planet CRS Registry Documentation",
+        "Jean-Christophe Malapert",
+        "manual",
+    ),
 ]
 
 # -- Options for manual page output ------------------------------------
@@ -107,9 +111,13 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'planet_crs_registry',
-     'Planet CRS Registry Documentation',
-     [author], 1)
+    (
+        master_doc,
+        "planet_crs_registry",
+        "Planet CRS Registry Documentation",
+        [author],
+        1,
+    )
 ]
 
 # -- Options for Texinfo output ----------------------------------------
@@ -118,10 +126,13 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'planet_crs_registry',
-     'Planet CRS Registry Documentation',
-     author,
-     'planet_crs_registry',
-     'One line description of project.',
-     'Miscellaneous'),
+    (
+        master_doc,
+        "planet_crs_registry",
+        "Planet CRS Registry Documentation",
+        author,
+        "planet_crs_registry",
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]

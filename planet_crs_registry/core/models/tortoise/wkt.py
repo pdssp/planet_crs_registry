@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from tortoise import fields, models
 from enum import Enum
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
 # Copyright (C) 2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)
 #

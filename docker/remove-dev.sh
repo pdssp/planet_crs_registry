@@ -14,7 +14,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License v3  for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License v3 
+# You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 docker stop develop-planet_crs_registry && docker rm develop-planet_crs_registry
-

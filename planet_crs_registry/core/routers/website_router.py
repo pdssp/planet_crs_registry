@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
 # Copyright (C) 2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)
 #
@@ -211,7 +212,9 @@ async def get_all_wkts_name_or_version(
     page: int = 1,
     limit: int = 100,
 ):
-    if name_or_version.isnumeric():
+    if name_or_version.isnumeric() and int(name_or_version) == 404:
+        return templates.TemplateResponse("404.html", {"request": request})
+    elif name_or_version.isnumeric():
         return await get_all_wkts_version(
             request, int(name_or_version), page, limit
         )

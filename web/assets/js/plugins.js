@@ -1,7 +1,7 @@
 /*!
  * classie - class helper functions
  * from bonzo https://github.com/ded/bonzo
- * 
+ *
  * classie.has( elem, 'my-class' ) -> true/false
  * classie.add( elem, 'my-new-class' )
  * classie.remove( elem, 'my-unwanted-class' )
@@ -18,7 +18,7 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
@@ -254,16 +254,16 @@ return i&&i.textContent}}return t}();d.sortDataParsers={parseInt:function(t){ret
 * http://dimsemenov.com/plugins/magnific-popup/
 * Copyright (c) 2015 Dmitry Semenov; */
 !function(a){"function"==typeof define&&define.amd?define(["jquery"],a):a("object"==typeof exports?require("jquery"):window.jQuery||window.Zepto)}(function(a){var b,c,d,e,f,g,h="Close",i="BeforeClose",j="AfterClose",k="BeforeAppend",l="MarkupParse",m="Open",n="Change",o="mfp",p="."+o,q="mfp-ready",r="mfp-removing",s="mfp-prevent-close",t=function(){},u=!!window.jQuery,v=a(window),w=function(a,c){b.ev.on(o+a+p,c)},x=function(b,c,d,e){var f=document.createElement("div");return f.className="mfp-"+b,d&&(f.innerHTML=d),e?c&&c.appendChild(f):(f=a(f),c&&f.appendTo(c)),f},y=function(c,d){b.ev.triggerHandler(o+c,d),b.st.callbacks&&(c=c.charAt(0).toLowerCase()+c.slice(1),b.st.callbacks[c]&&b.st.callbacks[c].apply(b,a.isArray(d)?d:[d]))},z=function(c){return c===g&&b.currTemplate.closeBtn||(b.currTemplate.closeBtn=a(b.st.closeMarkup.replace("%title%",b.st.tClose)),g=c),b.currTemplate.closeBtn},A=function(){a.magnificPopup.instance||(b=new t,b.init(),a.magnificPopup.instance=b)},B=function(){var a=document.createElement("p").style,b=["ms","O","Moz","Webkit"];if(void 0!==a.transition)return!0;for(;b.length;)if(b.pop()+"Transition"in a)return!0;return!1};t.prototype={constructor:t,init:function(){var c=navigator.appVersion;b.isIE7=-1!==c.indexOf("MSIE 7."),b.isIE8=-1!==c.indexOf("MSIE 8."),b.isLowIE=b.isIE7||b.isIE8,b.isAndroid=/android/gi.test(c),b.isIOS=/iphone|ipad|ipod/gi.test(c),b.supportsTransition=B(),b.probablyMobile=b.isAndroid||b.isIOS||/(Opera Mini)|Kindle|webOS|BlackBerry|(Opera Mobi)|(Windows Phone)|IEMobile/i.test(navigator.userAgent),d=a(document),b.popupsCache={}},open:function(c){var e;if(c.isObj===!1){b.items=c.items.toArray(),b.index=0;var g,h=c.items;for(e=0;e<h.length;e++)if(g=h[e],g.parsed&&(g=g.el[0]),g===c.el[0]){b.index=e;break}}else b.items=a.isArray(c.items)?c.items:[c.items],b.index=c.index||0;if(b.isOpen)return void b.updateItemHTML();b.types=[],f="",b.ev=c.mainEl&&c.mainEl.length?c.mainEl.eq(0):d,c.key?(b.popupsCache[c.key]||(b.popupsCache[c.key]={}),b.currTemplate=b.popupsCache[c.key]):b.currTemplate={},b.st=a.extend(!0,{},a.magnificPopup.defaults,c),b.fixedContentPos="auto"===b.st.fixedContentPos?!b.probablyMobile:b.st.fixedContentPos,b.st.modal&&(b.st.closeOnContentClick=!1,b.st.closeOnBgClick=!1,b.st.showCloseBtn=!1,b.st.enableEscapeKey=!1),b.bgOverlay||(b.bgOverlay=x("bg").on("click"+p,function(){b.close()}),b.wrap=x("wrap").attr("tabindex",-1).on("click"+p,function(a){b._checkIfClose(a.target)&&b.close()}),b.container=x("container",b.wrap)),b.contentContainer=x("content"),b.st.preloader&&(b.preloader=x("preloader",b.container,b.st.tLoading));var i=a.magnificPopup.modules;for(e=0;e<i.length;e++){var j=i[e];j=j.charAt(0).toUpperCase()+j.slice(1),b["init"+j].call(b)}y("BeforeOpen"),b.st.showCloseBtn&&(b.st.closeBtnInside?(w(l,function(a,b,c,d){c.close_replaceWith=z(d.type)}),f+=" mfp-close-btn-in"):b.wrap.append(z())),b.st.alignTop&&(f+=" mfp-align-top"),b.wrap.css(b.fixedContentPos?{overflow:b.st.overflowY,overflowX:"hidden",overflowY:b.st.overflowY}:{top:v.scrollTop(),position:"absolute"}),(b.st.fixedBgPos===!1||"auto"===b.st.fixedBgPos&&!b.fixedContentPos)&&b.bgOverlay.css({height:d.height(),position:"absolute"}),b.st.enableEscapeKey&&d.on("keyup"+p,function(a){27===a.keyCode&&b.close()}),v.on("resize"+p,function(){b.updateSize()}),b.st.closeOnContentClick||(f+=" mfp-auto-cursor"),f&&b.wrap.addClass(f);var k=b.wH=v.height(),n={};if(b.fixedContentPos&&b._hasScrollBar(k)){var o=b._getScrollbarSize();o&&(n.marginRight=o)}b.fixedContentPos&&(b.isIE7?a("body, html").css("overflow","hidden"):n.overflow="hidden");var r=b.st.mainClass;return b.isIE7&&(r+=" mfp-ie7"),r&&b._addClassToMFP(r),b.updateItemHTML(),y("BuildControls"),a("html").css(n),b.bgOverlay.add(b.wrap).prependTo(b.st.prependTo||a(document.body)),b._lastFocusedEl=document.activeElement,setTimeout(function(){b.content?(b._addClassToMFP(q),b._setFocus()):b.bgOverlay.addClass(q),d.on("focusin"+p,b._onFocusIn)},16),b.isOpen=!0,b.updateSize(k),y(m),c},close:function(){b.isOpen&&(y(i),b.isOpen=!1,b.st.removalDelay&&!b.isLowIE&&b.supportsTransition?(b._addClassToMFP(r),setTimeout(function(){b._close()},b.st.removalDelay)):b._close())},_close:function(){y(h);var c=r+" "+q+" ";if(b.bgOverlay.detach(),b.wrap.detach(),b.container.empty(),b.st.mainClass&&(c+=b.st.mainClass+" "),b._removeClassFromMFP(c),b.fixedContentPos){var e={marginRight:""};b.isIE7?a("body, html").css("overflow",""):e.overflow="",a("html").css(e)}d.off("keyup"+p+" focusin"+p),b.ev.off(p),b.wrap.attr("class","mfp-wrap").removeAttr("style"),b.bgOverlay.attr("class","mfp-bg"),b.container.attr("class","mfp-container"),!b.st.showCloseBtn||b.st.closeBtnInside&&b.currTemplate[b.currItem.type]!==!0||b.currTemplate.closeBtn&&b.currTemplate.closeBtn.detach(),b._lastFocusedEl&&a(b._lastFocusedEl).focus(),b.currItem=null,b.content=null,b.currTemplate=null,b.prevHeight=0,y(j)},updateSize:function(a){if(b.isIOS){var c=document.documentElement.clientWidth/window.innerWidth,d=window.innerHeight*c;b.wrap.css("height",d),b.wH=d}else b.wH=a||v.height();b.fixedContentPos||b.wrap.css("height",b.wH),y("Resize")},updateItemHTML:function(){var c=b.items[b.index];b.contentContainer.detach(),b.content&&b.content.detach(),c.parsed||(c=b.parseEl(b.index));var d=c.type;if(y("BeforeChange",[b.currItem?b.currItem.type:"",d]),b.currItem=c,!b.currTemplate[d]){var f=b.st[d]?b.st[d].markup:!1;y("FirstMarkupParse",f),b.currTemplate[d]=f?a(f):!0}e&&e!==c.type&&b.container.removeClass("mfp-"+e+"-holder");var g=b["get"+d.charAt(0).toUpperCase()+d.slice(1)](c,b.currTemplate[d]);b.appendContent(g,d),c.preloaded=!0,y(n,c),e=c.type,b.container.prepend(b.contentContainer),y("AfterChange")},appendContent:function(a,c){b.content=a,a?b.st.showCloseBtn&&b.st.closeBtnInside&&b.currTemplate[c]===!0?b.content.find(".mfp-close").length||b.content.append(z()):b.content=a:b.content="",y(k),b.container.addClass("mfp-"+c+"-holder"),b.contentContainer.append(b.content)},parseEl:function(c){var d,e=b.items[c];if(e.tagName?e={el:a(e)}:(d=e.type,e={data:e,src:e.src}),e.el){for(var f=b.types,g=0;g<f.length;g++)if(e.el.hasClass("mfp-"+f[g])){d=f[g];break}e.src=e.el.attr("data-mfp-src"),e.src||(e.src=e.el.attr("href"))}return e.type=d||b.st.type||"inline",e.index=c,e.parsed=!0,b.items[c]=e,y("ElementParse",e),b.items[c]},addGroup:function(a,c){var d=function(d){d.mfpEl=this,b._openClick(d,a,c)};c||(c={});var e="click.magnificPopup";c.mainEl=a,c.items?(c.isObj=!0,a.off(e).on(e,d)):(c.isObj=!1,c.delegate?a.off(e).on(e,c.delegate,d):(c.items=a,a.off(e).on(e,d)))},_openClick:function(c,d,e){var f=void 0!==e.midClick?e.midClick:a.magnificPopup.defaults.midClick;if(f||2!==c.which&&!c.ctrlKey&&!c.metaKey){var g=void 0!==e.disableOn?e.disableOn:a.magnificPopup.defaults.disableOn;if(g)if(a.isFunction(g)){if(!g.call(b))return!0}else if(v.width()<g)return!0;c.type&&(c.preventDefault(),b.isOpen&&c.stopPropagation()),e.el=a(c.mfpEl),e.delegate&&(e.items=d.find(e.delegate)),b.open(e)}},updateStatus:function(a,d){if(b.preloader){c!==a&&b.container.removeClass("mfp-s-"+c),d||"loading"!==a||(d=b.st.tLoading);var e={status:a,text:d};y("UpdateStatus",e),a=e.status,d=e.text,b.preloader.html(d),b.preloader.find("a").on("click",function(a){a.stopImmediatePropagation()}),b.container.addClass("mfp-s-"+a),c=a}},_checkIfClose:function(c){if(!a(c).hasClass(s)){var d=b.st.closeOnContentClick,e=b.st.closeOnBgClick;if(d&&e)return!0;if(!b.content||a(c).hasClass("mfp-close")||b.preloader&&c===b.preloader[0])return!0;if(c===b.content[0]||a.contains(b.content[0],c)){if(d)return!0}else if(e&&a.contains(document,c))return!0;return!1}},_addClassToMFP:function(a){b.bgOverlay.addClass(a),b.wrap.addClass(a)},_removeClassFromMFP:function(a){this.bgOverlay.removeClass(a),b.wrap.removeClass(a)},_hasScrollBar:function(a){return(b.isIE7?d.height():document.body.scrollHeight)>(a||v.height())},_setFocus:function(){(b.st.focus?b.content.find(b.st.focus).eq(0):b.wrap).focus()},_onFocusIn:function(c){return c.target===b.wrap[0]||a.contains(b.wrap[0],c.target)?void 0:(b._setFocus(),!1)},_parseMarkup:function(b,c,d){var e;d.data&&(c=a.extend(d.data,c)),y(l,[b,c,d]),a.each(c,function(a,c){if(void 0===c||c===!1)return!0;if(e=a.split("_"),e.length>1){var d=b.find(p+"-"+e[0]);if(d.length>0){var f=e[1];"replaceWith"===f?d[0]!==c[0]&&d.replaceWith(c):"img"===f?d.is("img")?d.attr("src",c):d.replaceWith('<img src="'+c+'" class="'+d.attr("class")+'" />'):d.attr(e[1],c)}}else b.find(p+"-"+a).html(c)})},_getScrollbarSize:function(){if(void 0===b.scrollbarSize){var a=document.createElement("div");a.style.cssText="width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;",document.body.appendChild(a),b.scrollbarSize=a.offsetWidth-a.clientWidth,document.body.removeChild(a)}return b.scrollbarSize}},a.magnificPopup={instance:null,proto:t.prototype,modules:[],open:function(b,c){return A(),b=b?a.extend(!0,{},b):{},b.isObj=!0,b.index=c||0,this.instance.open(b)},close:function(){return a.magnificPopup.instance&&a.magnificPopup.instance.close()},registerModule:function(b,c){c.options&&(a.magnificPopup.defaults[b]=c.options),a.extend(this.proto,c.proto),this.modules.push(b)},defaults:{disableOn:0,key:null,midClick:!1,mainClass:"",preloader:!0,focus:"",closeOnContentClick:!1,closeOnBgClick:!0,closeBtnInside:!0,showCloseBtn:!0,enableEscapeKey:!0,modal:!1,alignTop:!1,removalDelay:0,prependTo:null,fixedContentPos:"auto",fixedBgPos:"auto",overflowY:"auto",closeMarkup:'<button title="%title%" type="button" class="mfp-close">&times;</button>',tClose:"Close (Esc)",tLoading:"Loading..."}},a.fn.magnificPopup=function(c){A();var d=a(this);if("string"==typeof c)if("open"===c){var e,f=u?d.data("magnificPopup"):d[0].magnificPopup,g=parseInt(arguments[1],10)||0;f.items?e=f.items[g]:(e=d,f.delegate&&(e=e.find(f.delegate)),e=e.eq(g)),b._openClick({mfpEl:e},d,f)}else b.isOpen&&b[c].apply(b,Array.prototype.slice.call(arguments,1));else c=a.extend(!0,{},c),u?d.data("magnificPopup",c):d[0].magnificPopup=c,b.addGroup(d,c);return d};var C,D,E,F="inline",G=function(){E&&(D.after(E.addClass(C)).detach(),E=null)};a.magnificPopup.registerModule(F,{options:{hiddenClass:"hide",markup:"",tNotFound:"Content not found"},proto:{initInline:function(){b.types.push(F),w(h+"."+F,function(){G()})},getInline:function(c,d){if(G(),c.src){var e=b.st.inline,f=a(c.src);if(f.length){var g=f[0].parentNode;g&&g.tagName&&(D||(C=e.hiddenClass,D=x(C),C="mfp-"+C),E=f.after(D).detach().removeClass(C)),b.updateStatus("ready")}else b.updateStatus("error",e.tNotFound),f=a("<div>");return c.inlineElement=f,f}return b.updateStatus("ready"),b._parseMarkup(d,{},c),d}}});var H,I="ajax",J=function(){H&&a(document.body).removeClass(H)},K=function(){J(),b.req&&b.req.abort()};a.magnificPopup.registerModule(I,{options:{settings:null,cursor:"mfp-ajax-cur",tError:'<a href="%url%">The content</a> could not be loaded.'},proto:{initAjax:function(){b.types.push(I),H=b.st.ajax.cursor,w(h+"."+I,K),w("BeforeChange."+I,K)},getAjax:function(c){H&&a(document.body).addClass(H),b.updateStatus("loading");var d=a.extend({url:c.src,success:function(d,e,f){var g={data:d,xhr:f};y("ParseAjax",g),b.appendContent(a(g.data),I),c.finished=!0,J(),b._setFocus(),setTimeout(function(){b.wrap.addClass(q)},16),b.updateStatus("ready"),y("AjaxContentAdded")},error:function(){J(),c.finished=c.loadError=!0,b.updateStatus("error",b.st.ajax.tError.replace("%url%",c.src))}},b.st.ajax.settings);return b.req=a.ajax(d),""}}});var L,M=function(c){if(c.data&&void 0!==c.data.title)return c.data.title;var d=b.st.image.titleSrc;if(d){if(a.isFunction(d))return d.call(b,c);if(c.el)return c.el.attr(d)||""}return""};a.magnificPopup.registerModule("image",{options:{markup:'<div class="mfp-figure"><div class="mfp-close"></div><figure><div class="mfp-img"></div><figcaption><div class="mfp-bottom-bar"><div class="mfp-title"></div><div class="mfp-counter"></div></div></figcaption></figure></div>',cursor:"mfp-zoom-out-cur",titleSrc:"title",verticalFit:!0,tError:'<a href="%url%">The image</a> could not be loaded.'},proto:{initImage:function(){var c=b.st.image,d=".image";b.types.push("image"),w(m+d,function(){"image"===b.currItem.type&&c.cursor&&a(document.body).addClass(c.cursor)}),w(h+d,function(){c.cursor&&a(document.body).removeClass(c.cursor),v.off("resize"+p)}),w("Resize"+d,b.resizeImage),b.isLowIE&&w("AfterChange",b.resizeImage)},resizeImage:function(){var a=b.currItem;if(a&&a.img&&b.st.image.verticalFit){var c=0;b.isLowIE&&(c=parseInt(a.img.css("padding-top"),10)+parseInt(a.img.css("padding-bottom"),10)),a.img.css("max-height",b.wH-c)}},_onImageHasSize:function(a){a.img&&(a.hasSize=!0,L&&clearInterval(L),a.isCheckingImgSize=!1,y("ImageHasSize",a),a.imgHidden&&(b.content&&b.content.removeClass("mfp-loading"),a.imgHidden=!1))},findImageSize:function(a){var c=0,d=a.img[0],e=function(f){L&&clearInterval(L),L=setInterval(function(){return d.naturalWidth>0?void b._onImageHasSize(a):(c>200&&clearInterval(L),c++,void(3===c?e(10):40===c?e(50):100===c&&e(500)))},f)};e(1)},getImage:function(c,d){var e=0,f=function(){c&&(c.img[0].complete?(c.img.off(".mfploader"),c===b.currItem&&(b._onImageHasSize(c),b.updateStatus("ready")),c.hasSize=!0,c.loaded=!0,y("ImageLoadComplete")):(e++,200>e?setTimeout(f,100):g()))},g=function(){c&&(c.img.off(".mfploader"),c===b.currItem&&(b._onImageHasSize(c),b.updateStatus("error",h.tError.replace("%url%",c.src))),c.hasSize=!0,c.loaded=!0,c.loadError=!0)},h=b.st.image,i=d.find(".mfp-img");if(i.length){var j=document.createElement("img");j.className="mfp-img",c.el&&c.el.find("img").length&&(j.alt=c.el.find("img").attr("alt")),c.img=a(j).on("load.mfploader",f).on("error.mfploader",g),j.src=c.src,i.is("img")&&(c.img=c.img.clone()),j=c.img[0],j.naturalWidth>0?c.hasSize=!0:j.width||(c.hasSize=!1)}return b._parseMarkup(d,{title:M(c),img_replaceWith:c.img},c),b.resizeImage(),c.hasSize?(L&&clearInterval(L),c.loadError?(d.addClass("mfp-loading"),b.updateStatus("error",h.tError.replace("%url%",c.src))):(d.removeClass("mfp-loading"),b.updateStatus("ready")),d):(b.updateStatus("loading"),c.loading=!0,c.hasSize||(c.imgHidden=!0,d.addClass("mfp-loading"),b.findImageSize(c)),d)}}});var N,O=function(){return void 0===N&&(N=void 0!==document.createElement("p").style.MozTransform),N};a.magnificPopup.registerModule("zoom",{options:{enabled:!1,easing:"ease-in-out",duration:300,opener:function(a){return a.is("img")?a:a.find("img")}},proto:{initZoom:function(){var a,c=b.st.zoom,d=".zoom";if(c.enabled&&b.supportsTransition){var e,f,g=c.duration,j=function(a){var b=a.clone().removeAttr("style").removeAttr("class").addClass("mfp-animated-image"),d="all "+c.duration/1e3+"s "+c.easing,e={position:"fixed",zIndex:9999,left:0,top:0,"-webkit-backface-visibility":"hidden"},f="transition";return e["-webkit-"+f]=e["-moz-"+f]=e["-o-"+f]=e[f]=d,b.css(e),b},k=function(){b.content.css("visibility","visible")};w("BuildControls"+d,function(){if(b._allowZoom()){if(clearTimeout(e),b.content.css("visibility","hidden"),a=b._getItemToZoom(),!a)return void k();f=j(a),f.css(b._getOffset()),b.wrap.append(f),e=setTimeout(function(){f.css(b._getOffset(!0)),e=setTimeout(function(){k(),setTimeout(function(){f.remove(),a=f=null,y("ZoomAnimationEnded")},16)},g)},16)}}),w(i+d,function(){if(b._allowZoom()){if(clearTimeout(e),b.st.removalDelay=g,!a){if(a=b._getItemToZoom(),!a)return;f=j(a)}f.css(b._getOffset(!0)),b.wrap.append(f),b.content.css("visibility","hidden"),setTimeout(function(){f.css(b._getOffset())},16)}}),w(h+d,function(){b._allowZoom()&&(k(),f&&f.remove(),a=null)})}},_allowZoom:function(){return"image"===b.currItem.type},_getItemToZoom:function(){return b.currItem.hasSize?b.currItem.img:!1},_getOffset:function(c){var d;d=c?b.currItem.img:b.st.zoom.opener(b.currItem.el||b.currItem);var e=d.offset(),f=parseInt(d.css("padding-top"),10),g=parseInt(d.css("padding-bottom"),10);e.top-=a(window).scrollTop()-f;var h={width:d.width(),height:(u?d.innerHeight():d[0].offsetHeight)-g-f};return O()?h["-moz-transform"]=h.transform="translate("+e.left+"px,"+e.top+"px)":(h.left=e.left,h.top=e.top),h}}});var P="iframe",Q="//about:blank",R=function(a){if(b.currTemplate[P]){var c=b.currTemplate[P].find("iframe");c.length&&(a||(c[0].src=Q),b.isIE8&&c.css("display",a?"block":"none"))}};a.magnificPopup.registerModule(P,{options:{markup:'<div class="mfp-iframe-scaler"><div class="mfp-close"></div><iframe class="mfp-iframe" src="//about:blank" frameborder="0" allowfullscreen></iframe></div>',srcAction:"iframe_src",patterns:{youtube:{index:"youtube.com",id:"v=",src:"//www.youtube.com/embed/%id%?autoplay=1"},vimeo:{index:"vimeo.com/",id:"/",src:"//player.vimeo.com/video/%id%?autoplay=1"},gmaps:{index:"//maps.google.",src:"%id%&output=embed"}}},proto:{initIframe:function(){b.types.push(P),w("BeforeChange",function(a,b,c){b!==c&&(b===P?R():c===P&&R(!0))}),w(h+"."+P,function(){R()})},getIframe:function(c,d){var e=c.src,f=b.st.iframe;a.each(f.patterns,function(){return e.indexOf(this.index)>-1?(this.id&&(e="string"==typeof this.id?e.substr(e.lastIndexOf(this.id)+this.id.length,e.length):this.id.call(this,e)),e=this.src.replace("%id%",e),!1):void 0});var g={};return f.srcAction&&(g[f.srcAction]=e),b._parseMarkup(d,g,c),b.updateStatus("ready"),d}}});var S=function(a){var c=b.items.length;return a>c-1?a-c:0>a?c+a:a},T=function(a,b,c){return a.replace(/%curr%/gi,b+1).replace(/%total%/gi,c)};a.magnificPopup.registerModule("gallery",{options:{enabled:!1,arrowMarkup:'<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"></button>',preload:[0,2],navigateByImgClick:!0,arrows:!0,tPrev:"Previous (Left arrow key)",tNext:"Next (Right arrow key)",tCounter:"%curr% of %total%"},proto:{initGallery:function(){var c=b.st.gallery,e=".mfp-gallery",g=Boolean(a.fn.mfpFastClick);return b.direction=!0,c&&c.enabled?(f+=" mfp-gallery",w(m+e,function(){c.navigateByImgClick&&b.wrap.on("click"+e,".mfp-img",function(){return b.items.length>1?(b.next(),!1):void 0}),d.on("keydown"+e,function(a){37===a.keyCode?b.prev():39===a.keyCode&&b.next()})}),w("UpdateStatus"+e,function(a,c){c.text&&(c.text=T(c.text,b.currItem.index,b.items.length))}),w(l+e,function(a,d,e,f){var g=b.items.length;e.counter=g>1?T(c.tCounter,f.index,g):""}),w("BuildControls"+e,function(){if(b.items.length>1&&c.arrows&&!b.arrowLeft){var d=c.arrowMarkup,e=b.arrowLeft=a(d.replace(/%title%/gi,c.tPrev).replace(/%dir%/gi,"left")).addClass(s),f=b.arrowRight=a(d.replace(/%title%/gi,c.tNext).replace(/%dir%/gi,"right")).addClass(s),h=g?"mfpFastClick":"click";e[h](function(){b.prev()}),f[h](function(){b.next()}),b.isIE7&&(x("b",e[0],!1,!0),x("a",e[0],!1,!0),x("b",f[0],!1,!0),x("a",f[0],!1,!0)),b.container.append(e.add(f))}}),w(n+e,function(){b._preloadTimeout&&clearTimeout(b._preloadTimeout),b._preloadTimeout=setTimeout(function(){b.preloadNearbyImages(),b._preloadTimeout=null},16)}),void w(h+e,function(){d.off(e),b.wrap.off("click"+e),b.arrowLeft&&g&&b.arrowLeft.add(b.arrowRight).destroyMfpFastClick(),b.arrowRight=b.arrowLeft=null})):!1},next:function(){b.direction=!0,b.index=S(b.index+1),b.updateItemHTML()},prev:function(){b.direction=!1,b.index=S(b.index-1),b.updateItemHTML()},goTo:function(a){b.direction=a>=b.index,b.index=a,b.updateItemHTML()},preloadNearbyImages:function(){var a,c=b.st.gallery.preload,d=Math.min(c[0],b.items.length),e=Math.min(c[1],b.items.length);for(a=1;a<=(b.direction?e:d);a++)b._preloadItem(b.index+a);for(a=1;a<=(b.direction?d:e);a++)b._preloadItem(b.index-a)},_preloadItem:function(c){if(c=S(c),!b.items[c].preloaded){var d=b.items[c];d.parsed||(d=b.parseEl(c)),y("LazyLoad",d),"image"===d.type&&(d.img=a('<img class="mfp-img" />').on("load.mfploader",function(){d.hasSize=!0}).on("error.mfploader",function(){d.hasSize=!0,d.loadError=!0,y("LazyLoadError",d)}).attr("src",d.src)),d.preloaded=!0}}}});var U="retina";a.magnificPopup.registerModule(U,{options:{replaceSrc:function(a){return a.src.replace(/\.\w+$/,function(a){return"@2x"+a})},ratio:1},proto:{initRetina:function(){if(window.devicePixelRatio>1){var a=b.st.retina,c=a.ratio;c=isNaN(c)?c():c,c>1&&(w("ImageHasSize."+U,function(a,b){b.img.css({"max-width":b.img[0].naturalWidth/c,width:"100%"})}),w("ElementParse."+U,function(b,d){d.src=a.replaceSrc(d,c)}))}}}}),function(){var b=1e3,c="ontouchstart"in window,d=function(){v.off("touchmove"+f+" touchend"+f)},e="mfpFastClick",f="."+e;a.fn.mfpFastClick=function(e){return a(this).each(function(){var g,h=a(this);if(c){var i,j,k,l,m,n;h.on("touchstart"+f,function(a){l=!1,n=1,m=a.originalEvent?a.originalEvent.touches[0]:a.touches[0],j=m.clientX,k=m.clientY,v.on("touchmove"+f,function(a){m=a.originalEvent?a.originalEvent.touches:a.touches,n=m.length,m=m[0],(Math.abs(m.clientX-j)>10||Math.abs(m.clientY-k)>10)&&(l=!0,d())}).on("touchend"+f,function(a){d(),l||n>1||(g=!0,a.preventDefault(),clearTimeout(i),i=setTimeout(function(){g=!1},b),e())})})}h.on("click"+f,function(){g||e()})})},a.fn.destroyMfpFastClick=function(){a(this).off("touchstart"+f+" click"+f),c&&v.off("touchmove"+f+" touchend"+f)}}(),A()});
-/*! 
+/*!
  * bootstrap-touch-carousel v0.8.0
- * https://github.com/ixisio/bootstrap-touch-carousel.git 
- * 
+ * https://github.com/ixisio/bootstrap-touch-carousel.git
+ *
  * Copyright (c) 2014 (ixisio) Andreas Klein
  * Licensed under the MIT license
- * 
- * 
- * Including Hammer.js@1.0.6dev, http://eightmedia.github.com/hammer.js 
- */ 
+ *
+ *
+ * Including Hammer.js@1.0.6dev, http://eightmedia.github.com/hammer.js
+ */
 +function(a){"use strict";function b(a,b){var c=document.createElement("div").style;for(var d in a)if(void 0!==c[a[d]])return"pfx"==b?a[d]:!0;return!1}function c(){var a=document.createElement("bootstrap"),b={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};for(var c in b)if(void 0!==a.style[c])return{end:b[c]}}function d(){var a=["transformProperty","WebkitTransform","MozTransform","msTransform"];return!!b(a)}function e(){return"WebKitCSSMatrix"in window&&"m11"in new WebKitCSSMatrix}if(!("ontouchstart"in window||navigator.msMaxTouchPoints))return!1;a.fn.emulateTransitionEnd=function(b){var c=!1,d=this;a(this).one(a.support.transition.end,function(){c=!0});var e=function(){c||a(d).trigger(a.support.transition.end)};return setTimeout(e,b),this},a(function(){a.support.transition=c(),a.support.csstransforms=d(),a.support.csstransforms3d=e()});var f="touch-carousel",g=function(b,c){return this.$element=a(b),this.$itemsWrapper=this.$element.find(".carousel-inner"),this.$items=this.$element.find(".item"),this.$indicators=this.$element.find(".carousel-indicators"),this.pane_width=this.pane_count=this.current_pane=0,this.onGesture=!1,this.options=c,this._setPaneDimensions(),this.$items.length<=1?this.disable():(this._regTouchGestures(),void a(window).on("orientationchange resize",a.proxy(this._setPaneDimensions,this)))};g.DEFAULTS={interval:!1,toughness:.25},g.prototype.cycle=function(b){return b||(this.paused=!1),this.interval&&clearInterval(this.interval),this.options.interval&&!this.paused&&(this.interval=setInterval(a.proxy(this.next,this),this.options.interval)),this},g.prototype.to=function(a){return a>this.$items.length-1||0>a?void 0:this._showPane(a)},g.prototype.pause=function(a){return a||(this.paused=!0),clearInterval(this.interval),this.interval=null,this},g.prototype._regTouchGestures=function(){this.$itemsWrapper.add(this.$indicators).hammer({drag_lock_to_axis:!0,preventDefault:!0}).on("release dragleft dragright swipeleft swiperight",a.proxy(this._handleGestures,this))},g.prototype._setPaneDimensions=function(){this.pane_width=this.$element.width(),this.pane_count=this.$items.length,this.$itemsWrapper.width(this.pane_width*this.pane_count),this.$items.width(this.pane_width)},g.prototype._showPane=function(a){this.$items.eq(this.current_pane).toggleClass("active"),a>=this.pane_count&&this.pause(),a=Math.max(0,Math.min(a,this.pane_count-1));this.$items.eq(a).toggleClass("active");this.current_pane=a;var b=-(100/this.pane_count*this.current_pane);return this._setContainerOffset(b,!0,a),this},g.prototype._setContainerOffset=function(b,c,d){var e=this;if(this.$itemsWrapper.removeClass("animate"),c&&this.$itemsWrapper.addClass("animate"),a.support.csstransforms3d)this.onGesture=!0,this.$itemsWrapper.css("transform","translate3d("+b+"%,0,0) scale3d(1,1,1)");else if(a.support.csstransforms)this.onGesture=!0,this.$itemsWrapper.css("transform","translate("+b+"%,0)");else{var f=this.pane_width*this.pane_count/100*b;this.$itemsWrapper.css("left",f+"px")}a.support.transition?this.$itemsWrapper.one(a.support.transition.end,function(){e.$itemsWrapper.removeClass("animate"),e.onGesture=!1,e._updateIndicators(d)}):(this.$itemsWrapper.removeClass("animate"),this.onGesture=!1,this._updateIndicators(d))},g.prototype.next=function(){return this._showPane(this.current_pane+1)},g.prototype.prev=function(){return this._showPane(this.current_pane-1)},g.prototype._handleGestures=function(a){if(!this.sliding)switch(this.pause(),a.type){case"dragright":case"dragleft":var b=-(100/this.pane_count)*this.current_pane,c=100/this.pane_width*a.gesture.deltaX/this.pane_count;(0===this.current_pane&&a.gesture.direction==Hammer.DIRECTION_RIGHT||this.current_pane==this.pane_count-1&&a.gesture.direction==Hammer.DIRECTION_LEFT)&&(c*=this.options.toughness),this._setContainerOffset(c+b);break;case"swipeleft":this.next(),a.gesture.stopDetect();break;case"swiperight":this.prev(),a.gesture.stopDetect();break;case"release":Math.abs(a.gesture.deltaX)>this.pane_width/2?"right"==a.gesture.direction?this.prev():this.next():this._showPane(this.current_pane,!0)}},g.prototype.disable=function(){return this.$indicators.hide(),this.$element.removeData(f),!1},g.prototype._updateIndicators=function(a){return this.$indicators.length&&(this.$indicators.find(".active").removeClass("active"),this.$indicators.children().eq(a).addClass("active")),this.$element.trigger("slid.bs.carousel"),this};var h=a.fn.carousel;a.fn.carousel=function(b){return this.each(function(){var c=a(this),d=c.data(f),e=a.extend({},g.DEFAULTS,c.data(),"object"==typeof b&&b),h="string"==typeof b?b:e.slide;d||c.data(f,d=new g(this,e)).addClass(f),"number"==typeof b?d.to(b):h?d[h]():e.interval&&d.pause().cycle()})},a.fn.carousel.Constructor=g,a.fn.carousel.noConflict=function(){return a.fn.carousel=h,this},a(document).off("click.bs.carousel").on("click.bs.carousel.data-api","[data-slide], [data-slide-to]",function(b){var c,d=a(this),e=a(d.attr("data-target")||(c=d.attr("href"))&&c.replace(/.*(?=#[^\s]+$)/,"")),g=a.extend({},e.data(),d.data()),h=d.attr("data-slide-to");h&&(g.interval=!1),e.carousel(g),(h=d.attr("data-slide-to"))&&e.data(f).to(h),b.preventDefault()})}(window.jQuery),function(a,b){"use strict";function c(){if(!d.READY){d.event.determineEventTypes();for(var a in d.gestures)d.gestures.hasOwnProperty(a)&&d.detection.register(d.gestures[a]);d.event.onTouch(d.DOCUMENT,d.EVENT_MOVE,d.detection.detect),d.event.onTouch(d.DOCUMENT,d.EVENT_END,d.detection.detect),d.READY=!0}}var d=function(a,b){return new d.Instance(a,b||{})};d.defaults={stop_browser_behavior:{userSelect:"none",touchAction:"none",touchCallout:"none",contentZooming:"none",userDrag:"none",tapHighlightColor:"rgba(0,0,0,0)"}},d.HAS_POINTEREVENTS=a.navigator.pointerEnabled||a.navigator.msPointerEnabled,d.HAS_TOUCHEVENTS="ontouchstart"in a,d.MOBILE_REGEX=/mobile|tablet|ip(ad|hone|od)|android|silk/i,d.NO_MOUSEEVENTS=d.HAS_TOUCHEVENTS&&a.navigator.userAgent.match(d.MOBILE_REGEX),d.EVENT_TYPES={},d.DIRECTION_DOWN="down",d.DIRECTION_LEFT="left",d.DIRECTION_UP="up",d.DIRECTION_RIGHT="right",d.POINTER_MOUSE="mouse",d.POINTER_TOUCH="touch",d.POINTER_PEN="pen",d.EVENT_START="start",d.EVENT_MOVE="move",d.EVENT_END="end",d.DOCUMENT=a.document,d.plugins={},d.READY=!1,d.Instance=function(a,b){var e=this;return c(),this.element=a,this.enabled=!0,this.options=d.utils.extend(d.utils.extend({},d.defaults),b||{}),this.options.stop_browser_behavior&&d.utils.stopDefaultBrowserBehavior(this.element,this.options.stop_browser_behavior),d.event.onTouch(a,d.EVENT_START,function(a){e.enabled&&d.detection.startDetect(e,a)}),this},d.Instance.prototype={on:function(a,b){for(var c=a.split(" "),d=0;d<c.length;d++)this.element.addEventListener(c[d],b,!1);return this},off:function(a,b){for(var c=a.split(" "),d=0;d<c.length;d++)this.element.removeEventListener(c[d],b,!1);return this},trigger:function(a,b){b||(b={});var c=d.DOCUMENT.createEvent("Event");c.initEvent(a,!0,!0),c.gesture=b;var e=this.element;return d.utils.hasParent(b.target,e)&&(e=b.target),e.dispatchEvent(c),this},enable:function(a){return this.enabled=a,this}};var e=null,f=!1,g=!1;d.event={bindDom:function(a,b,c){for(var d=b.split(" "),e=0;e<d.length;e++)a.addEventListener(d[e],c,!1)},onTouch:function(a,b,c){var h=this;this.bindDom(a,d.EVENT_TYPES[b],function(i){var j=i.type.toLowerCase();if(!j.match(/mouse/)||!g){j.match(/touch/)||j.match(/pointerdown/)||j.match(/mouse/)&&1===i.which?f=!0:j.match(/mouse/)&&1!==i.which&&(f=!1),j.match(/touch|pointer/)&&(g=!0);var k=0;f&&(d.HAS_POINTEREVENTS&&b!=d.EVENT_END?k=d.PointerEvent.updatePointer(b,i):j.match(/touch/)?k=i.touches.length:g||(k=j.match(/up/)?0:1),k>0&&b==d.EVENT_END?b=d.EVENT_MOVE:k||(b=d.EVENT_END),(k||null===e)&&(e=i),c.call(d.detection,h.collectEventData(a,b,h.getTouchList(e,b),i)),d.HAS_POINTEREVENTS&&b==d.EVENT_END&&(k=d.PointerEvent.updatePointer(b,i))),k||(e=null,f=!1,g=!1,d.PointerEvent.reset())}})},determineEventTypes:function(){var a;a=d.HAS_POINTEREVENTS?d.PointerEvent.getEvents():d.NO_MOUSEEVENTS?["touchstart","touchmove","touchend touchcancel"]:["touchstart mousedown","touchmove mousemove","touchend touchcancel mouseup"],d.EVENT_TYPES[d.EVENT_START]=a[0],d.EVENT_TYPES[d.EVENT_MOVE]=a[1],d.EVENT_TYPES[d.EVENT_END]=a[2]},getTouchList:function(a){return d.HAS_POINTEREVENTS?d.PointerEvent.getTouchList():a.touches?a.touches:(a.indentifier=1,[a])},collectEventData:function(a,b,c,e){var f=d.POINTER_TOUCH;return(e.type.match(/mouse/)||d.PointerEvent.matchType(d.POINTER_MOUSE,e))&&(f=d.POINTER_MOUSE),{center:d.utils.getCenter(c),timeStamp:(new Date).getTime(),target:e.target,touches:c,eventType:b,pointerType:f,srcEvent:e,preventDefault:function(){this.srcEvent.preventManipulation&&this.srcEvent.preventManipulation(),this.srcEvent.preventDefault&&this.srcEvent.preventDefault()},stopPropagation:function(){this.srcEvent.stopPropagation()},stopDetect:function(){return d.detection.stopDetect()}}}},d.PointerEvent={pointers:{},getTouchList:function(){var a=this,b=[];return Object.keys(a.pointers).sort().forEach(function(c){b.push(a.pointers[c])}),b},updatePointer:function(a,b){return a==d.EVENT_END?this.pointers={}:(b.identifier=b.pointerId,this.pointers[b.pointerId]=b),Object.keys(this.pointers).length},matchType:function(a,b){if(!b.pointerType)return!1;var c={};return c[d.POINTER_MOUSE]=b.pointerType==b.MSPOINTER_TYPE_MOUSE||b.pointerType==d.POINTER_MOUSE,c[d.POINTER_TOUCH]=b.pointerType==b.MSPOINTER_TYPE_TOUCH||b.pointerType==d.POINTER_TOUCH,c[d.POINTER_PEN]=b.pointerType==b.MSPOINTER_TYPE_PEN||b.pointerType==d.POINTER_PEN,c[a]},getEvents:function(){return["pointerdown MSPointerDown","pointermove MSPointerMove","pointerup pointercancel MSPointerUp MSPointerCancel"]},reset:function(){this.pointers={}}},d.utils={extend:function(a,c,d){for(var e in c)a[e]!==b&&d||(a[e]=c[e]);return a},hasParent:function(a,b){for(;a;){if(a==b)return!0;a=a.parentNode}return!1},getCenter:function(a){for(var b=[],c=[],d=0,e=a.length;e>d;d++)b.push(a[d].pageX),c.push(a[d].pageY);return{pageX:(Math.min.apply(Math,b)+Math.max.apply(Math,b))/2,pageY:(Math.min.apply(Math,c)+Math.max.apply(Math,c))/2}},getVelocity:function(a,b,c){return{x:Math.abs(b/a)||0,y:Math.abs(c/a)||0}},getAngle:function(a,b){var c=b.pageY-a.pageY,d=b.pageX-a.pageX;return 180*Math.atan2(c,d)/Math.PI},getDirection:function(a,b){var c=Math.abs(a.pageX-b.pageX),e=Math.abs(a.pageY-b.pageY);return c>=e?a.pageX-b.pageX>0?d.DIRECTION_LEFT:d.DIRECTION_RIGHT:a.pageY-b.pageY>0?d.DIRECTION_UP:d.DIRECTION_DOWN},getDistance:function(a,b){var c=b.pageX-a.pageX,d=b.pageY-a.pageY;return Math.sqrt(c*c+d*d)},getScale:function(a,b){return a.length>=2&&b.length>=2?this.getDistance(b[0],b[1])/this.getDistance(a[0],a[1]):1},getRotation:function(a,b){return a.length>=2&&b.length>=2?this.getAngle(b[1],b[0])-this.getAngle(a[1],a[0]):0},isVertical:function(a){return a==d.DIRECTION_UP||a==d.DIRECTION_DOWN},stopDefaultBrowserBehavior:function(a,b){var c,d=["webkit","khtml","moz","Moz","ms","o",""];if(b&&a.style){for(var e=0;e<d.length;e++)for(var f in b)b.hasOwnProperty(f)&&(c=f,d[e]&&(c=d[e]+c.substring(0,1).toUpperCase()+c.substring(1)),a.style[c]=b[f]);"none"==b.userSelect&&(a.onselectstart=function(){return!1}),"none"==b.userDrag&&(a.ondragstart=function(){return!1})}}},d.detection={gestures:[],current:null,previous:null,stopped:!1,startDetect:function(a,b){this.current||(this.stopped=!1,this.current={inst:a,startEvent:d.utils.extend({},b),lastEvent:!1,name:""},this.detect(b))},detect:function(a){if(this.current&&!this.stopped){a=this.extendEventData(a);for(var b=this.current.inst.options,c=0,e=this.gestures.length;e>c;c++){var f=this.gestures[c];if(!this.stopped&&b[f.name]!==!1&&f.handler.call(f,a,this.current.inst)===!1){this.stopDetect();break}}return this.current&&(this.current.lastEvent=a),a.eventType==d.EVENT_END&&!a.touches.length-1&&this.stopDetect(),a}},stopDetect:function(){this.previous=d.utils.extend({},this.current),this.current=null,this.stopped=!0},extendEventData:function(a){var b=this.current.startEvent;if(b&&(a.touches.length!=b.touches.length||a.touches===b.touches)){b.touches=[];for(var c=0,e=a.touches.length;e>c;c++)b.touches.push(d.utils.extend({},a.touches[c]))}var f=a.timeStamp-b.timeStamp,g=a.center.pageX-b.center.pageX,h=a.center.pageY-b.center.pageY,i=d.utils.getVelocity(f,g,h);return d.utils.extend(a,{deltaTime:f,deltaX:g,deltaY:h,velocityX:i.x,velocityY:i.y,distance:d.utils.getDistance(b.center,a.center),angle:d.utils.getAngle(b.center,a.center),interimAngle:this.current.lastEvent&&d.utils.getAngle(this.current.lastEvent.center,a.center),direction:d.utils.getDirection(b.center,a.center),interimDirection:this.current.lastEvent&&d.utils.getDirection(this.current.lastEvent.center,a.center),scale:d.utils.getScale(b.touches,a.touches),rotation:d.utils.getRotation(b.touches,a.touches),startEvent:b}),a},register:function(a){var c=a.defaults||{};return c[a.name]===b&&(c[a.name]=!0),d.utils.extend(d.defaults,c,!0),a.index=a.index||1e3,this.gestures.push(a),this.gestures.sort(function(a,b){return a.index<b.index?-1:a.index>b.index?1:0}),this.gestures}},d.gestures=d.gestures||{},d.gestures.Hold={name:"hold",index:10,defaults:{hold_timeout:500,hold_threshold:1},timer:null,handler:function(a,b){switch(a.eventType){case d.EVENT_START:clearTimeout(this.timer),d.detection.current.name=this.name,this.timer=setTimeout(function(){"hold"==d.detection.current.name&&b.trigger("hold",a)},b.options.hold_timeout);break;case d.EVENT_MOVE:a.distance>b.options.hold_threshold&&clearTimeout(this.timer);break;case d.EVENT_END:clearTimeout(this.timer)}}},d.gestures.Tap={name:"tap",index:100,defaults:{tap_max_touchtime:250,tap_max_distance:10,tap_always:!0,doubletap_distance:20,doubletap_interval:300},handler:function(a,b){if(a.eventType==d.EVENT_END&&"touchcancel"!=a.srcEvent.type){var c=d.detection.previous,e=!1;if(a.deltaTime>b.options.tap_max_touchtime||a.distance>b.options.tap_max_distance)return;c&&"tap"==c.name&&a.timeStamp-c.lastEvent.timeStamp<b.options.doubletap_interval&&a.distance<b.options.doubletap_distance&&(b.trigger("doubletap",a),e=!0),(!e||b.options.tap_always)&&(d.detection.current.name="tap",b.trigger(d.detection.current.name,a))}}},d.gestures.Swipe={name:"swipe",index:40,defaults:{swipe_max_touches:1,swipe_velocity:.7},handler:function(a,b){if(a.eventType==d.EVENT_END){if(b.options.swipe_max_touches>0&&a.touches.length>b.options.swipe_max_touches)return;(a.velocityX>b.options.swipe_velocity||a.velocityY>b.options.swipe_velocity)&&(b.trigger(this.name,a),b.trigger(this.name+a.direction,a))}}},d.gestures.Drag={name:"drag",index:50,defaults:{drag_min_distance:10,correct_for_drag_min_distance:!0,drag_max_touches:1,drag_block_horizontal:!1,drag_block_vertical:!1,drag_lock_to_axis:!1,drag_lock_min_distance:25},triggered:!1,handler:function(a,b){if(d.detection.current.name!=this.name&&this.triggered)return b.trigger(this.name+"end",a),void(this.triggered=!1);if(!(b.options.drag_max_touches>0&&a.touches.length>b.options.drag_max_touches))switch(a.eventType){case d.EVENT_START:this.triggered=!1;break;case d.EVENT_MOVE:if(a.distance<b.options.drag_min_distance&&d.detection.current.name!=this.name)return;if(d.detection.current.name!=this.name&&(d.detection.current.name=this.name,b.options.correct_for_drag_min_distance)){var c=Math.abs(b.options.drag_min_distance/a.distance);d.detection.current.startEvent.center.pageX+=a.deltaX*c,d.detection.current.startEvent.center.pageY+=a.deltaY*c,a=d.detection.extendEventData(a)}(d.detection.current.lastEvent.drag_locked_to_axis||b.options.drag_lock_to_axis&&b.options.drag_lock_min_distance<=a.distance)&&(a.drag_locked_to_axis=!0);var e=d.detection.current.lastEvent.direction;a.drag_locked_to_axis&&e!==a.direction&&(a.direction=d.utils.isVertical(e)?a.deltaY<0?d.DIRECTION_UP:d.DIRECTION_DOWN:a.deltaX<0?d.DIRECTION_LEFT:d.DIRECTION_RIGHT),this.triggered||(b.trigger(this.name+"start",a),this.triggered=!0),b.trigger(this.name,a),b.trigger(this.name+a.direction,a),(b.options.drag_block_vertical&&d.utils.isVertical(a.direction)||b.options.drag_block_horizontal&&!d.utils.isVertical(a.direction))&&a.preventDefault();break;case d.EVENT_END:this.triggered&&b.trigger(this.name+"end",a),this.triggered=!1}}},d.gestures.Transform={name:"transform",index:45,defaults:{transform_min_scale:.01,transform_min_rotation:1,transform_always_block:!1},triggered:!1,handler:function(a,b){if(d.detection.current.name!=this.name&&this.triggered)return b.trigger(this.name+"end",a),void(this.triggered=!1);if(!(a.touches.length<2))switch(b.options.transform_always_block&&a.preventDefault(),a.eventType){case d.EVENT_START:this.triggered=!1;break;case d.EVENT_MOVE:var c=Math.abs(1-a.scale),e=Math.abs(a.rotation);if(c<b.options.transform_min_scale&&e<b.options.transform_min_rotation)return;d.detection.current.name=this.name,this.triggered||(b.trigger(this.name+"start",a),this.triggered=!0),b.trigger(this.name,a),e>b.options.transform_min_rotation&&b.trigger("rotate",a),c>b.options.transform_min_scale&&(b.trigger("pinch",a),b.trigger("pinch"+(a.scale<1?"in":"out"),a));break;case d.EVENT_END:this.triggered&&b.trigger(this.name+"end",a),this.triggered=!1}}},d.gestures.Touch={name:"touch",index:-1/0,defaults:{prevent_default:!1,prevent_mouseevents:!1},handler:function(a,b){return b.options.prevent_mouseevents&&a.pointerType==d.POINTER_MOUSE?void a.stopDetect():(b.options.prevent_default&&a.preventDefault(),void(a.eventType==d.EVENT_START&&b.trigger(this.name,a)))}},d.gestures.Release={name:"release",index:1/0,handler:function(a,b){a.eventType==d.EVENT_END&&b.trigger(this.name,a)}},"function"==typeof define&&"object"==typeof define.amd&&define.amd?define(function(){return d}):"object"==typeof module&&"object"==typeof module.exports?module.exports=d:a.Hammer=d}(this),function(a){"use strict";var b=function(b,c){return c===a?b:(b.event.bindDom=function(b,d,e){c(b).on(d,function(b){var c=b.originalEvent||b;c.pageX===a&&(c.pageX=b.pageX,c.pageY=b.pageY),c.target||(c.target=b.target),c.which===a&&(c.which=c.button),c.preventDefault||(c.preventDefault=b.preventDefault),c.stopPropagation||(c.stopPropagation=b.stopPropagation),e.call(this,c)})},b.Instance.prototype.on=function(a,b){return c(this.element).on(a,b)},b.Instance.prototype.off=function(a,b){return c(this.element).off(a,b)},b.Instance.prototype.trigger=function(a,b){var d=c(this.element);return d.has(b.target).length&&(d=c(b.target)),d.trigger({type:a,gesture:b})},c.fn.hammer=function(a){return this.each(function(){var d=c(this),e=d.data("hammer");e?e&&a&&b.utils.extend(e.options,a):d.data("hammer",new b(this,a||{}))})},b)};"function"==typeof define&&"object"==typeof define.amd&&define.amd?define("hammer-jquery",["hammer","jquery"],b):b(window.Hammer,window.jQuery||window.Zepto)}();
 
 
@@ -274,7 +274,7 @@ jQuery.easing["jswing"]=jQuery.easing["swing"];jQuery.extend(jQuery.easing,{def:
  *  Coded by Jason Mayes 2013. A present to all the developers out there.
  *  www.jasonmayes.com
  *  Please keep this disclaimer with my code if you use it. Thanks. :-)
- *  Got feedback or questions, ask here: 
+ *  Got feedback or questions, ask here:
  *  http://www.jasonmayes.com/projects/twitterApi/
  *  Github: https://github.com/jasonmayes/Twitter-Post-Fetcher
  *  Updates will be posted to this site.
@@ -455,9 +455,9 @@ $('#name').focus(function() {
 !function(a){"use strict";a.flexpanel=function(b,c){var d={animation:"slide",direction:"right",wrapper:"#wrapper",maxWidth:null,button:".flex-btn"},c=a.extend(d,c),e=a(b),f=c.animation,g=c.direction,h=a(c.wrapper),i=c.maxWidth,j=a(c.button),k="flexpanel",l=a(window).width(),m=(navigator.userAgent.match(/iemobile|android|webos|iphone|ipad|ipod|blackberry|bb10/i)?!0:!1,!1),n=a("body");if(/MSIE (\d+\.\d+);/.test(navigator.userAgent)){var o=navigator.userAgent;o.match(/MSIE 9.0/i)&&(a("body").addClass("ie9"),m=!0),(o.match(/MSIE 8.0/i)||o.match(/MSIE 7.0/i))&&(a("body").addClass("isIE"),m=!0)}var p={init:function(){a("body").addClass(k+"-"+g+" "+k+"-"+f+" "+k+"-hide"),"reveal"===f?(j.append('<a href="javascript:void(0);"><span class="one"></span><span class="two"></span><span class="three"></span></a>'),j.appendTo(n)):j.append('<a href="javascript:void(0);"><span class="one"></span><span class="two"></span><span class="three"></span></a>'),j.addClass("in-view"),(null===i||i>=l)&&(a("body").removeClass("flexpanel-hide"),e.delay(500).fadeIn(250)),"reveal"===f&&e.addClass("reveal"),a.fn.hammer&&p.touch()},slide:function(b){switch(b){case"open":n.addClass("flexpanel-active"),a(".viewport",e).addClass("smooth");break;case"close":a(".viewport",e).animate({scrollTop:0},500,function(){a(".viewport",e).removeClass("smooth")}),n.removeClass("flexpanel-active"),a(document).on("touchmove",function(){return!0});break;default:n.hasClass("flexpanel-active")?(a(".viewport",e).animate({scrollTop:0},500,function(){a(".viewport",e).removeClass("smooth")}),h.unbind("click"),n.removeClass("flexpanel-active"),a(document).on("touchmove",function(){return!0})):(n.addClass("flexpanel-active"),a(".viewport",e).addClass("smooth"),setTimeout(function(){h.delay(250).unbind("click").bind("click",p.slide)},250))}},touch:function(){j.hammer().bind("swipeleft swiperight",function(b){var c=b.type;switch(g){case"right":"swipeleft"!==c||a("body").hasClass("flexpanel-active")||p.slide(),"swiperight"===c&&a("body").hasClass("flexpanel-active")&&p.slide();break;case"left":"swiperight"!==c||a("body").hasClass("flexpanel-active")||p.slide(),"swipeleft"===c&&a("body").hasClass("flexpanel-active")&&p.slide()}})}};p.init(),j.on("click",function(){p.slide()}),a("ul li a",e).click(function(){var b=a(this),c=b.attr("href");if(b.hasClass("anchor")){p.slide();var d=a(c).offset(),e=d.top;a("html, body").animate({scrollTop:e},500)}}),a(window).resize(function(){l=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,null===i?e.show():l>i?a("body.flexpanel-active")&&(a("body").removeClass("flexpanel-active").addClass("flexpanel-hide"),h.unbind("click")):(e.show(),a("body").removeClass("flexpanel-hide"))});!function(){var a=0;return function(b,c){clearTimeout(a),a=setTimeout(b,c)}}();a(".viewport",e).bind("touchstart",function(){}),a(window).scroll(function(){var b=a(window).scrollTop();100>b&&j.addClass("in-view")}),a(document).on("touchmove",function(a){n.hasClass("flexpanel-active")&&a.preventDefault()}),n.on("touchstart",".viewport",function(a){0===a.currentTarget.scrollTop?a.currentTarget.scrollTop=1:a.currentTarget.scrollHeight===a.currentTarget.scrollTop+a.currentTarget.offsetHeight&&(a.currentTarget.scrollTop-=1)}),n.on("touchmove",".viewport",function(a){a.stopPropagation()}),a(".viewport").bind("mousewheel DOMMouseScroll",function(b){var c=null;"mousewheel"==b.type?c=-1*b.originalEvent.wheelDelta:"DOMMouseScroll"==b.type&&(c=40*b.originalEvent.detail),c&&(b.preventDefault(),a(this).scrollTop(c+a(this).scrollTop()))}),a.fn.flexpanel.toggle=function(){p.slide()},a.fn.flexpanel.open=function(){p.slide("open")},a.fn.flexpanel.close=function(){p.slide("close")}},a.fn.flexpanel=function(b){new a.flexpanel(this,b)}}(jQuery);
 
 /*
-== malihu jquery custom scrollbar plugin == 
-Version: 3.1.3 
-Plugin URI: http://manos.malihu.gr/jquery-custom-content-scroller 
+== malihu jquery custom scrollbar plugin ==
+Version: 3.1.3
+Plugin URI: http://manos.malihu.gr/jquery-custom-content-scroller
 Author: malihu
 Author URI: http://manos.malihu.gr
 License: MIT License (MIT)
@@ -486,10 +486,10 @@ THE SOFTWARE.
 */
 
 /*
-The code below is fairly long, fully commented and should be normally used in development. 
-For production, use either the minified jquery.mCustomScrollbar.min.js script or 
-the production-ready jquery.mCustomScrollbar.concat.min.js which contains the plugin 
-and dependencies (minified). 
+The code below is fairly long, fully commented and should be normally used in development.
+For production, use either the minified jquery.mCustomScrollbar.min.js script or
+the production-ready jquery.mCustomScrollbar.concat.min.js which contains the plugin
+and dependencies (minified).
 */
 
 (function(factory){
@@ -508,60 +508,60 @@ and dependencies (minified).
 		if(_njs){
 			require("jquery-mousewheel")($);
 		}else{
-			/* load jquery-mousewheel plugin (via CDN) if it's not present or not loaded via RequireJS 
+			/* load jquery-mousewheel plugin (via CDN) if it's not present or not loaded via RequireJS
 			(works when mCustomScrollbar fn is called on window load) */
 			$.event.special.mousewheel || $("head").append(decodeURI("%3Cscript src="+_dlp+"//"+_url+"%3E%3C/script%3E"));
 		}
 	}
 	init();
 }(function(){
-	
-	/* 
+
+	/*
 	----------------------------------------
-	PLUGIN NAMESPACE, PREFIX, DEFAULT SELECTOR(S) 
+	PLUGIN NAMESPACE, PREFIX, DEFAULT SELECTOR(S)
 	----------------------------------------
 	*/
-	
+
 	var pluginNS="mCustomScrollbar",
 		pluginPfx="mCS",
 		defaultSelector=".mCustomScrollbar",
-	
-	
-		
-	
-	
-	/* 
+
+
+
+
+
+	/*
 	----------------------------------------
-	DEFAULT OPTIONS 
+	DEFAULT OPTIONS
 	----------------------------------------
 	*/
-	
+
 		defaults={
 			/*
-			set element/content width/height programmatically 
-			values: boolean, pixels, percentage 
+			set element/content width/height programmatically
+			values: boolean, pixels, percentage
 				option						default
 				-------------------------------------
 				setWidth					false
 				setHeight					false
 			*/
 			/*
-			set the initial css top property of content  
+			set the initial css top property of content
 			values: string (e.g. "-100px", "10%" etc.)
 			*/
 			setTop:0,
 			/*
-			set the initial css left property of content  
+			set the initial css left property of content
 			values: string (e.g. "-100px", "10%" etc.)
 			*/
 			setLeft:0,
-			/* 
-			scrollbar axis (vertical and/or horizontal scrollbars) 
+			/*
+			scrollbar axis (vertical and/or horizontal scrollbars)
 			values (string): "y", "x", "yx"
 			*/
 			axis:"y",
 			/*
-			position of scrollbar relative to content  
+			position of scrollbar relative to content
 			values (string): "inside", "outside" ("outside" requires elements with position:relative)
 			*/
 			scrollbarPosition:"inside",
@@ -570,13 +570,13 @@ and dependencies (minified).
 			values: integer (milliseconds)
 			*/
 			scrollInertia:950,
-			/* 
+			/*
 			auto-adjust scrollbar dragger length
 			values: boolean
 			*/
 			autoDraggerLength:true,
 			/*
-			auto-hide scrollbar when idle 
+			auto-hide scrollbar when idle
 			values: boolean
 				option						default
 				-------------------------------------
@@ -590,7 +590,7 @@ and dependencies (minified).
 				autoExpandScrollbar			false
 			*/
 			/*
-			always show scrollbar, even when there's nothing to scroll 
+			always show scrollbar, even when there's nothing to scroll
 			values: integer (0=disable, 1=always show dragger rail and buttons, 2=always show dragger rail, dragger and buttons), boolean
 			*/
 			alwaysShowScrollbar:0,
@@ -602,52 +602,52 @@ and dependencies (minified).
 				snapAmount					null
 			*/
 			/*
-			when snapping, snap with this number in pixels as an offset 
+			when snapping, snap with this number in pixels as an offset
 			values: integer
 			*/
 			snapOffset:0,
-			/* 
+			/*
 			mouse-wheel scrolling
 			*/
 			mouseWheel:{
-				/* 
+				/*
 				enable mouse-wheel scrolling
 				values: boolean
 				*/
 				enable:true,
-				/* 
+				/*
 				scrolling amount in pixels
-				values: "auto", integer 
+				values: "auto", integer
 				*/
 				scrollAmount:"auto",
-				/* 
-				mouse-wheel scrolling axis 
-				the default scrolling direction when both vertical and horizontal scrollbars are present 
-				values (string): "y", "x" 
+				/*
+				mouse-wheel scrolling axis
+				the default scrolling direction when both vertical and horizontal scrollbars are present
+				values (string): "y", "x"
 				*/
 				axis:"y",
-				/* 
-				prevent the default behaviour which automatically scrolls the parent element(s) when end of scrolling is reached 
+				/*
+				prevent the default behaviour which automatically scrolls the parent element(s) when end of scrolling is reached
 				values: boolean
 					option						default
 					-------------------------------------
 					preventDefault				null
 				*/
 				/*
-				the reported mouse-wheel delta value. The number of lines (translated to pixels) one wheel notch scrolls.  
-				values: "auto", integer 
-				"auto" uses the default OS/browser value 
+				the reported mouse-wheel delta value. The number of lines (translated to pixels) one wheel notch scrolls.
+				values: "auto", integer
+				"auto" uses the default OS/browser value
 				*/
 				deltaFactor:"auto",
 				/*
-				normalize mouse-wheel delta to -1 or 1 (disables mouse-wheel acceleration) 
+				normalize mouse-wheel delta to -1 or 1 (disables mouse-wheel acceleration)
 				values: boolean
 					option						default
 					-------------------------------------
 					normalizeDelta				null
 				*/
 				/*
-				invert mouse-wheel scrolling direction 
+				invert mouse-wheel scrolling direction
 				values: boolean
 					option						default
 					-------------------------------------
@@ -658,10 +658,10 @@ and dependencies (minified).
 				*/
 				disableOver:["select","option","keygen","datalist","textarea"]
 			},
-			/* 
+			/*
 			scrollbar buttons
 			*/
-			scrollButtons:{ 
+			scrollButtons:{
 				/*
 				enable scrollbar buttons
 				values: boolean
@@ -670,13 +670,13 @@ and dependencies (minified).
 					enable						null
 				*/
 				/*
-				scrollbar buttons scrolling type 
+				scrollbar buttons scrolling type
 				values (string): "stepless", "stepped"
 				*/
 				scrollType:"stepless",
 				/*
 				scrolling amount in pixels
-				values: "auto", integer 
+				values: "auto", integer
 				*/
 				scrollAmount:"auto"
 				/*
@@ -687,34 +687,34 @@ and dependencies (minified).
 					tabindex					null
 				*/
 			},
-			/* 
+			/*
 			keyboard scrolling
 			*/
-			keyboard:{ 
+			keyboard:{
 				/*
 				enable scrolling via keyboard
 				values: boolean
 				*/
 				enable:true,
 				/*
-				keyboard scrolling type 
+				keyboard scrolling type
 				values (string): "stepless", "stepped"
 				*/
 				scrollType:"stepless",
 				/*
 				scrolling amount in pixels
-				values: "auto", integer 
+				values: "auto", integer
 				*/
 				scrollAmount:"auto"
 			},
 			/*
-			enable content touch-swipe scrolling 
+			enable content touch-swipe scrolling
 			values: boolean, integer, string (number)
 			integer values define the axis-specific minimum amount required for scrolling momentum
 			*/
 			contentTouchScroll:25,
 			/*
-			enable/disable document (default) touch-swipe scrolling 
+			enable/disable document (default) touch-swipe scrolling
 			*/
 			documentTouchScroll:true,
 			/*
@@ -722,7 +722,7 @@ and dependencies (minified).
 			*/
 			advanced:{
 				/*
-				auto-expand content horizontally (for "x" or "yx" axis) 
+				auto-expand content horizontally (for "x" or "yx" axis)
 				values: boolean, integer (the value 2 forces the non scrollHeight/scrollWidth method, the value 3 forces the scrollHeight/scrollWidth method)
 					option						default
 					-------------------------------------
@@ -733,20 +733,20 @@ and dependencies (minified).
 				*/
 				autoScrollOnFocus:"input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
 				/*
-				auto-update scrollbars on content, element or viewport resize 
-				should be true for fluid layouts/elements, adding/removing content dynamically, hiding/showing elements, content with images etc. 
+				auto-update scrollbars on content, element or viewport resize
+				should be true for fluid layouts/elements, adding/removing content dynamically, hiding/showing elements, content with images etc.
 				values: boolean
 				*/
 				updateOnContentResize:true,
 				/*
-				auto-update scrollbars each time each image inside the element is fully loaded 
+				auto-update scrollbars each time each image inside the element is fully loaded
 				values: "auto", boolean
 				*/
 				updateOnImageLoad:"auto",
 				/*
-				auto-update scrollbars based on the amount and size changes of specific selectors 
-				useful when you need to update the scrollbar(s) automatically, each time a type of element is added, removed or changes its size 
-				values: boolean, string (e.g. "ul li" will auto-update scrollbars each time list-items inside the element are changed) 
+				auto-update scrollbars based on the amount and size changes of specific selectors
+				useful when you need to update the scrollbar(s) automatically, each time a type of element is added, removed or changes its size
+				values: boolean, string (e.g. "ul li" will auto-update scrollbars each time list-items inside the element are changed)
 				a value of true (boolean) will auto-update scrollbars each time any element is changed
 					option						default
 					-------------------------------------
@@ -765,13 +765,13 @@ and dependencies (minified).
 					releaseDraggableSelectors	null
 				*/
 				/*
-				auto-update timeout 
+				auto-update timeout
 				values: integer (milliseconds)
 				*/
 				autoUpdateTimeout:60
 			},
-			/* 
-			scrollbar theme 
+			/*
+			scrollbar theme
 			values: string (see CSS/plugin URI for a list of ready-to-use themes)
 			*/
 			theme:"light",
@@ -780,7 +780,7 @@ and dependencies (minified).
 			*/
 			callbacks:{
 				/*
-				Available callbacks: 
+				Available callbacks:
 					callback					default
 					-------------------------------------
 					onCreate					null
@@ -804,8 +804,8 @@ and dependencies (minified).
 				alwaysTriggerOffsets:true
 			}
 			/*
-			add scrollbar(s) on all elements matching the current selector, now and in the future 
-			values: boolean, string 
+			add scrollbar(s) on all elements matching the current selector, now and in the future
+			values: boolean, string
 			string values: "on" (enable), "once" (disable after first invocation), "off" (disable)
 			liveSelector values: string (selector)
 				option						default
@@ -814,17 +814,17 @@ and dependencies (minified).
 				liveSelector				null
 			*/
 		},
-	
-	
-	
-	
-	
-	/* 
+
+
+
+
+
+	/*
 	----------------------------------------
-	VARS, CONSTANTS 
+	VARS, CONSTANTS
 	----------------------------------------
 	*/
-	
+
 		totalInstances=0, /* plugin instances amount */
 		liveTimers={}, /* live option timers */
 		oldIE=(window.attachEvent && !window.addEventListener) ? 1 : 0, /* detect IE < 9 */
@@ -835,41 +835,41 @@ and dependencies (minified).
 			"mCS-autoHide","mCS-dir-rtl","mCS_no_scrollbar_y","mCS_no_scrollbar_x","mCS_y_hidden","mCS_x_hidden","mCSB_draggerContainer",
 			"mCSB_buttonUp","mCSB_buttonDown","mCSB_buttonLeft","mCSB_buttonRight"
 		],
-		
-	
-	
-	
-	
-	/* 
+
+
+
+
+
+	/*
 	----------------------------------------
-	METHODS 
+	METHODS
 	----------------------------------------
 	*/
-	
+
 		methods={
-			
-			/* 
-			plugin initialization method 
+
+			/*
+			plugin initialization method
 			creates the scrollbar(s), plugin data object and options
 			----------------------------------------
 			*/
-			
+
 			init:function(options){
-				
+
 				var options=$.extend(true,{},defaults,options),
 					selector=_selector.call(this); /* validate selector */
-				
-				/* 
-				if live option is enabled, monitor for elements matching the current selector and 
-				apply scrollbar(s) when found (now and in the future) 
+
+				/*
+				if live option is enabled, monitor for elements matching the current selector and
+				apply scrollbar(s) when found (now and in the future)
 				*/
 				if(options.live){
 					var liveSelector=options.liveSelector || this.selector || defaultSelector, /* live selector(s) */
 						$liveSelector=$(liveSelector); /* live selector(s) as jquery object */
 					if(options.live==="off"){
-						/* 
-						disable live if requested 
-						usage: $(selector).mCustomScrollbar({live:"off"}); 
+						/*
+						disable live if requested
+						usage: $(selector).mCustomScrollbar({live:"off"});
 						*/
 						removeLiveTimers(liveSelector);
 						return;
@@ -885,7 +885,7 @@ and dependencies (minified).
 				}else{
 					removeLiveTimers(liveSelector);
 				}
-				
+
 				/* options backward compatibility (for versions < 3.0.0) and normalization */
 				options.setWidth=(options.set_width) ? options.set_width : options.setWidth;
 				options.setHeight=(options.set_height) ? options.set_height : options.setHeight;
@@ -896,17 +896,17 @@ and dependencies (minified).
 				}
 				options.mouseWheel.scrollAmount=!options.mouseWheelPixels ? options.mouseWheel.scrollAmount : options.mouseWheelPixels;
 				options.mouseWheel.normalizeDelta=!options.advanced.normalizeMouseWheelDelta ? options.mouseWheel.normalizeDelta : options.advanced.normalizeMouseWheelDelta;
-				options.scrollButtons.scrollType=_findScrollButtonsType(options.scrollButtons.scrollType); 
-				
+				options.scrollButtons.scrollType=_findScrollButtonsType(options.scrollButtons.scrollType);
+
 				_theme(options); /* theme-specific options */
-				
+
 				/* plugin constructor */
 				return $(selector).each(function(){
-					
+
 					var $this=$(this);
-					
+
 					if(!$this.data(pluginPfx)){ /* prevent multiple instantiations */
-					
+
 						/* store options and create objects in jquery data */
 						$this.data(pluginPfx,{
 							idx:++totalInstances, /* instance index */
@@ -919,99 +919,99 @@ and dependencies (minified).
 							sequential:{}, /* sequential scrolling object */
 							langDir:$this.css("direction"), /* detect/store direction (ltr or rtl) */
 							cbOffsets:null, /* object to check whether callback offsets always trigger */
-							/* 
-							object to check how scrolling events where last triggered 
-							"internal" (default - triggered by this script), "external" (triggered by other scripts, e.g. via scrollTo method) 
+							/*
+							object to check how scrolling events where last triggered
+							"internal" (default - triggered by this script), "external" (triggered by other scripts, e.g. via scrollTo method)
 							usage: object.data("mCS").trigger
 							*/
 							trigger:null,
-							/* 
-							object to check for changes in elements in order to call the update method automatically 
+							/*
+							object to check for changes in elements in order to call the update method automatically
 							*/
 							poll:{size:{o:0,n:0},img:{o:0,n:0},change:{o:0,n:0}}
 						});
-						
+
 						var d=$this.data(pluginPfx),o=d.opt,
 							/* HTML data attributes */
 							htmlDataAxis=$this.data("mcs-axis"),htmlDataSbPos=$this.data("mcs-scrollbar-position"),htmlDataTheme=$this.data("mcs-theme");
-						 
+
 						if(htmlDataAxis){o.axis=htmlDataAxis;} /* usage example: data-mcs-axis="y" */
 						if(htmlDataSbPos){o.scrollbarPosition=htmlDataSbPos;} /* usage example: data-mcs-scrollbar-position="outside" */
 						if(htmlDataTheme){ /* usage example: data-mcs-theme="minimal" */
 							o.theme=htmlDataTheme;
 							_theme(o); /* theme-specific options */
 						}
-						
+
 						_pluginMarkup.call(this); /* add plugin markup */
-						
+
 						if(d && o.callbacks.onCreate && typeof o.callbacks.onCreate==="function"){o.callbacks.onCreate.call(this);} /* callbacks: onCreate */
-						
+
 						$("#mCSB_"+d.idx+"_container img:not(."+classes[2]+")").addClass(classes[2]); /* flag loaded images */
-						
+
 						methods.update.call(null,$this); /* call the update method */
-					
+
 					}
-					
+
 				});
-				
+
 			},
 			/* ---------------------------------------- */
-			
-			
-			
-			/* 
-			plugin update method 
-			updates content and scrollbar(s) values, events and status 
+
+
+
+			/*
+			plugin update method
+			updates content and scrollbar(s) values, events and status
 			----------------------------------------
 			usage: $(selector).mCustomScrollbar("update");
 			*/
-			
+
 			update:function(el,cb){
-				
+
 				var selector=el || _selector.call(this); /* validate selector */
-				
+
 				return $(selector).each(function(){
-					
+
 					var $this=$(this);
-					
+
 					if($this.data(pluginPfx)){ /* check if plugin has initialized */
-						
+
 						var d=$this.data(pluginPfx),o=d.opt,
 							mCSB_container=$("#mCSB_"+d.idx+"_container"),
 							mCustomScrollBox=$("#mCSB_"+d.idx),
 							mCSB_dragger=[$("#mCSB_"+d.idx+"_dragger_vertical"),$("#mCSB_"+d.idx+"_dragger_horizontal")];
-						
+
 						if(!mCSB_container.length){return;}
-						
+
 						if(d.tweenRunning){_stop($this);} /* stop any running tweens while updating */
-						
+
 						if(cb && d && o.callbacks.onBeforeUpdate && typeof o.callbacks.onBeforeUpdate==="function"){o.callbacks.onBeforeUpdate.call(this);} /* callbacks: onBeforeUpdate */
-						
+
 						/* if element was disabled or destroyed, remove class(es) */
 						if($this.hasClass(classes[3])){$this.removeClass(classes[3]);}
 						if($this.hasClass(classes[4])){$this.removeClass(classes[4]);}
-						
+
 						/* css flexbox fix, detect/set max-height */
 						mCustomScrollBox.css("max-height","none");
 						if(mCustomScrollBox.height()!==$this.height()){mCustomScrollBox.css("max-height",$this.height());}
-						
+
 						_expandContentHorizontally.call(this); /* expand content horizontally */
-						
+
 						if(o.axis!=="y" && !o.advanced.autoExpandHorizontalScroll){
 							mCSB_container.css("width",_contentWidth(mCSB_container));
 						}
-						
+
 						d.overflowed=_overflowed.call(this); /* determine if scrolling is required */
-						
+
 						_scrollbarVisibility.call(this); /* show/hide scrollbar(s) */
-						
+
 						/* auto-adjust scrollbar dragger length analogous to content */
 						if(o.autoDraggerLength){_setDraggerLength.call(this);}
-						
+
 						_scrollRatio.call(this); /* calculate and store scrollbar to content ratio */
-						
+
 						_bindEvents.call(this); /* bind scrollbar events */
-						
+
 						/* reset scrolling position and/or events */
 						var to=[Math.abs(mCSB_container[0].offsetTop),Math.abs(mCSB_container[0].offsetLeft)];
 						if(o.axis!=="x"){ /* y/yx axis */
@@ -1044,7 +1044,7 @@ and dependencies (minified).
 								d.contentReset.x=null;
 							}
 						}
-						
+
 						/* callbacks: onImageLoad, onSelectorChange, onUpdate */
 						if(cb && d){
 							if(cb===2 && o.callbacks.onImageLoad && typeof o.callbacks.onImageLoad==="function"){
@@ -1055,38 +1055,38 @@ and dependencies (minified).
 								o.callbacks.onUpdate.call(this);
 							}
 						}
-						
+
 						_autoUpdate.call(this); /* initialize automatic updating (for dynamic content, fluid layouts etc.) */
-						
+
 					}
-					
+
 				});
-				
+
 			},
 			/* ---------------------------------------- */
-			
-			
-			
-			/* 
-			plugin scrollTo method 
+
+
+
+			/*
+			plugin scrollTo method
 			triggers a scrolling event to a specific value
 			----------------------------------------
 			usage: $(selector).mCustomScrollbar("scrollTo",value,options);
 			*/
-		
+
 			scrollTo:function(val,options){
-				
+
 				/* prevent silly things like $(selector).mCustomScrollbar("scrollTo",undefined); */
 				if(typeof val=="undefined" || val==null){return;}
-				
+
 				var selector=_selector.call(this); /* validate selector */
-				
+
 				return $(selector).each(function(){
-					
+
 					var $this=$(this);
-					
+
 					if($this.data(pluginPfx)){ /* check if plugin has initialized */
-					
+
 						var d=$this.data(pluginPfx),o=d.opt,
 							/* method default options */
 							methodDefaults={
@@ -1102,23 +1102,23 @@ and dependencies (minified).
 							},
 							methodOptions=$.extend(true,{},methodDefaults,options),
 							to=_arr.call(this,val),dur=methodOptions.scrollInertia>0 && methodOptions.scrollInertia<17 ? 17 : methodOptions.scrollInertia;
-						
+
 						/* translate yx values to actual scroll-to positions */
 						to[0]=_to.call(this,to[0],"y");
 						to[1]=_to.call(this,to[1],"x");
-						
-						/* 
-						check if scroll-to value moves the dragger instead of content. 
-						Only pixel values apply on dragger (e.g. 100, "100px", "-=100" etc.) 
+
+						/*
+						check if scroll-to value moves the dragger instead of content.
+						Only pixel values apply on dragger (e.g. 100, "100px", "-=100" etc.)
 						*/
 						if(methodOptions.moveDragger){
 							to[0]*=d.scrollRatio.y;
 							to[1]*=d.scrollRatio.x;
 						}
-						
+
 						methodOptions.dur=_isTabHidden() ? 0 : dur; //skip animations if browser tab is hidden
-						
-						setTimeout(function(){ 
+
+						setTimeout(function(){
 							/* do the scrolling */
 							if(to[0]!==null && typeof to[0]!=="undefined" && o.axis!=="x" && d.overflowed[0]){ /* scroll y */
 								methodOptions.dir="y";
@@ -1131,147 +1131,147 @@ and dependencies (minified).
 								_scrollTo($this,to[1].toString(),methodOptions);
 							}
 						},methodOptions.timeout);
-						
+
 					}
-					
+
 				});
-				
+
 			},
 			/* ---------------------------------------- */
-			
-			
-			
+
+
+
 			/*
-			plugin stop method 
+			plugin stop method
 			stops scrolling animation
 			----------------------------------------
 			usage: $(selector).mCustomScrollbar("stop");
 			*/
 			stop:function(){
-				
+
 				var selector=_selector.call(this); /* validate selector */
-				
+
 				return $(selector).each(function(){
-					
+
 					var $this=$(this);
-					
+
 					if($this.data(pluginPfx)){ /* check if plugin has initialized */
-										
+
 						_stop($this);
-					
+
 					}
-					
+
 				});
-				
+
 			},
 			/* ---------------------------------------- */
-			
-			
-			
+
+
+
 			/*
-			plugin disable method 
-			temporarily disables the scrollbar(s) 
+			plugin disable method
+			temporarily disables the scrollbar(s)
 			----------------------------------------
-			usage: $(selector).mCustomScrollbar("disable",reset); 
-			reset (boolean): resets content position to 0 
+			usage: $(selector).mCustomScrollbar("disable",reset);
+			reset (boolean): resets content position to 0
 			*/
 			disable:function(r){
-				
+
 				var selector=_selector.call(this); /* validate selector */
-				
+
 				return $(selector).each(function(){
-					
+
 					var $this=$(this);
-					
+
 					if($this.data(pluginPfx)){ /* check if plugin has initialized */
-						
+
 						var d=$this.data(pluginPfx);
-						
+
 						_autoUpdate.call(this,"remove"); /* remove automatic updating */
-						
+
 						_unbindEvents.call(this); /* unbind events */
-						
+
 						if(r){_resetContentPosition.call(this);} /* reset content position */
-						
+
 						_scrollbarVisibility.call(this,true); /* show/hide scrollbar(s) */
-						
+
 						$this.addClass(classes[3]); /* add disable class */
-					
+
 					}
-					
+
 				});
-				
+
 			},
 			/* ---------------------------------------- */
-			
-			
-			
+
+
+
 			/*
-			plugin destroy method 
+			plugin destroy method
 			completely removes the scrollbar(s) and returns the element to its original state
 			----------------------------------------
-			usage: $(selector).mCustomScrollbar("destroy"); 
+			usage: $(selector).mCustomScrollbar("destroy");
 			*/
 			destroy:function(){
-				
+
 				var selector=_selector.call(this); /* validate selector */
-				
+
 				return $(selector).each(function(){
-					
+
 					var $this=$(this);
-					
+
 					if($this.data(pluginPfx)){ /* check if plugin has initialized */
-					
+
 						var d=$this.data(pluginPfx),o=d.opt,
 							mCustomScrollBox=$("#mCSB_"+d.idx),
 							mCSB_container=$("#mCSB_"+d.idx+"_container"),
 							scrollbar=$(".mCSB_"+d.idx+"_scrollbar");
-					
+
 						if(o.live){removeLiveTimers(o.liveSelector || $(selector).selector);} /* remove live timers */
-						
+
 						_autoUpdate.call(this,"remove"); /* remove automatic updating */
-						
+
 						_unbindEvents.call(this); /* unbind events */
-						
+
 						_resetContentPosition.call(this); /* reset content position */
-						
+
 						$this.removeData(pluginPfx); /* remove plugin data object */
-						
+
 						_delete(this,"mcs"); /* delete callbacks object */
-						
+
 						/* remove plugin markup */
 						scrollbar.remove(); /* remove scrollbar(s) first (those can be either inside or outside plugin's inner wrapper) */
 						mCSB_container.find("img."+classes[2]).removeClass(classes[2]); /* remove loaded images flag */
 						mCustomScrollBox.replaceWith(mCSB_container.contents()); /* replace plugin's inner wrapper with the original content */
 						/* remove plugin classes from the element and add destroy class */
 						$this.removeClass(pluginNS+" _"+pluginPfx+"_"+d.idx+" "+classes[6]+" "+classes[7]+" "+classes[5]+" "+classes[3]).addClass(classes[4]);
-					
+
 					}
-					
+
 				});
-				
+
 			}
 			/* ---------------------------------------- */
-			
+
 		},
-	
-	
-	
-	
-		
-	/* 
+
+
+
+
+
+	/*
 	----------------------------------------
 	FUNCTIONS
 	----------------------------------------
 	*/
-	
+
 		/* validates selector (if selector is invalid or undefined uses the default one) */
 		_selector=function(){
 			return (typeof $(this)!=="object" || $(this).length<1) ? defaultSelector : this;
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* changes options according to theme */
 		_theme=function(obj){
 			var fixedSizeScrollbarThemes=["rounded","rounded-dark","rounded-dots","rounded-dots-dark"],
@@ -1286,8 +1286,8 @@ and dependencies (minified).
 			obj.scrollbarPosition=$.inArray(obj.theme,scrollbarPositionOutsideThemes) > -1 ? "outside" : obj.scrollbarPosition;
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* live option timers removal */
 		removeLiveTimers=function(selector){
 			if(liveTimers[selector]){
@@ -1296,22 +1296,22 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* normalizes axis option to valid values: "y", "x", "yx" */
 		_findAxis=function(val){
 			return (val==="yx" || val==="xy" || val==="auto") ? "yx" : (val==="x" || val==="horizontal") ? "x" : "y";
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* normalizes scrollButtons.scrollType option to valid values: "stepless", "stepped" */
 		_findScrollButtonsType=function(val){
 			return (val==="stepped" || val==="pixels" || val==="step" || val==="click") ? "stepped" : "stepless";
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* generates plugin markup */
 		_pluginMarkup=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1348,16 +1348,16 @@ and dependencies (minified).
 			mCSB_dragger[1].css("min-width",mCSB_dragger[1].width());
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* calculates content width */
 		_contentWidth=function(el){
 			var val=[el[0].scrollWidth,Math.max.apply(Math,el.children().map(function(){return $(this).outerWidth(true);}).get())],w=el.parent().width();
 			return val[0]>w ? val[0] : val[1]>w ? val[1] : "100%";
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* expands content horizontally */
 		_expandContentHorizontally=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1369,16 +1369,16 @@ and dependencies (minified).
 				if(o.advanced.autoExpandHorizontalScroll===3 || (o.advanced.autoExpandHorizontalScroll!==2 && w>mCSB_container.parent().width())){
 					mCSB_container.css({"width":w,"min-width":"100%","overflow-x":"inherit"});
 				}else{
-					/* 
-					wrap content with an infinite width div and set its position to absolute and width to auto. 
-					Setting width to auto before calculating the actual width is important! 
+					/*
+					wrap content with an infinite width div and set its position to absolute and width to auto.
+					Setting width to auto before calculating the actual width is important!
 					We must let the browser set the width as browser zoom values are impossible to calculate.
 					*/
 					mCSB_container.css({"overflow-x":"inherit","position":"absolute"})
 						.wrap("<div class='mCSB_h_wrapper' style='position:relative; left:0; width:999999px;' />")
 						.css({ /* set actual width, original position and un-wrap */
-							/* 
-							get the exact width (with decimals) and then round-up. 
+							/*
+							get the exact width (with decimals) and then round-up.
 							Using jquery outerWidth() will round the width value which will mess up with inner elements that have non-integer width
 							*/
 							"width":(Math.ceil(mCSB_container[0].getBoundingClientRect().right+0.4)-Math.floor(mCSB_container[0].getBoundingClientRect().left)),
@@ -1389,8 +1389,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* adds scrollbar buttons */
 		_scrollButtons=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1408,8 +1408,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* auto-adjusts scrollbar dragger length */
 		_setDraggerLength=function(){
 			var $this=$(this),d=$this.data(pluginPfx),
@@ -1430,8 +1430,8 @@ and dependencies (minified).
 			});
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* calculates scrollbar to content ratio */
 		_scrollRatio=function(){
 			var $this=$(this),d=$this.data(pluginPfx),
@@ -1446,14 +1446,14 @@ and dependencies (minified).
 			d.scrollRatio={y:ratio[0],x:ratio[1]};
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* toggles scrolling classes */
 		_onDragClasses=function(el,action,xpnd){
 			var expandClass=xpnd ? classes[0]+"_expanded" : "",
 				scrollbar=el.closest(".mCSB_scrollTools");
 			if(action==="active"){
-				el.toggleClass(classes[0]+" "+expandClass); scrollbar.toggleClass(classes[1]); 
+				el.toggleClass(classes[0]+" "+expandClass); scrollbar.toggleClass(classes[1]);
 				el[0]._draggable=el[0]._draggable ? 0 : 1;
 			}else{
 				if(!el[0]._draggable){
@@ -1466,8 +1466,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* checks if content overflows its container to determine if scrolling is required */
 		_overflowed=function(){
 			var $this=$(this),d=$this.data(pluginPfx),
@@ -1481,8 +1481,8 @@ and dependencies (minified).
 			return [contentHeight>mCustomScrollBox.height(),contentWidth>mCustomScrollBox.width()];
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* resets content position to 0 */
 		_resetContentPosition=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1506,8 +1506,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* binds scrollbar events */
 		_bindEvents=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt;
@@ -1538,8 +1538,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* unbinds scrollbar events */
 		_unbindEvents=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1563,8 +1563,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* toggles scrollbar visibility */
 		_scrollbarVisibility=function(disabled){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1609,8 +1609,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* returns input coordinates of pointer, touch and mouse events (relative to document) */
 		_coordinates=function(e){
 			var t=e.type,o=e.target.ownerDocument!==document ? [$(frameElement).offset().top,$(frameElement).offset().left] : null,
@@ -1629,11 +1629,11 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
-		/* 
+
+
+		/*
 		SCROLLBAR DRAG EVENTS
-		scrolls content via scrollbar dragging 
+		scrolls content via scrollbar dragging
 		*/
 		_draggable=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1656,10 +1656,10 @@ and dependencies (minified).
 				var offset=draggable.offset(),y=_coordinates(e)[0]-offset.top,x=_coordinates(e)[1]-offset.left,
 					h=draggable.height()+offset.top,w=draggable.width()+offset.left;
 				if(y<h && y>0 && x<w && x>0){
-					dragY=y; 
+					dragY=y;
 					dragX=x;
 				}
-				_onDragClasses(draggable,"active",o.autoExpandScrollbar); 
+				_onDragClasses(draggable,"active",o.autoExpandScrollbar);
 			}).bind("touchmove."+namespace,function(e){
 				e.stopImmediatePropagation();
 				e.preventDefault();
@@ -1674,7 +1674,7 @@ and dependencies (minified).
 				}
 			}).add(rds).bind("mouseup."+namespace+" touchend."+namespace+" pointerup."+namespace+" MSPointerUp."+namespace,function(e){
 				if(draggable){
-					_onDragClasses(draggable,"active",o.autoExpandScrollbar); 
+					_onDragClasses(draggable,"active",o.autoExpandScrollbar);
 					draggable=null;
 				}
 				touchActive=false;
@@ -1698,12 +1698,12 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
-		/* 
+
+
+		/*
 		TOUCH SWIPE EVENTS
-		scrolls content via touch swipe 
-		Emulates the native touch-swipe scrolling with momentum found in iOS, Android and WP devices 
+		scrolls content via touch swipe
+		Emulates the native touch-swipe scrolling with momentum found in iOS, Android and WP devices
 		*/
 		_contentDraggable=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
@@ -1758,7 +1758,7 @@ and dependencies (minified).
 			}
 			function _onTouchmove(e){
 				if(!_pointerTouch(e) || touchActive || _coordinates(e)[2]){return;}
-				if(!o.documentTouchScroll){e.preventDefault();} 
+				if(!o.documentTouchScroll){e.preventDefault();}
 				e.stopImmediatePropagation();
 				if(docDrag && !touchDrag){return;}
 				if(draggable){
@@ -1777,13 +1777,13 @@ and dependencies (minified).
 							preventX=((dragX-x)>0 && (x-dragX)>-(limitX*d.scrollRatio.x) && (touchIntent[2]*2<touchIntent[3] || o.axis==="yx"));
 					}
 					if(prevent || preventX){ /* prevent native document scrolling */
-						if(!touchAction){e.preventDefault();} 
+						if(!touchAction){e.preventDefault();}
 						touchDrag=1;
 					}else{
 						docDrag=1;
 						$this.addClass("mCS_touch_action");
 					}
-					if(touchAction){e.preventDefault();} 
+					if(touchAction){e.preventDefault();}
 					amount=o.axis==="yx" ? [(dragY-y),(dragX-x)] : o.axis==="x" ? [null,(dragX-x)] : [(dragY-y),null];
 					mCSB_container[0].idleTimer=250;
 					if(d.overflowed[0]){_drag(amount[0],durA,easing,"y","all",true);}
@@ -1845,11 +1845,11 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
-		/* 
-		SELECT TEXT EVENTS 
-		scrolls content when text is selected 
+
+
+		/*
+		SELECT TEXT EVENTS
+		scrolls content when text is selected
 		*/
 		_selectable=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,seq=d.sequential,
@@ -1889,7 +1889,7 @@ and dependencies (minified).
 				touchActive=false;
 			});
 			function _sel(){
-				return 	window.getSelection ? window.getSelection().toString() : 
+				return 	window.getSelection ? window.getSelection().toString() :
 						document.selection && document.selection.type!="Control" ? document.selection.createRange().text : 0;
 			}
 			function _seq(a,c,s){
@@ -1899,11 +1899,11 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
-		/* 
+
+
+		/*
 		MOUSE WHEEL EVENT
-		scrolls content via mouse-wheel 
+		scrolls content via mouse-wheel
 		via mouse-wheel plugin (https://github.com/brandonaaron/jquery-mousewheel)
 		*/
 		_mousewheel=function(){
@@ -1965,8 +1965,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* checks if iframe can be accessed */
 		_canAccessIFrame=function(iframe){
 			var html=null;
@@ -1985,8 +1985,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* disables mouse-wheel when hovering specific elements like select, datalist etc. */
 		_disableMousewheel=function(el,target){
 			var tag=target.nodeName.toLowerCase(),
@@ -1996,11 +1996,11 @@ and dependencies (minified).
 			return $.inArray(tag,tags) > -1 && !($.inArray(tag,focusTags) > -1 && !$(target).is(":focus"));
 		},
 		/* -------------------- */
-		
-		
-		/* 
+
+
+		/*
 		DRAGGER RAIL CLICK EVENT
-		scrolls content via dragger rail 
+		scrolls content via dragger rail
 		*/
 		_draggerRail=function(){
 			var $this=$(this),d=$this.data(pluginPfx),
@@ -2036,9 +2036,9 @@ and dependencies (minified).
 			});
 		},
 		/* -------------------- */
-		
-		
-		/* 
+
+
+		/*
 		FOCUS EVENT
 		scrolls content via element focus (e.g. clicking an input, pressing TAB key etc.)
 		*/
@@ -2073,8 +2073,8 @@ and dependencies (minified).
 			});
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* sets content wrapper scrollTop/scrollLeft always to 0 */
 		_wrapperScroll=function(){
 			var $this=$(this),d=$this.data(pluginPfx),
@@ -2087,11 +2087,11 @@ and dependencies (minified).
 			});
 		},
 		/* -------------------- */
-		
-		
-		/* 
+
+
+		/*
 		BUTTONS EVENTS
-		scrolls content via up, down, left and right buttons 
+		scrolls content via up, down, left and right buttons
 		*/
 		_buttons=function(){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,seq=d.sequential,
@@ -2128,11 +2128,11 @@ and dependencies (minified).
 			});
 		},
 		/* -------------------- */
-		
-		
-		/* 
+
+
+		/*
 		KEYBOARD EVENTS
-		scrolls content via keyboard 
+		scrolls content via keyboard
 		Keys: up arrow, down arrow, left arrow, right arrow, PgUp, PgDn, Home, End
 		*/
 		_keyboard=function(){
@@ -2219,8 +2219,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* scrolls content sequentially (used when scrolling via buttons, keyboard arrows etc.) */
 		_sequentialScroll=function(el,action,trigger,e,s){
 			var d=el.data(pluginPfx),o=d.opt,seq=d.sequential,
@@ -2245,7 +2245,7 @@ and dependencies (minified).
 					}
 					break;
 			}
-			
+
 			/* starts sequence */
 			function _on(once){
 				if(o.snapAmount){seq.scrollAmount=!(o.snapAmount instanceof Array) ? o.snapAmount : seq.dir[0]==="x" ? o.snapAmount[1] : o.snapAmount[0];} /* scrolling snapping */
@@ -2280,8 +2280,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* returns a yx array from value */
 		_arr=function(val){
 			var o=$(this).data(pluginPfx).opt,vals=[];
@@ -2299,8 +2299,8 @@ and dependencies (minified).
 			return vals;
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* translates values (e.g. "top", 100, "100px", "#id") to actual scroll-to positions */
 		_to=function(val,dir){
 			if(val==null || typeof val=="undefined"){return;}
@@ -2357,15 +2357,15 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* calls the update method automatically */
 		_autoUpdate=function(rem){
 			var $this=$(this),d=$this.data(pluginPfx),o=d.opt,
 				mCSB_container=$("#mCSB_"+d.idx+"_container");
 			if(rem){
-				/* 
-				removes autoUpdate timer 
+				/*
+				removes autoUpdate timer
 				usage: _autoUpdate.call(this,"remove");
 				*/
 				clearTimeout(mCSB_container[0].autoUpdate);
@@ -2444,15 +2444,15 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* snaps scrolling to a multiple of a pixels number */
 		_snapAmount=function(to,amount,offset){
-			return (Math.round(to/amount)*amount-offset); 
+			return (Math.round(to/amount)*amount-offset);
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* stops content and scrollbar animations */
 		_stop=function(el){
 			var d=el.data(pluginPfx),
@@ -2462,10 +2462,10 @@ and dependencies (minified).
 			});
 		},
 		/* -------------------- */
-		
-		
-		/* 
-		ANIMATES CONTENT 
+
+
+		/*
+		ANIMATES CONTENT
 		This is where the actual scrolling happens
 		*/
 		_scrollTo=function(el,to,options){
@@ -2601,16 +2601,16 @@ and dependencies (minified).
 			function _cbOffsets(){
 				return [o.callbacks.alwaysTriggerOffsets || contentPos>=limit[0]+tso,o.callbacks.alwaysTriggerOffsets || contentPos<=-tsbo];
 			}
-			/* 
-			populates object with useful values for the user 
-			values: 
+			/*
+			populates object with useful values for the user
+			values:
 				content: this.mcs.content
-				content top position: this.mcs.top 
-				content left position: this.mcs.left 
-				dragger top position: this.mcs.draggerTop 
-				dragger left position: this.mcs.draggerLeft 
-				scrolling y percentage: this.mcs.topPct 
-				scrolling x percentage: this.mcs.leftPct 
+				content top position: this.mcs.top
+				content left position: this.mcs.left
+				dragger top position: this.mcs.draggerTop
+				dragger left position: this.mcs.draggerLeft
+				scrolling y percentage: this.mcs.topPct
+				scrolling x percentage: this.mcs.leftPct
 				scrolling direction: this.mcs.direction
 			*/
 			function _mcs(){
@@ -2624,19 +2624,19 @@ and dependencies (minified).
 					topPct:Math.round((100*Math.abs(cp[0]))/(Math.abs(cl[0])-pl[0])),leftPct:Math.round((100*Math.abs(cp[1]))/(Math.abs(cl[1])-pl[1])),
 					direction:options.dir
 				};
-				/* 
+				/*
 				this refers to the original element containing the scrollbar(s)
-				usage: this.mcs.top, this.mcs.leftPct etc. 
+				usage: this.mcs.top, this.mcs.leftPct etc.
 				*/
 			}
 		},
 		/* -------------------- */
-		
-		
-		/* 
-		CUSTOM JAVASCRIPT ANIMATION TWEEN 
-		Lighter and faster than jquery animate() and css transitions 
-		Animates top/left properties and includes easings 
+
+
+		/*
+		CUSTOM JAVASCRIPT ANIMATION TWEEN
+		Lighter and faster than jquery animate() and css transitions
+		Animates top/left properties and includes easings
 		*/
 		_tweenTo=function(el,prop,to,duration,easing,overwrite,callbacks){
 			if(!el._mTween){el._mTween={top:{},left:{}};}
@@ -2720,8 +2720,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* returns current time */
 		_getTime=function(){
 			if(window.performance && window.performance.now){
@@ -2735,8 +2735,8 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* stops a tween */
 		_stopTween=function(){
 			var el=this;
@@ -2753,45 +2753,45 @@ and dependencies (minified).
 			}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* deletes a property (avoiding the exception thrown by IE) */
 		_delete=function(c,m){
 			try{delete c[m];}catch(e){c[m]=null;}
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* detects left mouse button */
 		_mouseBtnLeft=function(e){
 			return !(e.which && e.which!==1);
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* detects if pointer type event is touch */
 		_pointerTouch=function(e){
 			var t=e.originalEvent.pointerType;
 			return !(t && t!=="touch" && t!==2);
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* checks if value is numeric */
 		_isNumeric=function(val){
 			return !isNaN(parseFloat(val)) && isFinite(val);
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* returns element position according to content */
 		_childPos=function(el){
 			var p=el.parents(".mCSB_container");
 			return [el.offset().top-p.offset().top,el.offset().left-p.offset().left];
 		},
 		/* -------------------- */
-		
-		
+
+
 		/* checks if browser tab is hidden/inactive via Page Visibility API */
 		_isTabHidden=function(){
 			var prop=_getHiddenProp();
@@ -2801,24 +2801,24 @@ and dependencies (minified).
 				var pfx=["webkit","moz","ms","o"];
 				if("hidden" in document) return "hidden"; //natively supported
 				for(var i=0; i<pfx.length; i++){ //prefixed
-				    if((pfx[i]+"Hidden") in document) 
+				    if((pfx[i]+"Hidden") in document)
 				        return pfx[i]+"Hidden";
 				}
 				return null; //not supported
 			}
 		};
 		/* -------------------- */
-		
-	
-	
-	
-	
-	/* 
+
+
+
+
+
+	/*
 	----------------------------------------
-	PLUGIN SETUP 
+	PLUGIN SETUP
 	----------------------------------------
 	*/
-	
+
 	/* plugin constructor functions */
 	$.fn[pluginNS]=function(method){ /* usage: $(selector).mCustomScrollbar(); */
 		if(methods[method]){
@@ -2838,25 +2838,25 @@ and dependencies (minified).
 			$.error("Method "+method+" does not exist");
 		}
 	};
-	
-	/* 
-	allow setting plugin default options. 
-	usage: $.mCustomScrollbar.defaults.scrollInertia=500; 
-	to apply any changed default options on default selectors (below), use inside document ready fn 
+
+	/*
+	allow setting plugin default options.
+	usage: $.mCustomScrollbar.defaults.scrollInertia=500;
+	to apply any changed default options on default selectors (below), use inside document ready fn
 	e.g.: $(document).ready(function(){ $.mCustomScrollbar.defaults.scrollInertia=500; });
 	*/
 	$[pluginNS].defaults=defaults;
-	
-	/* 
-	add window object (window.mCustomScrollbar) 
+
+	/*
+	add window object (window.mCustomScrollbar)
 	usage: if(window.mCustomScrollbar){console.log("custom scrollbar plugin loaded");}
 	*/
 	window[pluginNS]=true;
-	
+
 	$(window).load(function(){
-		
+
 		$(defaultSelector)[pluginNS](); /* add scrollbars automatically on default selector */
-		
+
 		/* extend jQuery expressions */
 		$.extend($.expr[":"],{
 			/* checks if element is within scrollable viewport */
@@ -2865,7 +2865,7 @@ and dependencies (minified).
 				if(!content.length){return;}
 				wrapper=content.parent();
 				cPos=[content[0].offsetTop,content[0].offsetLeft];
-				return 	cPos[0]+_childPos($el)[0]>=0 && cPos[0]+_childPos($el)[0]<wrapper.height()-$el.outerHeight(false) && 
+				return 	cPos[0]+_childPos($el)[0]>=0 && cPos[0]+_childPos($el)[0]<wrapper.height()-$el.outerHeight(false) &&
 						cPos[1]+_childPos($el)[1]>=0 && cPos[1]+_childPos($el)[1]<wrapper.width()-$el.outerWidth(false);
 			},
 			/* checks if element is overflowed having visible scrollbar(s) */
@@ -2875,8 +2875,7 @@ and dependencies (minified).
 				return d.overflowed[0] || d.overflowed[1];
 			}
 		});
-	
+
 	});
 
 }))}));
-

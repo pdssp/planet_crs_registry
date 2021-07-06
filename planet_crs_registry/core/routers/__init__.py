@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Routers"""
 from .website_router import router as router_web_site
 from .ws_router import router as router_ws

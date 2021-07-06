@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ..tortoise import WKT
 from tortoise.contrib.pydantic import pydantic_model_creator
 

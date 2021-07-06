@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
 # Copyright (C) 2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)
 #
@@ -19,10 +20,12 @@
 from fastapi import FastAPI
 from tortoise.contrib.starlette import register_tortoise
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 import os
 
 from .config import tortoise_config
 from .core.routers import router_web_site, router_ws
+from .core.exceptions import custom_404_exception_handler
 
 
 def init(app: FastAPI):
@@ -59,6 +62,9 @@ def init_routers(app: FastAPI):
     :param app:
     :return:
     """
+    app.add_exception_handler(
+        StarletteHTTPException, custom_404_exception_handler
+    )
     app.include_router(
         router_ws,
         prefix="/ws",
