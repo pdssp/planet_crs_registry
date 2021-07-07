@@ -17,15 +17,18 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Initialization of the server"""
-from fastapi import FastAPI
-from tortoise.contrib.starlette import register_tortoise
-from fastapi.staticfiles import StaticFiles
-from starlette.exceptions import HTTPException as StarletteHTTPException
 import os
 
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from tortoise.contrib.starlette import register_tortoise
+
 from .config import tortoise_config
-from .core.routers import router_web_site, router_ws
+from .core.business import root_directory
 from .core.exceptions import custom_404_exception_handler
+from .core.routers import router_web_site
+from .core.routers import router_ws
 
 
 def init(app: FastAPI):
@@ -51,11 +54,6 @@ def init_db(app: FastAPI):
     )
 
 
-def get_root_directory():
-    PATH_TO_CONF = os.path.dirname(os.path.realpath(__file__))
-    return os.path.join(PATH_TO_CONF, "..", "web")
-
-
 def init_routers(app: FastAPI):
     """
     Initialize routers defined in `app.api`
@@ -78,7 +76,7 @@ def init_routers(app: FastAPI):
     app.mount(
         "/web",
         StaticFiles(
-            directory=get_root_directory(),
+            directory=os.path.join(root_directory, "web"),
             html=True,
         ),
         "web",

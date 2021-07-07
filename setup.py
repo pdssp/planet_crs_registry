@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from os import path
+from os import sep
+
 import setuptools
-from os import path, sep
 
 here = path.abspath(path.dirname(__file__))
 
@@ -41,13 +43,17 @@ setuptools.setup(
     setup_requires=setup_requirements,
     test_suite="tests",
     tests_require=test_requirements,
-    package_data={'about["__name_soft__"]': ["README.rst", "logging.conf"]},
+    package_data={
+        'about["__name_soft__"]': ["logging.conf"],
+    },
+    include_package_data=True,
     data_files=[
-        ("templates", ["templates/results-table.html", "templates/404.html"]),
         (
-            "web",
+            "templates",
             [
-                "web/index.html",
+                "templates/results-table.html",
+                "templates/404.html",
+                "templates/index.html",
             ],
         ),
         (

@@ -17,15 +17,17 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Main program."""
-import logging
 import argparse
+import logging
+import os
 import signal
 import sys
+
+from .planet_crs_registry import PlanetCrsRegistryLib
 from planet_crs_registry import __author__
 from planet_crs_registry import __copyright__
 from planet_crs_registry import __description__
 from planet_crs_registry import __version__
-from .planet_crs_registry import PlanetCrsRegistryLib
 
 
 class SmartFormatter(argparse.HelpFormatter):
@@ -77,6 +79,8 @@ def parse_cli() -> argparse.Namespace:
     argparse.Namespace
         Command line options
     """
+    path_to_file = os.path.dirname(os.path.realpath(__file__))
+
     parser = argparse.ArgumentParser(
         description=__description__,
         formatter_class=SmartFormatter,
@@ -88,14 +92,8 @@ def parse_cli() -> argparse.Namespace:
 
     parser.add_argument(
         "--conf_file",
-        default="conf/planet_crs_registry.conf",
+        default=os.path.join(path_to_file, "conf/planet_crs_registry.conf"),
         help="The location of the configuration file (default: %(default)s)",
-    )
-
-    parser.add_argument(
-        "--output_directory",
-        default="planet_crs_registry-data",
-        help="The output directory where the data products are created (default: %(default)s)",
     )
 
     parser.add_argument(
@@ -117,14 +115,14 @@ def parse_cli() -> argparse.Namespace:
 
 def run():
     """Main function that instanciates the library."""
-    #    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(__name__)
+    logger.info("*** Welcome to Planet Crs Registry ***")
     handler = SigintHandler()
     signal.signal(signal.SIGINT, handler.signal_handler)
     try:
         options_cli = parse_cli()
         planet_crs_registry = PlanetCrsRegistryLib(
             options_cli.conf_file,
-            options_cli.output_directory,
             level=options_cli.level,
         )
         planet_crs_registry.start()

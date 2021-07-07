@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 # Some exception, handlers
+"""Exceptions"""
 from .handlers import custom_404_exception_handler
 
 __all__ = ["custom_404_exception_handler"]

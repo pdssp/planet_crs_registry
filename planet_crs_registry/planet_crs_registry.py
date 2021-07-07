@@ -17,8 +17,9 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """This module contains the library."""
-import logging
 import configparser
+import logging.config
+
 import uvicorn  # type: ignore
 from fastapi import FastAPI
 
@@ -32,14 +33,14 @@ logger = logging.getLogger(__name__)
 class PlanetCrsRegistryLib:
     """The library"""
 
-    def __init__(self, path_to_conf: str, directory: str, *args, **kwargs):
+    def __init__(self, path_to_conf: str, *args, **kwargs):
         # pylint: disable=unused-argument
         if "level" in kwargs:
             PlanetCrsRegistryLib._parse_level(kwargs["level"])
 
-        self.__directory = directory
         self.__config = configparser.ConfigParser()
         self.__config.optionxform = str  # type: ignore
+        logger.info("Reading the configuration file from %s", path_to_conf)
         self.__config.read(path_to_conf)
         self.__app = FastAPI(
             itle=openapi_config.name,
@@ -84,15 +85,6 @@ class PlanetCrsRegistryLib:
         return self.__config
 
     @property
-    def directory(self) -> str:
-        """The output directory.
-
-        :getter: Returns the output directory
-        :type: str
-        """
-        return self.__directory
-
-    @property
     def app(self) -> FastAPI:
         """The fast API app.
 
@@ -106,4 +98,10 @@ class PlanetCrsRegistryLib:
         logger.info("Starting application initialization...")
         init(self.app)
         logger.info("Successfully initialized!")
-        uvicorn.run(self.app, host="0.0.0.0", port=8080)
+        host: str = self.__config["MAIN"]["host"]
+        port: int = int(self.__config["MAIN"]["port"])
+        uvicorn.run(
+            self.app,
+            host=host,
+            port=port,
+        )

@@ -130,58 +130,127 @@
                     {% endfor %}
                   </tbody>
                 </table>
+                {% if previous_pages|length != 0 or next_pages|length != 0 %}
                 <nav aria-label="...">
                   <ul class="pagination">
+                    <!--
+
+                      process previous button
+
+                    -->
+                    <!-- Check if there is a previous page -->
                     {% if previous_page < 1 %}
+                    <!-- no previous page, make it disable -->
                     <li class="page-item disabled">
                       <span class="page-link" href="#">Previous</span>
                     </li>
                     {% else %}
-                    <li class="page-item">
-                      <span
-                        class="page-link"
-                        href="/web/all_ids.html?page={{previous_page}}"
-                        >Previous</span
-                      >
-                    </li>
-                    {% endif %} {% for number in previous_pages %}
+                    <!-- previous page, make it enable -->
                     <li class="page-item">
                       <a
                         class="page-link"
-                        href="/web/all_ids.html?page={{number}}"
+                        href="{{url_ws}}page={{previous_page}}"
+                        >Previous</a
+                      >
+                    </li>
+                    {% endif %}
+                    <!--
+
+                      process previous pages
+
+                      -->
+                    <!-- loop on records-->
+                    {% for number in previous_pages %}
+                    <!-- check if n°page = 1 and nb previous page < 7-->
+                    {% if number == 1 and previous_pages|length < 7 %}
+                    <!-- all pages are displayed from 1 to current -->
+                    <li class="page-item">
+                      <a class="page-link" href="{{url_ws}}page=1">1</a>
+                    </li>
+                    {% elif number == 1 and previous_pages|length >= 7 %}
+                    <!-- page 1 is is displayed and "..." -->
+                    <li class="page-item">
+                      <a class="page-link" href="{{url_ws}}page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">...</a>
+                    </li>
+                    <!-- only 5 pages before current are displayed -->
+                    {% elif page_current - number <= 5 %}
+                    <li class="page-item">
+                      <a class="page-link" href="{{url_ws}}page={{number}}"
                         >{{number}}</a
                       >
                     </li>
-                    {% endfor %}
+                    {% endif %} {% endfor %}
+                    <!-- end loop -->
+                    <!--
+
+                      process current page
+
+                      -->
                     <li class="page-item active">
                       <span class="page-link">
                         {{page_current}}
                         <span class="sr-only">(current)</span>
                       </span>
                     </li>
+
+                    <!--
+
+                      process next pages
+
+                    -->
+                    <!-- loop on next pages to current -->
                     {% for number in next_pages %}
+                    <!-- check the page is the last one -->
+                    {% if number == next_pages[next_pages|length - 1] and
+                    next_pages|length < 7%}
                     <li class="page-item">
-                      <a
-                        class="page-link"
-                        href="/web/all_ids.html?page={{number}}"
+                      <a class="page-link" href="{{url_ws}}page={{number}}"
                         >{{number}}</a
                       >
                     </li>
-                    {% endfor %} {% if next_page == -1 %}
+                    {% elif number == next_pages[next_pages|length - 1] and
+                    next_pages|length >= 7%}
+                    <li class="page-item">
+                      <a class="page-link" href="#">...</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="{{url_ws}}page={{number}}"
+                        >{{number}}</a
+                      >
+                    </li>
+                    <!-- only 5 first pages after current page are displayed -->
+                    {% elif number - page_current <= 5 %}
+                    <li class="page-item">
+                      <a class="page-link" href="{{url_ws}}page={{number}}"
+                        >{{number}}</a
+                      >
+                    </li>
+                    {% endif %} {% endfor %}
+                    <!-- end of loop -->
+
+                    <!--
+
+                      process next button
+
+                    -->
+                    <!-- check if the next button must be disabled -->
+                    {% if next_page == -1 %}
                     <li class="page-item disabled">
                       <span class="page-link" href="#">Next</span>
                     </li>
                     {% else %}
                     <li class="page-item">
-                      <a
-                        class="page-link"
-                        href="/web/all_ids.html?page={{next_page}}"
+                      <a class="page-link" href="{{url_ws}}page={{next_page}}"
                         >Next</a
                       >
                     </li>
                     {% endif %}
                   </ul>
                 </nav>
+                {% endif %}
               </div>
             </div>
           </div>

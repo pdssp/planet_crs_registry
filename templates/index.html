@@ -121,16 +121,29 @@
                       >Search WKT by - Version</a
                     >
                     <ul class="dropdown-menu">
+                      {% for version in versions %}
                       <li>
-                        <a href="2015.html">Version - 2015</a>
+                        <a href="{{version}}.html">Version - {{version}}</a>
                       </li>
+                      {% endfor %}
                     </ul>
                   </li>
                 </ul>
               </li>
-              <li>
-                <a href="/docs">documentation</a>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                  >Documentation <span class="pe-7s-angle-down"></span
+                ></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="/docs">Documentation - docs</a>
+                  </li>
+                  <li>
+                    <a href="/redoc">Documentation - redoc</a>
+                  </li>
+                </ul>
               </li>
+
               <li>
                 <a href="#search"><i class="pe-7s-search"></i></a>
               </li>
@@ -145,7 +158,13 @@
         <button type="button" class="close">×</button>
         <div class="vertical-center text-center">
           <form action="#">
-            <input type="search" value="" placeholder="Enter Search Term" />
+            <input
+              type="text"
+              name="search_terms"
+              id="search_terms"
+              value=""
+              placeholder="Enter Search Term"
+            />
             <button type="submit" class="btn btn-primary btn-white">
               Search
             </button>

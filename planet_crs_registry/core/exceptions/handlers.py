@@ -17,17 +17,29 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Handler for those exceptions."""
-from starlette.exceptions import HTTPException as StarletteHTTPException
-from fastapi.exception_handlers import http_exception_handler
-from starlette.responses import RedirectResponse
 from fastapi import Request
+from fastapi.exception_handlers import http_exception_handler
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.responses import RedirectResponse
 
 
 async def custom_404_exception_handler(
     request: Request, exc: StarletteHTTPException
 ):
+    """Custon 404 page.
+
+    Args:
+        request (Request): Request
+        exc (StarletteHTTPException): The specific handler for the exception
+
+    Returns:
+        Union[RedirectResponse, object]: Redirection to /web/404.html for 404 status or
+        the handler of others http status
+    """
+    result: object
     if exc.status_code == 404:
-        return RedirectResponse(url="/web/404.html")
+        result = RedirectResponse(url="/web/404.html")
     else:
         # Just use FastAPI's built-in handler for other errors
-        return await http_exception_handler(request, exc)
+        result = await http_exception_handler(request, exc)
+    return result

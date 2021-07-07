@@ -17,6 +17,9 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Business - Business classes"""
+from .search import query_rep
+from .search import query_search
+from .search import root_directory
 from .wkt_database import WktDatabase
 
-__all__ = ["WktDatabase"]
+__all__ = ["WktDatabase", "query_search", "query_rep", "root_directory"]
