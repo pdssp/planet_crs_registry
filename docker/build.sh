@@ -16,4 +16,4 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-docker build --no-cache=true --build-arg SSH_PRIVATE_KEY="`more ~/.ssh/id_rsa`" -t dev/planet_crs_registry .
+docker build --no-cache=true -t dev/planet_crs_registry .
