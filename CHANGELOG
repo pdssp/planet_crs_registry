@@ -1,4 +1,14 @@
-### Add docker support (HEAD -> main)
+### Fix text in Makefile Fix date in build.sh (HEAD -> main)
+>Thu, 8 Jul 2021 12:16:35 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add docker support (origin/main)
 >Thu, 8 Jul 2021 12:05:48 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### remove key from docker (origin/main)
+### remove key from docker
 >Thu, 8 Jul 2021 03:18:54 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
