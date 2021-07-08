@@ -26,6 +26,9 @@ ARG VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Envrionment variable for the use of SQLite
+ENV API_TEST "True"
+
 # Labels (based on http://label-schema.org/rc1/)
 LABEL \
     org.label-schema.schema-version="1.0" \

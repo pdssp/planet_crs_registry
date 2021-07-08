@@ -48,6 +48,7 @@ setuptools.setup(
     },
     include_package_data=True,
     data_files=[
+        ("data", ["data/result.wkts"]),
         (
             "templates",
             [

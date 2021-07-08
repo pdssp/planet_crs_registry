@@ -1,4 +1,14 @@
-### Fix text in Makefile Fix date in build.sh (HEAD -> main)
+### Publish data directory Add environment variable in dockerfile (HEAD -> main)
+>Thu, 8 Jul 2021 13:05:11 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Fix text in Makefile Fix date in build.sh (origin/main)
 >Thu, 8 Jul 2021 12:16:35 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Add docker support (origin/main)
+### Add docker support
 >Thu, 8 Jul 2021 12:05:48 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
