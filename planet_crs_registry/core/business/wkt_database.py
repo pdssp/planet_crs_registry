@@ -21,6 +21,7 @@
 import logging
 import re
 from dataclasses import dataclass
+from os import path
 from typing import List
 
 logger = logging.getLogger(__name__)
@@ -58,7 +59,10 @@ class WktDatabase:  # pylint: disable=R0903
         self.__index: List[DatabaseRecord] = list()
         wkts: List[str]
         logger.info("Create database based on data/result.wkts")
-        with open("data/result.wkts", "r") as file:
+        here = path.abspath(path.dirname(__file__))
+        with open(
+            path.join(here, "..", "..", "..", "data/result.wkts", "r")
+        ) as file:
             wkts_content = file.read()
             wkts = wkts_content.split("\n\n")
             for idx, wkt in enumerate(wkts):

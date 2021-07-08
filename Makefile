@@ -37,7 +37,7 @@ Usage:\n
 	make pyclean\t\t\t		Clean .pyc files and __pycache__ directories\n
 	\n
 	-------------------------------------------------------------------------\n
-	\t\Docker\n
+	\t\tDocker\n
 	-------------------------------------------------------------------------\n
 	make docker-build\t\t 		Build the docker image\n
 	make docker-deploy\t\t 		Deploy the docker image\n
