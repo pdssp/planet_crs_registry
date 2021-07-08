@@ -16,4 +16,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-docker build --no-cache=true -t dev/planet_crs_registry .
+git_hash=`git log --pretty=format:%h -n 1`
+version=`python setup.py --version`
+docker build --no-cache=true --build-arg BUILD_DATE=$(date -u + '%Y-%m-%dT%H:%M:%SZ') --build-arg VCS_REF=${git_hash} --build-arg BUILD_VERSION=${version} -t pole_surfaces/planet_crs_registry .

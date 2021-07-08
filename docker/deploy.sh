@@ -16,4 +16,32 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-docker commit develop-planet_crs_registry dev/planet_crs_registry
+set search
+set ps
+
+search=`docker images | grep pole_surfaces/planet_crs_registry | wc -l`
+if [ $search = 0 ];
+then
+	# only the heaader - no image found
+	echo "Please build the image by running 'make docker-build'"
+	exit 1
+fi
+
+ps=`docker ps -a | grep pole_surfaces-planet_crs_registry | wc -l`
+if [ $ps = 0 ];
+then
+	echo "no container available, start one"
+	docker run --name=pole_surfaces-planet_crs_registry \
+	-p 8080:8080 \
+	pole_surfaces/planet_crs_registry
+	exit $?
+fi
+
+ps=`docker ps | grep pole_surfaces-planet_crs_registry | wc -l`
+if [ $ps = 0 ];
+then
+	echo "container available but not started, start it"
+	docker start pole_surfaces-planet_crs_registry
+else
+	echo "container already started"
+fi

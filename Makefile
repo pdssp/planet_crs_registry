@@ -37,6 +37,12 @@ Usage:\n
 	make pyclean\t\t\t		Clean .pyc files and __pycache__ directories\n
 	\n
 	-------------------------------------------------------------------------\n
+	\t\tDevelopment\n
+	-------------------------------------------------------------------------\n
+	make docker-build\t\t 		Build the docker image\n
+	make docker-deploy\t\t 		Deploy the docker image\n
+	\n
+	-------------------------------------------------------------------------\n
 	\t\tOthers\n
 	-------------------------------------------------------------------------\n
 	make licences\t\t\t		Display the list of licences\n
@@ -132,3 +138,9 @@ update_req_dev:
 
 pyclean:
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+
+docker-build:
+	sh docker/build.sh
+
+docker-deploy:
+	sh docker/deploy.sh

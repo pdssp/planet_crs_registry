@@ -23,6 +23,7 @@ from typing import Union
 
 from fastapi import APIRouter
 from fastapi import Request
+from starlette.responses import HTMLResponse
 from starlette.responses import RedirectResponse
 
 from ..business import query_rep
@@ -39,6 +40,12 @@ async def root():
     return RedirectResponse(url="/web")
 
 
+@router.get("/ping")
+async def ping():
+    """Ping the server to check it is up"""
+    return HTMLResponse("I am here !")
+
+
 @router.get("/web/index.html")
 @router.get("/web/")
 async def web_index(request: Request):
@@ -47,7 +54,7 @@ async def web_index(request: Request):
 
 
 @router.get("/web/all_ids.html")
-async def get_all_wkts_t(request: Request, page: int = 1, limit: int = 100):
+async def get_all_wkts(request: Request, page: int = 1, limit: int = 100):
     """Create a table of the all WKTs"""
     return await query_rep.get_all_wkts(request, page, limit)
 
