@@ -61,7 +61,7 @@ class WktDatabase:  # pylint: disable=R0903
         logger.info("Create database based on data/result.wkts")
         here = path.abspath(path.dirname(__file__))
         with open(
-            path.join(here, "..", "..", "..", "data/result.wkts", "r")
+            path.join(here, "..", "..", "..", "..", "data/result.wkts", "r")
         ) as file:
             wkts_content = file.read()
             wkts = wkts_content.split("\n\n")

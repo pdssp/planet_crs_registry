@@ -1,4 +1,14 @@
-### Fix typo Fix path to get the WKTs (HEAD -> main)
+### Fix path ... again (HEAD -> main)
+>Thu, 8 Jul 2021 13:26:31 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Fix typo Fix path to get the WKTs (origin/main)
 >Thu, 8 Jul 2021 13:21:49 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Publish data directory Add environment variable in dockerfile (origin/main)
+### Publish data directory Add environment variable in dockerfile
 >Thu, 8 Jul 2021 13:05:11 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
