@@ -19,6 +19,7 @@ Planet CRS Registry
 The coordinates reference system registry for solar bodies
 
 
+
 Stable release
 --------------
 
@@ -37,7 +38,8 @@ you through the process.
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-From sources
+
+From sources (without virtual environment)
 ------------
 
 The sources for Planet CRS Registry can be downloaded from the `Github repo`_.
@@ -67,6 +69,37 @@ Once you have a copy of the source, you can install it with:
 
 
 
+From sources (with virtual environment)
+------------
+
+The sources for Planet CRS Registry can be downloaded from the `Github repo`_.
+
+You can either clone the public repository:
+
+.. code-block:: console
+
+    $ git clone git://github.com/pole-surfaces-planetaires/planet_crs_registry
+
+Or download the `tarball`_:
+
+.. code-block:: console
+
+    $ curl -OJL https://github.com/pole-surfaces-planetaires/planet_crs_registry/tarball/master
+
+Once you have a copy of the source, you can install it with:
+
+.. code-block:: console
+
+    $ make prepare-dev
+    $ source .planet_crs_registry # Use the virtual environment
+    $ make
+
+
+.. _Github repo: https://github.com/pole-surfaces-planetaires/planet_crs_registry
+.. _tarball: https://github.com/pole-surfaces-planetaires/planet_crs_registry/tarball/master
+
+
+
 Development
 -----------
 
@@ -85,12 +118,24 @@ To get more information about the preconfigured tasks:
 
         $ make help
 
+
+
 Usage
 -----
 
 To use Planet CRS Registry in a project::
 
-    import planet_crs_registry
+    planet_crs_registry
+
+
+
+Docker
+------
+
+.. code-block:: console
+
+        $ docker pull mizarweb/planetary-crs-registry # get the image
+        $ docker run -p 8080:8080 mizarweb/planetary-crs-registry # Start the instance
 
 
 
