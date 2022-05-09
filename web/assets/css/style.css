@@ -933,7 +933,7 @@ section {
 }
 
 .section-inner {
-    padding: 120px 0
+    padding: 60px 0
 }
 
 .contact-section-inner {
@@ -1634,7 +1634,7 @@ footer.white-wrapper .social-links li a {
     padding: 30px 30px;
     font-size: 14px;
     line-height: 1.42857143;
-    color: #222;
+    color: rgb(144, 86, 12);
     background-color: transparent;
     background-image: none;
     border: none;

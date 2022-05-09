@@ -19,7 +19,11 @@
 """The coordinates reference system registry for solar bodies"""
 import logging.config
 import os
+from logging import debug
+from logging import getLogger
 from logging import NullHandler
+from logging import setLogRecordFactory
+from logging import warning
 
 from ._version import __author__
 from ._version import __author_email__
@@ -33,7 +37,7 @@ from ._version import __version__
 from .custom_logging import LogRecord
 from .custom_logging import UtilsLogs
 
-logging.getLogger(__name__).addHandler(NullHandler())
+getLogger(__name__).addHandler(NullHandler())
 
 UtilsLogs.add_logging_level("TRACE", 15)
 try:
@@ -42,9 +46,7 @@ try:
         os.path.join(PATH_TO_CONF, "logging.conf"),
         disable_existing_loggers=False,
     )
-    logging.debug(
-        "file %s loaded" % os.path.join(PATH_TO_CONF, "logging.conf")
-    )
+    debug("file %s loaded" % os.path.join(PATH_TO_CONF, "logging.conf"))
 except Exception as exception:  # pylint: disable=broad-except
-    logging.warning("cannot load logging.conf : %s" % exception)
-logging.setLogRecordFactory(LogRecord)  # pylint: disable=no-member
+    warning("cannot load logging.conf : %s" % exception)
+setLogRecordFactory(LogRecord)  # pylint: disable=no-member

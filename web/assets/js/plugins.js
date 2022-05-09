@@ -392,27 +392,27 @@ $(function() {
             event.preventDefault(); // prevent default submit behaviour
             // get values from FORM
 			var search = $("input#search_terms").val();
-			if (search != undefined) {
+			if (search != undefined && search != "") {
 				window.location.href = "/web/search?search_term_kw="+search
 			} else {
+				var firstName = $("input#firstname").val();
 				var name = $("input#name").val();
 				var email = $("input#email").val();
-				var phone = $("input#phone").val();
-				var message = $("textarea#message").val();
-				var firstName = name; // For Success/Failure Message
+				var comments = $("textarea#comments").val();
 				// Check for white space in name for Success/Fail message
 				if (firstName.indexOf(' ') >= 0) {
 					firstName = name.split(' ').slice(0, -1).join(' ');
 				}
 				$.ajax({
-					url: "././mail/contact_me.php",
+					url: "/email/",
+					contentType: "application/json",
 					type: "POST",
-					data: {
+					data: JSON.stringify({
+						firstName: firstName,
 						name: name,
-						phone: phone,
 						email: email,
-						message: message
-					},
+						comments: comments
+					}),
 					cache: false,
 					success: function() {
 						// Success message
@@ -425,7 +425,10 @@ $(function() {
 							.append('</div>');
 
 						//clear all fields
-						$('#contactForm').trigger("reset");
+						$("input#firstname").val("");
+						$("input#name").val("");
+						$("input#email").val("");
+						$("textarea#comments").val("");
 					},
 					error: function() {
 						// Fail message

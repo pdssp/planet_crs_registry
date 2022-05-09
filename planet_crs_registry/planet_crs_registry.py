@@ -43,7 +43,7 @@ class PlanetCrsRegistryLib:
         logger.info("Reading the configuration file from %s", path_to_conf)
         self.__config.read(path_to_conf)
         self.__app = FastAPI(
-            itle=openapi_config.name,
+            title=openapi_config.name,
             version=openapi_config.version,
             description=openapi_config.description,
         )
@@ -98,10 +98,6 @@ class PlanetCrsRegistryLib:
         logger.info("Starting application initialization...")
         init(self.app)
         logger.info("Successfully initialized!")
-        host: str = self.__config["MAIN"]["host"]
+        host: str = self.config["MAIN"]["host"]
         port: int = int(self.__config["MAIN"]["port"])
-        uvicorn.run(
-            self.app,
-            host=host,
-            port=port,
-        )
+        uvicorn.run(self.app, host=host, port=port)

@@ -124,7 +124,12 @@
                     {% for record in records %}
                     <tr>
                       {% for col_name in record %}
-                      <td>{{record[col_name]}}</td>
+                      <td>{% if col_name == "wkt" %}
+                            <pre>{{record[col_name]}}</pre>
+                          {% else %}
+                            {{record[col_name]}}
+                          {% endif %}
+                      </td>
                       {% endfor %}
                     </tr>
                     {% endfor %}

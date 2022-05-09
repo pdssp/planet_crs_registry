@@ -20,3 +20,8 @@
 from os import environ
 
 IS_TEST = bool(environ.get("API_TEST"))
+SMTP_HOST = environ.get("SMTP_HOST", "localhost")
+SMTP_PORT = int(environ.get("SMTP_PORT", 25))
+SMTP_LOGIN = environ.get("SMTP_LOGIN", None)
+SMTP_PASSWD = environ.get("SMTP_PASSWD", None)
+CONTACT_EMAIL = "jean-christophe.malapert@cnes.fr"

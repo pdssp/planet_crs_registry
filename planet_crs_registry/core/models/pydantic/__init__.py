@@ -19,6 +19,7 @@
 """
 Pydantic models.
 """
+from .email import ContactEmail
 from .wkt import Wkt_Pydantic
 
-__all__ = ["Wkt_Pydantic"]
+__all__ = ["Wkt_Pydantic", "ContactEmail"]

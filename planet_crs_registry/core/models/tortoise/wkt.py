@@ -58,6 +58,10 @@ class WKT(models.Model):
     This references a WKT
     """
 
+    # pyright: reportPrivateImportUsage=false
+    #: The date where the record has been inserted
+    created_at = fields.DatetimeField(auto_now_add=True)
+
     id = fields.CharField(
         pk=True,
         max_length=100,
@@ -70,12 +74,6 @@ class WKT(models.Model):
         indexed=True,
         description="Solar body such as Mercury, Venus, ...",
     )
-    center_cs = fields.CharEnumField(
-        CenterCs,
-        default=CenterCs.OGRAPHIC,
-        indexed=True,
-        description="Center of the coordinate system",
-    )
     datum_name = fields.CharField(
         max_length=100, indexed=True, description="Datum name"
     )
@@ -86,6 +84,3 @@ class WKT(models.Model):
         max_length=100, indexed=True, null=True, description="Projection name"
     )
     wkt = fields.CharField(max_length=3072, description="WKT")
-
-    #: The date where the record has been inserted
-    created_at = fields.DatetimeField(auto_now_add=True)

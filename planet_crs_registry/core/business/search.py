@@ -23,6 +23,7 @@ import math
 import os
 import time
 from dataclasses import dataclass
+from typing import Dict
 from typing import List
 from typing import Tuple
 
@@ -66,13 +67,34 @@ class QuerySearch:
         """Call the API and returns the result.
 
         Args:
-            url (str): URL to query]
+            url (str): URL to query
 
         Returns:
             str: result of query response
         """
         result = await self.client.get(url)
         return result.text
+
+    def _filter_records(self, response: str) -> List:
+        """Filters the records by removing version and code.
+
+        Args:
+            response (str): response
+
+        Returns:
+            List: filtered response
+        """
+        keys_to_remove: List[str] = ["version", "code"]
+        filtered_result: List = list()
+        for record in json.loads(response):
+            res: Dict = {
+                key: record[key]
+                for key in record.keys()
+                if key not in keys_to_remove
+            }
+            res["created_at"] = res["created_at"][0:10]
+            filtered_result.append(res)
+        return filtered_result
 
     async def query_wkts(
         self, base_url: str, page: int, limit: int
@@ -87,8 +109,8 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        count_records: int
-        result: List
+        count_records: int = 0
+        result: List = list()
         is_over = False
         while not is_over:
             try:
@@ -96,7 +118,7 @@ class QuerySearch:
                     await self._call_api(f"{base_url}ws/wkts/count")
                 )
                 offset = limit * (page - 1)
-                result = json.loads(
+                result = self._filter_records(
                     await self._call_api(
                         f"{base_url}ws/wkts?offset={offset}&limit={limit}"
                     )
@@ -121,8 +143,8 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        count_records: int
-        result: List
+        count_records: int = 0
+        result: List = list()
         is_over = False
         while not is_over:
             try:
@@ -132,7 +154,7 @@ class QuerySearch:
                     )
                 )
                 offset = limit * (page - 1)
-                result = json.loads(
+                result = self._filter_records(
                     await self._call_api(
                         f"{base_url}ws/versions/{version}?offset={offset}&limit={limit}"
                     )
@@ -157,8 +179,8 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        count_records: int
-        result: List
+        count_records: int = 0
+        result: List = list()
         is_over = False
         while not is_over:
             try:
@@ -168,7 +190,7 @@ class QuerySearch:
                     )
                 )
                 offset = limit * (page - 1)
-                result = json.loads(
+                result = self._filter_records(
                     await self._call_api(
                         f"{base_url}ws/solar_bodies/{name}?offset={offset}&limit={limit}"
                     )
@@ -193,8 +215,8 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        count_records: int
-        result: List
+        count_records: int = 0
+        result: List = list()
         is_over = False
         while not is_over:
             try:
@@ -204,7 +226,7 @@ class QuerySearch:
                     )
                 )
                 offset = limit * (page - 1)
-                result = json.loads(
+                result = self._filter_records(
                     await self._call_api(
                         f"{base_url}ws/search?search_term_kw={search_term_kw}&offset={offset}&limit={limit}"  # pylint: disable=C0301
                     )
@@ -224,7 +246,7 @@ class QuerySearch:
         Returns:
             List[int]: list of versions
         """
-        result: List[int]
+        result: List[int] = list()
         is_over = False
         while not is_over:
             try:
@@ -371,6 +393,7 @@ class QueryRepresentation:
         next_pages = pages[current_page : len(pages)]
         columns_name = result[0].keys() if len(result) > 0 else list()
         url_ws = web_service + "&" if "?" in web_service else web_service + "?"
+
         return self.templates.TemplateResponse(
             "results-table.html",
             {
@@ -398,7 +421,7 @@ class QueryRepresentation:
     async def get_versions(self, request: Request):
         """Set the versions in the index.html"""
         base_url = request.base_url
-        versions = await self.search.query_version_list(base_url)
+        versions = await self.search.query_version_list(str(base_url))
         return self.templates.TemplateResponse(
             "index.html", {"request": request, "versions": versions}
         )
@@ -417,7 +440,9 @@ class QueryRepresentation:
             object: Representation of the template output
         """
         base_url = request.base_url
-        count, result = await self.search.query_wkts(base_url, page, limit)
+        count, result = await self.search.query_wkts(
+            str(base_url), page, limit
+        )
         pagination = Navigation(count, page, limit)
         return await self._replace_in_template(
             request,
@@ -448,7 +473,7 @@ class QueryRepresentation:
         """
         base_url = request.base_url
         count, result = await self.search.query_version(
-            base_url, version_id, page, limit
+            str(base_url), version_id, page, limit
         )
         pagination = Navigation(count, page, limit)
         return await self._replace_in_template(
@@ -476,7 +501,7 @@ class QueryRepresentation:
         """
         base_url = request.base_url
         count, result = await self.search.query_name(
-            base_url, name, page, limit
+            str(base_url), name, page, limit
         )
         pagination = Navigation(count, page, limit)
         return await self._replace_in_template(
@@ -508,7 +533,7 @@ class QueryRepresentation:
         """
         base_url = request.base_url
         count, result = await self.search.query_search_terms(
-            base_url, search_term_kw, page, limit
+            str(base_url), search_term_kw, page, limit
         )
         pagination = Navigation(count, page, limit)
         return await self._replace_in_template(

@@ -20,6 +20,8 @@
 import logging
 import pathlib
 import re
+import smtplib
+from email.mime.text import MIMEText
 from typing import List
 from typing import Optional
 
@@ -436,17 +438,15 @@ async def get_wkt_body(
 )
 async def search(
     search_term_kw: str,
-    limit: Optional[int] = LIMIT_QUERY,
-    offset: Optional[int] = OFFSET_QUERY,
+    limit: int = LIMIT_QUERY,
+    offset: int = OFFSET_QUERY,
 ) -> List[WKT_model]:
     """Search WKTs for a given keyword.
 
     Args:
         search_term_kw (str): Term to search
-        limit (Optional[int], optional): Number of records to display.
-        Defaults to 50.
-        offset (Optional[int], optional): Number of records from which we
-        start to display. Defaults to 0.
+        limit (int, optional):  Number of records to display.. Defaults to LIMIT_QUERY.
+        offset (int, optional): Number of records from which we start to display. Defaults to OFFSET_QUERY.
 
     Returns:
         List[WKT_model]: WKTs matching the keyword
@@ -500,7 +500,6 @@ async def startup_event():
                 "id": f"IAU:{record.iau_version}:{record.iau_code}",
                 "version": int(record.iau_version),
                 "code": int(record.iau_code),
-                "center_cs": CenterCs.find_enum(record.origin_crs),
                 "solar_body": re.match(r"[^\s]+", record.datum).group(0),
                 "datum_name": record.datum,
                 "ellipsoid_name": record.ellipsoid,

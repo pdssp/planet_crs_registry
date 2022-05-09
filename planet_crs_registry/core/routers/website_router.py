@@ -18,16 +18,23 @@
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Web site router"""
 import logging
+import smtplib
+from email.mime.text import MIMEText
 from typing import List
 from typing import Union
 
 from fastapi import APIRouter
 from fastapi import Request
+from fastapi import status
+from starlette.exceptions import HTTPException
 from starlette.responses import HTMLResponse
 from starlette.responses import RedirectResponse
+from tortoise.contrib.fastapi import HTTPNotFoundError
 
 from ..business import query_rep
+from ..models import ContactEmail
 from ..models import WKT_model
+from planet_crs_registry.config import cfg
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +45,40 @@ router = APIRouter()
 async def root():
     """Root path if the web server"""
     return RedirectResponse(url="/web")
+
+
+@router.post(
+    "/email/",
+    summary="Send an email to planetary CRS.",
+    description="Send an email to planetary CRS.",
+    responses={
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPNotFoundError}
+    },
+    tags=["Users"],
+)
+async def send_email(contact: ContactEmail):
+    hostname = cfg.SMTP_HOST
+    port = cfg.SMTP_PORT
+    user = cfg.SMTP_LOGIN
+    password = cfg.SMTP_PASSWD
+    try:
+        sender = contact.email
+        receiver = cfg.CONTACT_EMAIL
+        msg = MIMEText(contact.comments)
+        msg["Subject"] = f"[Planetery CRS] {contact.firstName} {contact.name}"
+        msg["From"] = contact.email
+        msg["To"] = [receiver]
+        with smtplib.SMTP(hostname, port) as server:
+            server.set_debuglevel(1)
+            if user is not None and password is not None:
+                server.login(user, password)
+            server.sendmail(sender, receiver, msg.as_string())
+            logger.info("mail successfully sent")
+    except ConnectionRefusedError as err:
+        logger.error(f"SMTP error ({hostname}:{port}): {err}")
+        raise HTTPException(
+            status_code=500, detail="Cannot connect to SMTP server !"
+        )
 
 
 @router.get("/ping")
