@@ -1,4 +1,14 @@
-### Fix vendor name for deploy Fix logo problem (HEAD -> main)
+### Fix missing logo (HEAD -> main)
+>Mon, 9 May 2022 15:52:16 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Fix vendor name for deploy Fix logo problem (origin/main, origin/HEAD)
 >Mon, 9 May 2022 15:13:39 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -28,7 +38,7 @@
 
 
 
-### Add section with virtual env Add section with docker (origin/main, origin/HEAD)
+### Add section with virtual env Add section with docker
 >Fri, 9 Jul 2021 07:29:18 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
