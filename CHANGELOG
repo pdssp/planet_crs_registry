@@ -1,4 +1,14 @@
-### Change vendor name of the docker image (HEAD -> main)
+### Fix vendor name for deploy Fix logo problem (HEAD -> main)
+>Mon, 9 May 2022 15:13:39 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Change vendor name of the docker image
 >Mon, 9 May 2022 14:51:24 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
