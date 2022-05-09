@@ -1,4 +1,14 @@
-### Add new WKTs Update website (logo, the display of WKTs) (HEAD -> main)
+### Change vendor name of the docker image (HEAD -> main)
+>Mon, 9 May 2022 14:51:24 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add new WKTs Update website (logo, the display of WKTs) (tag: v0.9.0)
 >Mon, 9 May 2022 14:31:17 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

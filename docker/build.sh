@@ -18,4 +18,4 @@
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 git_hash=`git log --pretty=format:%h -n 1`
 version=`python setup.py --version`
-docker build --no-cache=true --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%S) --build-arg VCS_REF=${git_hash} --build-arg BUILD_VERSION=${version} -t pole_surfaces/planet_crs_registry .
+docker build --no-cache=true --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%S) --build-arg VCS_REF=${git_hash} --build-arg BUILD_VERSION=${version} -t pdssp/planet_crs_registry .
