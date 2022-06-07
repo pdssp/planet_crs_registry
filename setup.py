@@ -172,7 +172,7 @@ setuptools.setup(
             "web/assets/img/logo",
             [
                 "web/assets/img/logo/cnes.png",
-                "web/assets/img/logo/iau.jpg",
+                "web/assets/img/logo/padc.png",
                 "web/assets/img/logo/cnrs.svg",
                 "web/assets/img/logo/pole.jpg",
                 "web/assets/img/logo/usgs.png",
