@@ -20,6 +20,13 @@
 Pydantic models.
 """
 from .email import ContactEmail
+from .ogc_bridge import Identifiers
+from .ogc_bridge import Identifiers_Pydantic
 from .wkt import Wkt_Pydantic
 
-__all__ = ["Wkt_Pydantic", "ContactEmail"]
+__all__ = [
+    "Wkt_Pydantic",
+    "ContactEmail",
+    "Identifiers",
+    "Identifiers_Pydantic",
+]

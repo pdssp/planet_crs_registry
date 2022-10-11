@@ -1,4 +1,14 @@
-### Remove IAU logo Add PADC logo (HEAD -> main)
+### Add GML transformation for OGC bridge (HEAD -> main)
+>Tue, 11 Oct 2022 18:50:24 +0200
+
+>Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Remove IAU logo Add PADC logo (tag: v0.9.1, origin/main, origin/HEAD)
 >Tue, 7 Jun 2022 11:23:35 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Fix comma in setup.py (origin/main, origin/HEAD)
+### Fix comma in setup.py
 >Mon, 9 May 2022 15:56:17 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

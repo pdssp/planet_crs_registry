@@ -20,8 +20,17 @@
 Models - database and pydantic models of API entities.
 """
 from .pydantic import ContactEmail
+from .pydantic import Identifiers
+from .pydantic import Identifiers_Pydantic
 from .pydantic import Wkt_Pydantic
 from .tortoise import CenterCs
 from .tortoise import WKT as WKT_model
 
-__all__ = ["WKT_model", "Wkt_Pydantic", "CenterCs", "ContactEmail"]
+__all__ = [
+    "WKT_model",
+    "Wkt_Pydantic",
+    "CenterCs",
+    "ContactEmail",
+    "Identifiers",
+    "Identifiers_Pydantic",
+]

@@ -34,9 +34,11 @@ from tortoise import Tortoise
 from tortoise.contrib.fastapi import HTTPNotFoundError
 from tortoise.functions import Lower
 
+from ..business import GmlResponse
+from ..business import IdentifiersResponse
 from ..business import query_search
 from ..business import WktDatabase
-from ..models import CenterCs
+from ..models import Identifiers_Pydantic
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
 from planet_crs_registry.config import tortoise_config
@@ -53,6 +55,9 @@ OFFSET_QUERY = Query(
 )
 
 
+# ------------------
+#    WKTs routes
+# ------------------
 @router.get(
     "/wkts",
     summary="Get information about WKTs.",
@@ -82,6 +87,34 @@ async def get_wkts(
 
 
 @router.get(
+    "/wkts/{wkt_id}",
+    summary="Get a WKT",
+    response_model=str,
+    responses={status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError}},
+    description="Retrieve a WKT for a given WKT ID.",
+    tags=["Browse by WKT"],
+)
+async def get_wkt(
+    wkt_id: str = Path(
+        default="IAU:2015:1000",
+        title="ID of the WKT.",
+        description="ID of the WKT following this pattern : IAU:<version>:<code>",
+        regex="^.*:\d*:\d*",  # noqa: W605  # pylint: disable=W1401
+    ),
+) -> str:
+    """Get a WKT representation for a given WKT identifier.
+
+    Args:
+        wkt_id (str, optional): ID of the WKT. Defaults to IAU:2015:1000.
+
+    Returns:
+        str: The WKT representation
+    """
+    wkt_obj: WKT_model = await query_search.get_wkt_obj(wkt_id)
+    return wkt_obj.wkt
+
+
+@router.get(
     "/wkts/count",
     summary="Count the number of WKTs.",
     response_model=int,
@@ -97,6 +130,9 @@ async def wkts_count() -> int:
     return await WKT_model.all().count()
 
 
+# ------------------
+#    Versions routes
+# ------------------
 @router.get(
     "/versions",
     summary="Get the list of WKTs version.",
@@ -231,34 +267,9 @@ async def get_wkt_version(
     return wkt_obj.wkt
 
 
-@router.get(
-    "/wkts/{wkt_id}",
-    summary="Get a WKT",
-    response_model=str,
-    responses={status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError}},
-    description="Retrieve a WKT for a given WKT ID.",
-    tags=["Browse by WKT"],
-)
-async def get_wkt(
-    wkt_id: str = Path(
-        default="IAU:2015:1000",
-        title="ID of the WKT.",
-        description="ID of the WKT following this pattern : IAU:<version>:<code>",
-        regex="^.*:\d*:\d*",  # noqa: W605  # pylint: disable=W1401
-    ),
-) -> str:
-    """Get a WKT representation for a given WKT identifier.
-
-    Args:
-        wkt_id (str, optional): ID of the WKT. Defaults to IAU:2015:1000.
-
-    Returns:
-        str: The WKT representation
-    """
-    wkt_obj: WKT_model = await query_search.get_wkt_obj(wkt_id)
-    return wkt_obj.wkt
-
-
+# -----------------------
+#    Solar bodies routes
+# -----------------------
 @router.get(
     "/solar_bodies",
     summary="Get solar bodies",
@@ -426,6 +437,9 @@ async def get_wkt_body(
     return wkt_obj.wkt
 
 
+# ------------------
+#    Search routes
+# ------------------
 @router.get(
     "/search",
     summary="Search a WKT by keyword",
@@ -476,6 +490,92 @@ async def search_count(
         int: The number of results matching WKTs for a given keyword
     """
     return await query_search.search_term_count(search_term_kw)
+
+
+# ------------------
+#    OGC routes
+# ------------------
+@router.get(
+    "/IAU",
+    summary="Get the list of IAU versions",
+    description="Lists the IAU versions",
+    response_class=IdentifiersResponse,
+    responses={
+        status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
+        status.HTTP_200_OK: {"model": Identifiers_Pydantic},
+    },
+    include_in_schema=True,
+    tags=["OGC Bridge"],
+)
+async def get_iau_versions() -> str:
+    versions: List[int] = await get_versions()
+    identifier_list: List = list()
+    for version in versions:
+        identifier_list.append(f"http://www.opengis.net/def/crs/IAU/{version}")
+    return IdentifiersResponse(content=identifier_list)
+
+
+@router.get(
+    "/IAU/{iau_version}",
+    summary="Get the list of bodies for a given IAU version",
+    description="Lists of bodies for a given IAU version",
+    response_class=IdentifiersResponse,
+    responses={
+        status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
+        status.HTTP_200_OK: {"model": Identifiers_Pydantic},
+    },
+    tags=["OGC Bridge"],
+)
+async def get_iau_wkts(
+    iau_version: int = Path(
+        default=2015, description="Version of the WKT", gt=2014
+    ),
+    limit: Optional[int] = LIMIT_QUERY,
+    offset: Optional[int] = OFFSET_QUERY,
+) -> str:
+    wkts: List[WKT_model] = await get_version(iau_version, limit, offset)
+    identifier_list = list()
+    for wkt in wkts:
+        if "TRIAXIAL" not in wkt.wkt:
+            identifier_list.append(
+                f"http://www.opengis.net/def/crs/IAU/{iau_version}/{wkt.code}"
+            )
+    return IdentifiersResponse(content=identifier_list)
+
+
+@router.get(
+    "/IAU/{iau_version}/{code}",
+    summary="Get the GML represention for a given WKT",
+    description="The GML representation for a given WKT",
+    responses={
+        status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPNotFoundError},
+    },
+    tags=["OGC Bridge"],
+)
+async def get_iau_gml(
+    iau_version: int = Path(
+        default=2015, description="Version of the WKT", gt=2014
+    ),
+    code: str = Path(
+        default="1000",
+        description="Identifier of the WKT",
+        regex="^\d*$",  # noqa: W605  # pylint: disable=W1401
+    ),
+) -> str:
+    try:
+        return GmlResponse(content=f"IAU:{iau_version}:{code}")
+    except Exception as error:
+        if "crs not found" in error:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"IAU:{iau_version}:{code} not found",
+            )
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error when retrieving IAU:{iau_version}:{code} as GML - {error}",
+            )
 
 
 @router.on_event("startup")
