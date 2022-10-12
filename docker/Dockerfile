@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-FROM ubuntu:latest
+FROM osgeo/gdal:latest
 
 LABEL maintainer="Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>"
 
@@ -26,8 +26,11 @@ ARG VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Envrionment variable for the use of SQLite
+# Environment variable for the use of SQLite
 ENV API_TEST "True"
+
+# Environment variable for the use of docker
+ENV USE_DOCKER "True"
 
 # Labels (based on http://label-schema.org/rc1/)
 LABEL \

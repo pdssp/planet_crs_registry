@@ -1,4 +1,14 @@
-### Add Production envrionement. In production envrionment, use gdalsrsinfo. In dev, use the same command but through a call to a docker (HEAD -> main)
+### Use the website with osgeo docker for GDAL (HEAD -> main)
+>Wed, 12 Oct 2022 03:24:12 +0200
+
+>Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add Production envrionement. In production envrionment, use gdalsrsinfo. In dev, use the same command but through a call to a docker
 >Wed, 12 Oct 2022 03:21:18 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
