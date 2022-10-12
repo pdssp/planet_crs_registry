@@ -1,4 +1,14 @@
-### Use the website with osgeo docker for GDAL (HEAD -> main)
+### Change copyright Add About us page (HEAD -> main)
+>Wed, 12 Oct 2022 05:05:22 +0200
+
+>Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Use the website with osgeo docker for GDAL (origin/main, origin/HEAD)
 >Wed, 12 Oct 2022 03:24:12 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -38,7 +48,7 @@
 
 
 
-### Add GML transformation for OGC bridge (origin/main, origin/HEAD)
+### Add GML transformation for OGC bridge
 >Tue, 11 Oct 2022 18:50:24 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)

@@ -4,9 +4,7 @@
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-
 # -- Path setup --------------------------------------------------------------
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -20,9 +18,7 @@ import planet_crs_registry
 # -- Project information -----------------------------------------------------
 
 project = "Planet CRS Registry"
-copyright = (
-    "2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)"
-)
+copyright = "2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)"
 author = "Jean-Christophe Malapert"
 version = planet_crs_registry.__version__
 release = planet_crs_registry.__version__

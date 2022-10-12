@@ -1,5 +1,5 @@
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)
+# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -41,7 +41,7 @@ LABEL \
     org.label-schema.url="https://github.com/pole-surfaces-planetaires/planet_crs_registry" \
     org.label-schema.vcs-url="https://github.com/pole-surfaces-planetaires/planet_crs_registry" \
     org.label-schema.vcs-ref=$VCS_REF \
-    org.label-schema.vendor="Pôle Surfaces Planétaires" \
+    org.label-schema.vendor="PDSSP" \
     org.label-schema.version=$VERSION
 
 RUN apt-get update && \

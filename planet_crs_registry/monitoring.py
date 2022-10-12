@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2020-2021 - Centre National d'Etudes Spatiales
-# jean-christophe.malapert@cnes.fr
+# Planet CRS Registry - The coordinates reference system registry for solar bodies
+# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
 #
-# This file is part of planet_crs_registry.
+# This file is part of Planet CRS Registry.
 #
-# planet_crs_registry is a free software; you can redistribute it and/or
-# modify it under the terms of the GNU Lesser General Public
-# License as published by the Free Software Foundation; either
-# version 3.0 of the License, or (at your option) any later version.
+# Planet CRS Registry is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License v3  as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-# This library is distributed in the hope that it will be useful,
+# Planet CRS Registry is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License v3  for more details.
 #
-# You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-# MA 02110-1301  USA
+# You should have received a copy of the GNU Lesser General Public License v3
+# along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Some Utilities."""
 import logging
 import os

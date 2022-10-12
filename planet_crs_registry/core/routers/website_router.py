@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021 - CNES (Jean-Christophe Malapert for Pôle Surfaces Planétaires)
+# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -85,6 +85,12 @@ async def send_email(contact: ContactEmail):
 async def ping():
     """Ping the server to check it is up"""
     return HTMLResponse("I am here !")
+
+
+@router.get("/web/about_us.html")
+async def about_us(request: Request):
+    """About us page"""
+    return query_rep.get_about_us(request)
 
 
 @router.get("/web/index.html")
