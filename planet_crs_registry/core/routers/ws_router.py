@@ -87,6 +87,22 @@ async def get_wkts(
 
 
 @router.get(
+    "/wkts/count",
+    summary="Count the number of WKTs.",
+    response_model=int,
+    description="Count the number of WKT regardless of version",
+    tags=["Browse by WKT"],
+)
+async def wkts_count() -> int:
+    """Count the number of WKTs.
+
+    Returns:
+        int: The number of WKTs
+    """
+    return await WKT_model.all().count()
+
+
+@router.get(
     "/wkts/{wkt_id}",
     summary="Get a WKT",
     response_model=str,
@@ -112,22 +128,6 @@ async def get_wkt(
     """
     wkt_obj: WKT_model = await query_search.get_wkt_obj(wkt_id)
     return wkt_obj.wkt
-
-
-@router.get(
-    "/wkts/count",
-    summary="Count the number of WKTs.",
-    response_model=int,
-    description="Count the number of WKT regardless of version",
-    tags=["Browse by WKT"],
-)
-async def wkts_count() -> int:
-    """Count the number of WKTs.
-
-    Returns:
-        int: The number of WKTs
-    """
-    return await WKT_model.all().count()
 
 
 # ------------------
@@ -530,10 +530,9 @@ async def get_iau_wkts(
     iau_version: int = Path(
         default=2015, description="Version of the WKT", gt=2014
     ),
-    limit: Optional[int] = LIMIT_QUERY,
-    offset: Optional[int] = OFFSET_QUERY,
 ) -> str:
-    wkts: List[WKT_model] = await get_version(iau_version, limit, offset)
+    number: int = await version_count(iau_version)
+    wkts: List[WKT_model] = await get_version(iau_version, number, 0)
     identifier_list = list()
     for wkt in wkts:
         if "TRIAXIAL" not in wkt.wkt:
