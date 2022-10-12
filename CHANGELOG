@@ -1,4 +1,14 @@
-### Change copyright Add About us page (HEAD -> main)
+### Add about_us.html template in the packaging (HEAD -> main)
+>Wed, 12 Oct 2022 05:40:28 +0200
+
+>Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Change copyright Add About us page (origin/main, origin/HEAD)
 >Wed, 12 Oct 2022 05:05:22 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Use the website with osgeo docker for GDAL (origin/main, origin/HEAD)
+### Use the website with osgeo docker for GDAL
 >Wed, 12 Oct 2022 03:24:12 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)

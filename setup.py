@@ -55,6 +55,7 @@ setuptools.setup(
                 "templates/results-table.html",
                 "templates/404.html",
                 "templates/index.html",
+                "templates/about_us.html",
             ],
         ),
         (
