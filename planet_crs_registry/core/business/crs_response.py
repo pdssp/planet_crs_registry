@@ -6,6 +6,7 @@ from fastapi import Response
 
 from ..models import Identifiers
 from ..models import Identifiers_Pydantic
+from planet_crs_registry.config.cfg import IS_PROD
 
 
 class IdentifiersResponse(Response):
@@ -26,18 +27,29 @@ class GmlResponse(Response):
     media_type = "application/xml"
 
     def render(self, content: str) -> bytes:
-        data = subprocess.check_output(
-            [
-                "docker",
-                "run",
-                "--rm",
-                "osgeo/gdal",
-                "gdalsrsinfo",
-                content,
-                "-o",
-                "xml",
-            ]
-        )
+        data: bytes
+        if IS_PROD:
+            data = subprocess.check_output(
+                [
+                    "gdalsrsinfo",
+                    content,
+                    "-o",
+                    "xml",
+                ]
+            )
+        else:
+            data = subprocess.check_output(
+                [
+                    "docker",
+                    "run",
+                    "--rm",
+                    "osgeo/gdal",
+                    "gdalsrsinfo",
+                    content,
+                    "-o",
+                    "xml",
+                ]
+            )
         data = data.decode("utf-8")
         data = data.replace(
             "<gml:GeographicCRS",

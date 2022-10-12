@@ -19,6 +19,7 @@
 """Some vars"""
 from os import environ
 
+IS_PROD = bool(environ.get("USE_DOCKER", False))
 IS_TEST = bool(environ.get("API_TEST"))
 SMTP_HOST = environ.get("SMTP_HOST", "localhost")
 SMTP_PORT = int(environ.get("SMTP_PORT", 25))
