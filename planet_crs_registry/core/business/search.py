@@ -32,7 +32,7 @@ from fastapi import Request
 from fastapi import status
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException
-from tortoise.query_utils import Q
+from tortoise.expressions import Q
 
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
