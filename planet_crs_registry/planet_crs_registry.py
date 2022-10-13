@@ -39,11 +39,14 @@ class PlanetCrsRegistryLib:
         # pylint: disable=unused-argument
         if "level" in kwargs:
             PlanetCrsRegistryLib._parse_level(kwargs["level"])
-
+        self.__path_to_conf = os.path.abspath(path_to_conf)
+        self.__dir_conf = os.path.dirname(self.__path_to_conf)
         self.__config = configparser.ConfigParser()
         self.__config.optionxform = str  # type: ignore
-        logger.info("Reading the configuration file from %s", path_to_conf)
-        self.__config.read(path_to_conf)
+        logger.info(
+            "Reading the configuration file from %s", self.__path_to_conf
+        )
+        self.__config.read(self.__path_to_conf)
         self.__app = FastAPI(
             title=openapi_config.name,
             version=openapi_config.version,
@@ -87,6 +90,24 @@ class PlanetCrsRegistryLib:
         return self.__config
 
     @property
+    def path_to_conf(self) -> str:
+        """The path of the configuration file.
+
+        :getter: Returns the path of the configuration file
+        :type: str
+        """
+        return self.__path_to_conf
+
+    @property
+    def dir_conf(self) -> str:
+        """The directory of the configuration file.
+
+        :getter: Returns the directory of the configuration file
+        :type: str
+        """
+        return self.__dir_conf
+
+    @property
     def app(self) -> FastAPI:
         """The fast API app.
 
@@ -100,20 +121,19 @@ class PlanetCrsRegistryLib:
         logger.info("Starting application initialization with Https...")
         init(self.app)
         logger.info("Successfully initialized with https!")
-        dir_name = os.path.abspath(os.path.dirname(__file__))
         host: str = self.config["HTTPS"]["host"]
         port: int = int(self.__config["HTTPS"]["port"])
         ssl_keyfile: str = self.config["HTTPS"]["ssl_keyfile"]
         ssl_keyfile = (
             ssl_keyfile
             if ssl_keyfile.startswith("/")
-            else os.path.join(dir_name, "..", ssl_keyfile)
+            else os.path.join(self.dir_conf, ssl_keyfile)
         )
         ssl_certfile: str = self.config["HTTPS"]["ssl_certfile"]
         ssl_certfile = (
             ssl_certfile
             if ssl_certfile.startswith("/")
-            else os.path.join(dir_name, "..", ssl_certfile)
+            else os.path.join(self.dir_conf, ssl_certfile)
         )
         logger.info(f"SSL keyfile: {os.path.abspath(ssl_keyfile)}")
         logger.info(f"SSL certfile: {os.path.abspath(ssl_certfile)}")

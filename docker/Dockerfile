@@ -68,4 +68,4 @@ VOLUME ["/conf"]
 # Health check
 HEALTHCHECK CMD curl --fail http://localhost:8080/ping || exit 1
 
-CMD ["planet_crs_registry","--conf_file /conf/planet_crs_registry.conf"]
+CMD planet_crs_registry --conf_file /conf/planet_crs_registry.conf

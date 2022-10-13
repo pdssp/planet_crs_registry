@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# certificate
+*.pem
+
 # C extensions
 *.so
 
