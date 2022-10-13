@@ -18,16 +18,19 @@
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Main program."""
 import argparse
+import asyncio
+import concurrent.futures
 import logging
 import os
-import signal
-import sys
 
 from .planet_crs_registry import PlanetCrsRegistryLib
 from planet_crs_registry import __author__
 from planet_crs_registry import __copyright__
 from planet_crs_registry import __description__
 from planet_crs_registry import __version__
+from planet_crs_registry.core.business import SqlDatabase
+
+logger = logging.getLogger(__name__)
 
 
 class SmartFormatter(argparse.HelpFormatter):
@@ -38,25 +41,6 @@ class SmartFormatter(argparse.HelpFormatter):
             return text[2:].splitlines()
         # this is the RawTextHelpFormatter._split_lines
         return argparse.HelpFormatter._split_lines(self, text, width)
-
-
-class SigintHandler:  # pylint: disable=too-few-public-methods
-    """Handles the signal"""
-
-    def __init__(self):
-        self.SIGINT = False  # pylint: disable=invalid-name
-
-    def signal_handler(self, sig: int, frame):
-        """Trap the signal
-
-        Args:
-            sig (int): the signal number
-            frame: the current stack frame
-        """
-        # pylint: disable=unused-argument
-        logging.error("You pressed Ctrl+C")
-        self.SIGINT = True
-        sys.exit(2)
 
 
 def str2bool(string_to_test: str) -> bool:
@@ -86,6 +70,9 @@ def parse_cli() -> argparse.Namespace:
         formatter_class=SmartFormatter,
         epilog=__author__ + " - " + __copyright__,
     )
+
+    parser.register("type", "bool", str2bool)  # add type keyword to registries
+
     parser.add_argument(
         "-v", "--version", action="version", version="%(prog)s " + __version__
     )
@@ -110,25 +97,80 @@ def parse_cli() -> argparse.Namespace:
         help="set Level log (default: %(default)s)",
     )
 
+    parser.add_argument(
+        "--protocols",
+        choices=[
+            "HTTP",
+            "HTTPS",
+            "HTTP/HTTPS",
+        ],
+        default="HTTP/HTTPS",
+        help="Starts the server with the protocol(s) (default: %(default)s)",
+    )
+
+    parser.add_argument(
+        "--use_cache",
+        type="bool",
+        choices=[True, False],
+        default=True,
+        help="Use the created WKT database if True (default: %(default)s)",
+    )
+
     return parser.parse_args()
+
+
+def run_http(options_cli):
+    """Main function that instanciates the library with http."""
+    logger.info("Starting Planet Crs Registry with http")
+    planet_crs_registry = PlanetCrsRegistryLib(
+        options_cli.conf_file,
+        level=options_cli.level,
+    )
+    planet_crs_registry.start_http()
+
+
+def run_https(options_cli):
+    """Main function that instanciates the library with https."""
+    logger.info("Starting Planet Crs Registry with https")
+    planet_crs_registry = PlanetCrsRegistryLib(
+        options_cli.conf_file,
+        level=options_cli.level,
+    )
+    planet_crs_registry.start_https()
+
+
+def handle_cache(options_cli):
+    """Handle the cache of the SQL lite database."""
+    sql_db = SqlDatabase()
+    if os.path.exists(sql_db.db_path):
+        if options_cli.use_cache:
+            logger.info(f"Using cache: {sql_db.db_path}")
+        else:
+            logger.info(f"removing {sql_db.db_path}")
+            os.remove(sql_db.db_path)
+            asyncio.run(sql_db.create_db())
+    else:
+        asyncio.run(sql_db.create_db())
 
 
 def run():
     """Main function that instanciates the library."""
-    logger = logging.getLogger(__name__)
     logger.info("*** Welcome to Planet Crs Registry ***")
-    handler = SigintHandler()
-    signal.signal(signal.SIGINT, handler.signal_handler)
     try:
         options_cli = parse_cli()
-        planet_crs_registry = PlanetCrsRegistryLib(
-            options_cli.conf_file,
-            level=options_cli.level,
-        )
-        planet_crs_registry.start()
+        handle_cache(options_cli)
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            if options_cli.protocols == "HTTP":
+                executor.submit(run_http, options_cli)
+            elif options_cli.protocols == "HTTPS":
+                executor.submit(run_https, options_cli)
+            elif options_cli.protocols == "HTTP/HTTPS":
+                executor.submit(run_http, options_cli)
+                executor.submit(run_https, options_cli)
+            else:
+                raise Exception("Unknown protocol to start the server")
     except Exception as error:  # pylint: disable=broad-except
         logging.exception(error)
-        sys.exit(1)
 
 
 if __name__ == "__main__":

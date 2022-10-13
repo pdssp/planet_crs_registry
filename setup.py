@@ -48,6 +48,14 @@ setuptools.setup(
     },
     include_package_data=True,
     data_files=[
+        (
+            "certificates",
+            [
+                "certificates/cert.pem",
+                "certificates/key.pem",
+                "certificates/README",
+            ],
+        ),
         ("data", ["data/result.wkts"]),
         (
             "templates",

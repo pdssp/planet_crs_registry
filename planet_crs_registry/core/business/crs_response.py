@@ -13,14 +13,16 @@ class IdentifiersResponse(Response):
     media_type = "application/xml"
 
     def render(self, content: Any) -> bytes:
+        result: bytes
         if content is None:
-            return b""
+            result = b""
         elif isinstance(content, bytes):
-            return content
+            result = content
         elif isinstance(content, Identifiers):
-            return content.to_xml()
+            result = content.to_xml()
         else:
-            return Identifiers(identifiers=content).to_xml()
+            result = Identifiers(identifiers=content).to_xml()
+        return result
 
 
 class GmlResponse(Response):

@@ -62,4 +62,4 @@ EXPOSE 8080
 # Health check
 HEALTHCHECK CMD curl --fail http://localhost:8080/ping || exit 1
 
-CMD ["planet_crs_registry"]
+ENTRYPOINT ["planet_crs_registry"]

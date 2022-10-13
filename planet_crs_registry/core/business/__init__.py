@@ -19,13 +19,14 @@
 """Business - Business classes"""
 from .crs_response import GmlResponse
 from .crs_response import IdentifiersResponse
+from .database import SqlDatabase
+from .database import WktDatabase
 from .search import query_rep
 from .search import query_search
 from .search import root_directory
-from .wkt_database import WktDatabase
 
 __all__ = [
-    "WktDatabase",
+    "SqlDatabase" "WktDatabase",
     "query_search",
     "query_rep",
     "root_directory",

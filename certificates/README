@@ -1,0 +1,25 @@
+Install
+-------
+sudo apt install libnss3-tools
+curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
+chmod +x mkcert-v*-linux-amd64
+sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
+
+Usage
+-----
+mkcert -cert-file cert.pem -key-file key.pem 0.0.0.0 localhost 127.0.0.1 ::1
+
+mkcert kifarunix-demo.com '*.kifarunix-demo.com' localhost 127.0.0.1 ::1
+Sample command output;
+Created a new certificate valid for the following names 📜
+ - "kifarunix-demo.com"
+ - "*.kifarunix-demo.com"
+ - "localhost"
+ - "127.0.0.1"
+ - "::1"
+
+Reminder: X.509 wildcards only go one level deep, so this won't match a.b.kifarunix-demo.com ℹ️
+
+The certificate is at "./kifarunix-demo.com+4.pem" and the key at "./kifarunix-demo.com+4-key.pem" ✅
+
+It will expire on 31 August 2023

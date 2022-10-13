@@ -41,7 +41,6 @@ from ..business import WktDatabase
 from ..models import Identifiers_Pydantic
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
-from planet_crs_registry.config import tortoise_config
 
 logger = logging.getLogger(__name__)
 
@@ -570,45 +569,16 @@ async def get_iau_gml(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"IAU:{iau_version}:{code} not found",
             )
-        else:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error when retrieving IAU:{iau_version}:{code} as GML - {error}",
-            )
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error when retrieving IAU:{iau_version}:{code} as GML - {error}",
+        )
 
 
 @router.on_event("startup")
 async def startup_event():
     """Startup the server."""
-    pattern = "sqlite://(?P<db_name>.*)"
-    match = re.match(pattern, tortoise_config.db_url)
-    file = None
-    if match is not None:
-        file = pathlib.Path(match.group("db_name"))
-
-    if file is None or not file.exists():
-        await Tortoise.init(
-            db_url=tortoise_config.db_url, modules=tortoise_config.modules
-        )
-        await Tortoise.generate_schemas()
-        wkt = WktDatabase()
-        index = wkt.index
-        logger.info("nb records : %s", len(index))
-        for record in index:
-            wkt_data = {
-                "id": f"IAU:{record.iau_version}:{record.iau_code}",
-                "version": int(record.iau_version),
-                "code": int(record.iau_code),
-                "solar_body": re.match(r"[^\s]+", record.datum).group(0),
-                "datum_name": record.datum,
-                "ellipsoid_name": record.ellipsoid,
-                "projection_name": record.projcrs,
-                "wkt": record.wkt,
-            }
-            await WKT_model.create(**wkt_data)
-        logger.info("Database loaded")
-    else:
-        logger.info("loading the db")
+    logger.info("loading the db")
 
 
 @router.on_event("shutdown")

@@ -16,7 +16,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-from typing import Any
 from typing import List
 
 from pydantic import create_model

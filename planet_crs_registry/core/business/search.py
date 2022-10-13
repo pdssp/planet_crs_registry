@@ -52,7 +52,7 @@ class QuerySearch:
 
     def __init__(self):
         """Initialization"""
-        self.__client = http3.AsyncClient()
+        self.__client = http3.AsyncClient(verify=False)
 
     @property
     def client(self):

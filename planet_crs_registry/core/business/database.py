@@ -21,6 +21,7 @@
 import logging
 import re
 from dataclasses import dataclass
+from os import getcwd
 from os import path
 from typing import cast
 from typing import Dict
@@ -28,11 +29,16 @@ from typing import List
 from typing import Optional
 from typing import Tuple
 
+from tortoise import Tortoise
+
+from planet_crs_registry.config import tortoise_config
+from planet_crs_registry.core.models import WKT_model
+
 logger = logging.getLogger(__name__)
 
 
 class WktDatabase:  # pylint: disable=R0903
-    """WKT database"""
+    """WKT database as WKT-crs standard"""
 
     OGRAPHIC = "Ographic"
     OCENTRIC = "Ocentric"
@@ -152,3 +158,45 @@ class DatabaseRecord:  # pylint: disable=R0902
     iau_version: str
     projcrs: str
     wkt: str
+
+
+class SqlDatabase:
+    """WKT database as SQL"""
+
+    def __init__(self):
+        """Init"""
+        self.__db_url: str = tortoise_config.db_url
+        db_url_path: str = self.__db_url.replace("sqlite://", "")
+        self.__db_path: str = path.abspath(path.join(getcwd(), db_url_path))
+
+    @property
+    def db_url(self):
+        return self.__db_url
+
+    @property
+    def db_path(self):
+        return self.__db_path
+
+    async def create_db(self):
+        """Create the WKT database"""
+        await Tortoise.init(
+            db_url=self.db_url, modules=tortoise_config.modules
+        )
+        await Tortoise.generate_schemas()
+        wkt = WktDatabase()
+        index = wkt.index
+        logger.info("nb records : %s", len(index))
+        for record in index:
+            wkt_data = {
+                "id": f"IAU:{record.iau_version}:{record.iau_code}",
+                "version": int(record.iau_version),
+                "code": int(record.iau_code),
+                "solar_body": re.match(r"[^\s]+", record.datum).group(0),
+                "datum_name": record.datum,
+                "ellipsoid_name": record.ellipsoid,
+                "projection_name": record.projcrs,
+                "wkt": record.wkt,
+            }
+            await WKT_model.create(**wkt_data)
+        await Tortoise.close_connections()
+        logger.info("Database loaded")

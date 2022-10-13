@@ -19,6 +19,8 @@
 """This module contains the library."""
 import configparser
 import logging.config
+import os
+import ssl
 
 import uvicorn  # type: ignore
 from fastapi import FastAPI
@@ -93,11 +95,49 @@ class PlanetCrsRegistryLib:
         """
         return self.__app
 
-    def start(self):
-        """Starts the server."""
-        logger.info("Starting application initialization...")
+    def start_https(self):
+        """Starts the https server."""
+        logger.info("Starting application initialization with Https...")
         init(self.app)
-        logger.info("Successfully initialized!")
-        host: str = self.config["MAIN"]["host"]
-        port: int = int(self.__config["MAIN"]["port"])
-        uvicorn.run(self.app, host=host, port=port)
+        logger.info("Successfully initialized with https!")
+        dir_name = os.path.abspath(os.path.dirname(__file__))
+        host: str = self.config["HTTPS"]["host"]
+        port: int = int(self.__config["HTTPS"]["port"])
+        ssl_keyfile: str = self.config["HTTPS"]["ssl_keyfile"]
+        ssl_keyfile = (
+            ssl_keyfile
+            if ssl_keyfile.startswith("/")
+            else os.path.join(dir_name, "..", ssl_keyfile)
+        )
+        ssl_certfile: str = self.config["HTTPS"]["ssl_certfile"]
+        ssl_certfile = (
+            ssl_certfile
+            if ssl_certfile.startswith("/")
+            else os.path.join(dir_name, "..", ssl_certfile)
+        )
+        logger.info(f"SSL keyfile: {os.path.abspath(ssl_keyfile)}")
+        logger.info(f"SSL certfile: {os.path.abspath(ssl_certfile)}")
+        try:
+            uvicorn.run(
+                self.app,
+                host=host,
+                port=port,
+                ssl_version=ssl.PROTOCOL_SSLv23,
+                ssl_cert_reqs=ssl.CERT_OPTIONAL,
+                ssl_keyfile=ssl_keyfile,
+                ssl_certfile=ssl_certfile,
+            )
+        except Exception as error:
+            logger.error(f"Cannot start the Https server: {error}")
+
+    def start_http(self):
+        """Starts the Http server."""
+        logger.info("Starting application initialization with Http...")
+        init(self.app)
+        logger.info("Successfully initialized with http!")
+        host: str = self.config["HTTP"]["host"]
+        port: int = int(self.__config["HTTP"]["port"])
+        try:
+            uvicorn.run(self.app, host=host, port=port)
+        except Exception as error:
+            logger.error(f"Cannot start the Http server: {error}")

@@ -1,4 +1,14 @@
-### Add about_us.html template in the packaging (HEAD -> main)
+### Add HTTPS support (HEAD -> main)
+>Thu, 13 Oct 2022 18:52:59 +0200
+
+>Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add about_us.html template in the packaging (origin/main, origin/HEAD)
 >Wed, 12 Oct 2022 05:40:28 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Change copyright Add About us page (origin/main, origin/HEAD)
+### Change copyright Add About us page
 >Wed, 12 Oct 2022 05:05:22 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
