@@ -1,4 +1,14 @@
-### Add HTTPS support (HEAD -> main)
+### Fix packaging (HEAD -> main)
+>Thu, 13 Oct 2022 19:04:10 +0200
+
+>Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add HTTPS support (origin/main, origin/HEAD)
 >Thu, 13 Oct 2022 18:52:59 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Add about_us.html template in the packaging (origin/main, origin/HEAD)
+### Add about_us.html template in the packaging
 >Wed, 12 Oct 2022 05:40:28 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)

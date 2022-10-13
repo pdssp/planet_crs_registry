@@ -54,12 +54,18 @@ RUN apt-get update && \
     cd planet_crs_registry && \
     export API_TEST=True &&\
     pip install --upgrade h11==0.8.* && \
-    make
+    make && \
+    mkdir -p /conf && \
+    cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
+
 
 # Expose the http server on 8080
-EXPOSE 8080
+EXPOSE 8080 5000
+
+# Mount config file
+VOLUME ["/conf"]
 
 # Health check
 HEALTHCHECK CMD curl --fail http://localhost:8080/ping || exit 1
 
-ENTRYPOINT ["planet_crs_registry"]
+CMD ["planet_crs_registry","--conf_file /conf/planet_crs_registry.conf"]

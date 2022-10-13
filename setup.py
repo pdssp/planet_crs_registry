@@ -51,8 +51,6 @@ setuptools.setup(
         (
             "certificates",
             [
-                "certificates/cert.pem",
-                "certificates/key.pem",
                 "certificates/README",
             ],
         ),
