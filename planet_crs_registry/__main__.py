@@ -20,6 +20,7 @@
 import argparse
 import asyncio
 import concurrent.futures
+import configparser
 import logging
 import os
 
@@ -98,17 +99,6 @@ def parse_cli() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--protocols",
-        choices=[
-            "HTTP",
-            "HTTPS",
-            "HTTP/HTTPS",
-        ],
-        default="HTTP/HTTPS",
-        help="Starts the server with the protocol(s) (default: %(default)s)",
-    )
-
-    parser.add_argument(
         "--use_cache",
         type="bool",
         choices=[True, False],
@@ -159,13 +149,16 @@ def run():
     try:
         options_cli = parse_cli()
         handle_cache(options_cli)
+        config = configparser.ConfigParser()
+        config.optionxform = str
+        config.read(os.path.abspath(options_cli.conf_file))
         with concurrent.futures.ProcessPoolExecutor() as executor:
-            if options_cli.protocols == "HTTP":
+            if "HTTP" in config and "HTTPS" in config:
                 executor.submit(run_http, options_cli)
-            elif options_cli.protocols == "HTTPS":
                 executor.submit(run_https, options_cli)
-            elif options_cli.protocols == "HTTP/HTTPS":
+            elif "HTTP" in config:
                 executor.submit(run_http, options_cli)
+            elif "HTTPS" in config:
                 executor.submit(run_https, options_cli)
             else:
                 raise Exception("Unknown protocol to start the server")

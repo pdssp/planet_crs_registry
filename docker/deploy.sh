@@ -31,7 +31,7 @@ ps=`docker ps -a | grep pdssp-planet_crs_registry | wc -l`
 if [ $ps = 0 ];
 then
 	echo "no container available, start one"
-	docker run --rm --name=pdssp-planet_crs_registry \
+	docker run --name=pdssp-planet_crs_registry \
 	-p 8080:8080 -p 5000:5000 \
 	pdssp/planet_crs_registry
 	exit $?
