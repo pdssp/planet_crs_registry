@@ -75,7 +75,8 @@ class QuerySearch:
         result = await self.client.get(url)
         return result.text
 
-    def _filter_records(self, response: str) -> List:
+    @staticmethod
+    def _filter_records(response: str) -> List:
         """Filters the records by removing version and code.
 
         Args:
@@ -118,7 +119,7 @@ class QuerySearch:
                     await self._call_api(f"{base_url}ws/wkts/count")
                 )
                 offset = limit * (page - 1)
-                result = self._filter_records(
+                result = QuerySearch._filter_records(
                     await self._call_api(
                         f"{base_url}ws/wkts?offset={offset}&limit={limit}"
                     )

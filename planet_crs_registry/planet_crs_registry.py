@@ -135,8 +135,12 @@ class PlanetCrsRegistryLib:
             if ssl_certfile.startswith("/")
             else os.path.join(self.dir_conf, ssl_certfile)
         )
-        logger.info(f"SSL keyfile: {os.path.abspath(ssl_keyfile)}")
-        logger.info(f"SSL certfile: {os.path.abspath(ssl_certfile)}")
+        logger.info(
+            f"SSL keyfile: {os.path.abspath(ssl_keyfile)}"
+        )  # pylint: disable=W1203
+        logger.info(
+            f"SSL certfile: {os.path.abspath(ssl_certfile)}"
+        )  # pylint: disable=W1203
         try:
             uvicorn.run(
                 self.app,
@@ -147,8 +151,10 @@ class PlanetCrsRegistryLib:
                 ssl_keyfile=ssl_keyfile,
                 ssl_certfile=ssl_certfile,
             )
-        except Exception as error:
-            logger.error(f"Cannot start the Https server: {error}")
+        except Exception as error:  # pylint: disable=W0703
+            logger.error(
+                f"Cannot start the Https server: {error}"
+            )  # pylint: disable=W1203
 
     def start_http(self):
         """Starts the Http server."""
@@ -159,5 +165,7 @@ class PlanetCrsRegistryLib:
         port: int = int(self.__config["HTTP"]["port"])
         try:
             uvicorn.run(self.app, host=host, port=port)
-        except Exception as error:
-            logger.error(f"Cannot start the Http server: {error}")
+        except Exception as error:  # pylint: disable=W0703
+            logger.error(
+                f"Cannot start the Http server: {error}"
+            )  # pylint: disable=W1203

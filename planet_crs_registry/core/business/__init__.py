@@ -26,7 +26,8 @@ from .search import query_search
 from .search import root_directory
 
 __all__ = [
-    "SqlDatabase" "WktDatabase",
+    "SqlDatabase",
+    "WktDatabase",
     "query_search",
     "query_rep",
     "root_directory",

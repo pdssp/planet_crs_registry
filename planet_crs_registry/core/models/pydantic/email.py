@@ -16,11 +16,14 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-from pydantic import BaseModel
+"""Handles models related to Email."""
+from pydantic import BaseModel  # pylint: disable=E0611
 
 
 # properties required during contact email
-class ContactEmail(BaseModel):
+class ContactEmail(BaseModel):  # pylint: disable=E0611,R0903
+    """Contact Email."""
+
     firstName: str
     name: str
     email: str

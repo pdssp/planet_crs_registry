@@ -57,6 +57,14 @@ async def root():
     tags=["Users"],
 )
 async def send_email(contact: ContactEmail):
+    """Send Email to contactEmail
+
+    Args:
+        contact (ContactEmail): Information about the contact
+
+    Raises:
+        HTTPException: SMTP error
+    """
     hostname = cfg.SMTP_HOST
     port = cfg.SMTP_PORT
     user = cfg.SMTP_LOGIN
@@ -75,10 +83,12 @@ async def send_email(contact: ContactEmail):
             server.sendmail(sender, receiver, msg.as_string())
             logger.info("mail successfully sent")
     except ConnectionRefusedError as err:
-        logger.error(f"SMTP error ({hostname}:{port}): {err}")
+        logger.error(
+            f"SMTP error ({hostname}:{port}): {err}"
+        )  # pylint: disable=W1203
         raise HTTPException(
             status_code=500, detail="Cannot connect to SMTP server !"
-        )
+        ) from err
 
 
 @router.get("/ping")

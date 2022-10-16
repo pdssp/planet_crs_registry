@@ -18,10 +18,6 @@
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Services router"""
 import logging
-import pathlib
-import re
-import smtplib
-from email.mime.text import MIMEText
 from typing import List
 from typing import Optional
 
@@ -37,7 +33,6 @@ from tortoise.functions import Lower
 from ..business import GmlResponse
 from ..business import IdentifiersResponse
 from ..business import query_search
-from ..business import WktDatabase
 from ..models import Identifiers_Pydantic
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
@@ -459,7 +454,8 @@ async def search(
     Args:
         search_term_kw (str): Term to search
         limit (int, optional):  Number of records to display.. Defaults to LIMIT_QUERY.
-        offset (int, optional): Number of records from which we start to display. Defaults to OFFSET_QUERY.
+        offset (int, optional): Number of records from which we start to display. \
+            Defaults to OFFSET_QUERY.
 
     Returns:
         List[WKT_model]: WKTs matching the keyword
@@ -506,7 +502,12 @@ async def search_count(
     include_in_schema=True,
     tags=["OGC Bridge"],
 )
-async def get_iau_versions() -> str:
+async def get_iau_versions() -> IdentifiersResponse:
+    """Returns the list of IAU versions.
+
+    Returns:
+        IdentifiersResponse: IAU versions
+    """
     versions: List[int] = await get_versions()
     identifier_list: List = list()
     for version in versions:
@@ -529,7 +530,17 @@ async def get_iau_wkts(
     iau_version: int = Path(
         default=2015, description="Version of the WKT", gt=2014
     ),
-) -> str:
+) -> IdentifiersResponse:
+    """Returns the list of IAU CRS code for a given version.
+    Note: Triaxial Axis are ignored in this list.
+
+    Args:
+        iau_version (int, optional): IAU version. \
+            Defaults to Path( default=2015, description="Version of the WKT", gt=2014 ).
+
+    Returns:
+        IdentifiersResponse: the list of IAU CRS code as XML response
+    """
     number: int = await version_count(iau_version)
     wkts: List[WKT_model] = await get_version(iau_version, number, 0)
     identifier_list = list()
@@ -560,19 +571,35 @@ async def get_iau_gml(
         description="Identifier of the WKT",
         regex="^\d*$",  # noqa: W605  # pylint: disable=W1401
     ),
-) -> str:
+) -> GmlResponse:
+    """Returns the GML response for a given IAU crs.
+
+    Args:
+        iau_version (int, optional): version of the IAU CRS. \
+            Defaults to Path( default=2015, description="Version of the WKT", gt=2014 ).
+        code (_type_, optional): IAU CRS code. \
+            Defaults to Path( default="1000", description="Identifier of the WKT", \
+                regex="^\\d*$",).
+
+    Raises:
+        HTTPException: 404 - IAU CRS Not found
+        HTTPException: 500 - Error when retrieving the IAU CRS as GML
+
+    Returns:
+        GmlResponse: IAU crs as GML representation
+    """
     try:
         return GmlResponse(content=f"IAU:{iau_version}:{code}")
     except Exception as error:
-        if "crs not found" in error:
+        if "crs not found" in str(error):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"IAU:{iau_version}:{code} not found",
-            )
+            ) from error
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error when retrieving IAU:{iau_version}:{code} as GML - {error}",
-        )
+        ) from error
 
 
 @router.on_event("startup")

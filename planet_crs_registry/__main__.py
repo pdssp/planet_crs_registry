@@ -19,10 +19,12 @@
 """Main program."""
 import argparse
 import asyncio
-import concurrent.futures
 import configparser
 import logging
 import os
+import signal
+from multiprocessing import Process
+from typing import List
 
 from .planet_crs_registry import PlanetCrsRegistryLib
 from planet_crs_registry import __author__
@@ -42,6 +44,53 @@ class SmartFormatter(argparse.HelpFormatter):
             return text[2:].splitlines()
         # this is the RawTextHelpFormatter._split_lines
         return argparse.HelpFormatter._split_lines(self, text, width)
+
+
+class SigintHandler:  # pylint: disable=too-few-public-methods
+    """Handles the signal"""
+
+    def __init__(self):
+        self.__signint = False  # pylint: disable=invalid-name
+        self.__process: List[Process] = list()
+
+    @property
+    def sigint(self) -> bool:
+        """Check if signal has been activated.
+
+        :getter: Returns the signal
+        :type: boolean
+        """
+        return self.__signint
+
+    @property
+    def process(self) -> List[Process]:
+        """The list of process (http & https).
+
+        :getter: Returns the list of processes.
+        :type: List[Process]
+        """
+        return self.__process
+
+    def add_process(self, process: Process):
+        """Add a new process
+
+        Args:
+            process (Process): object represent activity that is run in a separate process
+        """
+        self.__process.append(process)
+
+    def signal_handler(self, sig: int, frame):
+        """Trap the signal
+        Args:
+            sig (int): the signal number
+            frame: the current stack frame
+        """
+        # pylint: disable=unused-argument
+        logging.error("You pressed Ctrl+C")
+        for process in self.process:
+            process.terminate()
+            process.join()
+        self.__signint = True
 
 
 def str2bool(string_to_test: str) -> bool:
@@ -100,7 +149,7 @@ def parse_cli() -> argparse.Namespace:
 
     parser.add_argument(
         "--use_cache",
-        type="bool",
+        type="bool",  # type: ignore
         choices=[True, False],
         default=True,
         help="Use the created WKT database if True (default: %(default)s)",
@@ -134,9 +183,11 @@ def handle_cache(options_cli):
     sql_db = SqlDatabase()
     if os.path.exists(sql_db.db_path):
         if options_cli.use_cache:
-            logger.info(f"Using cache: {sql_db.db_path}")
+            logger.info(
+                f"Using cache: {sql_db.db_path}"
+            )  # pylint: disable=W1203
         else:
-            logger.info(f"removing {sql_db.db_path}")
+            logger.info(f"removing {sql_db.db_path}")  # pylint: disable=W1203
             os.remove(sql_db.db_path)
             asyncio.run(sql_db.create_db())
     else:
@@ -146,22 +197,40 @@ def handle_cache(options_cli):
 def run():
     """Main function that instanciates the library."""
     logger.info("*** Welcome to Planet Crs Registry ***")
+    handler = SigintHandler()
+    signal.signal(signal.SIGINT, handler.signal_handler)
     try:
         options_cli = parse_cli()
         handle_cache(options_cli)
         config = configparser.ConfigParser()
         config.optionxform = str
         config.read(os.path.abspath(options_cli.conf_file))
-        with concurrent.futures.ProcessPoolExecutor() as executor:
-            if "HTTP" in config and "HTTPS" in config:
-                executor.submit(run_http, options_cli)
-                executor.submit(run_https, options_cli)
-            elif "HTTP" in config:
-                executor.submit(run_http, options_cli)
-            elif "HTTPS" in config:
-                executor.submit(run_https, options_cli)
-            else:
-                raise Exception("Unknown protocol to start the server")
+
+        if "HTTP" in config and "HTTPS" in config:
+            http_process: Process = Process(
+                target=run_http, args=(options_cli,)
+            )
+            http_process.start()
+            https_process: Process = Process(
+                target=run_https, args=(options_cli,)
+            )
+            https_process.start()
+            handler.add_process(http_process)
+            handler.add_process(https_process)
+        elif "HTTP" in config:
+            http_process: Process = Process(
+                target=run_http, args=(options_cli,)
+            )
+            http_process.start()
+            handler.add_process(http_process)
+        elif "HTTPS" in config:
+            https_process: Process = Process(
+                target=run_https, args=(options_cli,)
+            )
+            https_process.start()
+            handler.add_process(https_process)
+        else:
+            raise Exception("Unknown protocol to start the server")
     except Exception as error:  # pylint: disable=broad-except
         logging.exception(error)
 

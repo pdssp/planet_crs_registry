@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
 # Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
 #
@@ -68,10 +67,9 @@ class WktDatabase:  # pylint: disable=R0903
     def __init__(self):
         self.__index: List[DatabaseRecord] = list()
         logger.info("Create database based on data/result.wkts")
-        wkts: Dict[int, Dict[str, str]] = self._load_wkts()
-        for key in wkts.keys():
-            wkt = wkts[key]
-            match, origin_ref = self._parse(wkt)
+        wkts: Dict[int, Dict[str, str]] = WktDatabase._load_wkts()
+        for wkt in wkts:
+            match, origin_ref = WktDatabase._parse(wkt)
             self._add_record(match, wkt, origin_ref)
 
     @property
@@ -79,7 +77,8 @@ class WktDatabase:  # pylint: disable=R0903
         """Records of the database"""
         return self.__index
 
-    def _load_wkts(self) -> Dict[int, Dict[str, str]]:
+    @staticmethod
+    def _load_wkts() -> Dict[int, Dict[str, str]]:
         here = path.abspath(path.dirname(__file__))
         result: Dict[int, Dict[str, str]] = dict()
         with open(
@@ -95,8 +94,9 @@ class WktDatabase:  # pylint: disable=R0903
                 result[idx]["db"] = wkt_processed
         return result
 
+    @staticmethod
     def _parse(
-        self, wkt: Dict[str, str]
+        wkt: Dict[str, str]
     ) -> Tuple[Optional[re.Match], Optional[str]]:
         match: Optional[re.Match] = None
         origin_ref: Optional[str] = None
@@ -170,11 +170,21 @@ class SqlDatabase:
         self.__db_path: str = path.abspath(path.join(getcwd(), db_url_path))
 
     @property
-    def db_url(self):
+    def db_url(self) -> str:
+        """The database URL.
+
+        :getter: Returns the database URL
+        :type: str
+        """
         return self.__db_url
 
     @property
-    def db_path(self):
+    def db_path(self) -> str:
+        """The directory's path of the database.
+
+        :getter: Returns directory's path
+        :type: str
+        """
         return self.__db_path
 
     async def create_db(self):

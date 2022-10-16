@@ -16,15 +16,16 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
+"""Models for making the OGC bridge from opengis to IAU CRS registry."""
 from typing import List
 
-from pydantic import create_model
-from pydantic import HttpUrl
-from pydantic_xml import BaseXmlModel
+from pydantic import create_model  # pylint: disable=E0611
+from pydantic import HttpUrl  # pylint: disable=E0611
+from pydantic_xml import BaseXmlModel  # type: ignore
 from pydantic_xml import element
 
 
-class Identifiers(
+class Identifiers(  # type: ignore
     BaseXmlModel,
     tag="identifiers",
     nsmap={
@@ -34,6 +35,8 @@ class Identifiers(
         "at": "http://www.opengis.net/def/crs/IAU/",
     },
 ):
+    """Model for identifiers response."""
+
     identifiers: List[HttpUrl] = element(tag="identifier")
 
 
