@@ -38,8 +38,8 @@ LABEL \
     org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="planet_crs_registry" \
     org.label-schema.description="The coordinates reference system registry for solar bodies" \
-    org.label-schema.url="https://github.com/pole-surfaces-planetaires/planet_crs_registry" \
-    org.label-schema.vcs-url="https://github.com/pole-surfaces-planetaires/planet_crs_registry" \
+    org.label-schema.url="https://github.com/pdssp/planet_crs_registry" \
+    org.label-schema.vcs-url="https://github.com/pdssp/planet_crs_registry" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vendor="PDSSP" \
     org.label-schema.version=$VERSION
@@ -50,7 +50,7 @@ RUN apt-get update && \
     make python3-pip && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
     pip install setuptools && \
-    git clone "https://github.com/pole-surfaces-planetaires/planet_crs_registry.git" && \
+    git clone "https://github.com/pdssp/planet_crs_registry.git" && \
     cd planet_crs_registry && \
     export API_TEST=True &&\
     pip install --upgrade h11==0.8.* && \

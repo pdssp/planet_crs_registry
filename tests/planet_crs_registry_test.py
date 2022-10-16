@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
+
 import pytest
 
 import planet_crs_registry
-import logging
 
 
 def test_name():
@@ -16,4 +17,3 @@ def test_logger():
         logging.getLogger(name) for name in logging.root.manager.loggerDict
     ]
     assert loggers[0].name == "root"
-    assert loggers[1].name == "planet_crs_registry"

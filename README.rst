@@ -4,16 +4,16 @@
 Planet CRS Registry
 ===============================
 
-.. image:: https://img.shields.io/github/v/tag/pole-surfaces-planetaires/planet_crs_registry
-.. image:: https://img.shields.io/github/v/release/pole-surfaces-planetaires/planet_crs_registry?include_prereleases
+.. image:: https://img.shields.io/github/v/tag/pdssp/planet_crs_registry
+.. image:: https://img.shields.io/github/v/release/pdssp/planet_crs_registry?include_prereleases
 
-.. image https://img.shields.io/github/downloads/pole-surfaces-planetaires/planet_crs_registry/total
-.. image https://img.shields.io/github/issues-raw/pole-surfaces-planetaires/planet_crs_registry
-.. image https://img.shields.io/github/issues-pr-raw/pole-surfaces-planetaires/planet_crs_registry
+.. image https://img.shields.io/github/downloads/pdssp/planet_crs_registry/total
+.. image https://img.shields.io/github/issues-raw/pdssp/planet_crs_registry
+.. image https://img.shields.io/github/issues-pr-raw/pdssp/planet_crs_registry
 .. image:: https://img.shields.io/badge/Maintained%3F-yes-green.svg
-   :target: https://github.com/pole-surfaces-planetaires/planet_crs_registry/graphs/commit-activity
-.. image https://img.shields.io/github/license/pole-surfaces-planetaires/planet_crs_registry
-.. image https://img.shields.io/github/forks/pole-surfaces-planetaires/planet_crs_registry?style=social
+   :target: https://github.com/pdssp/planet_crs_registry/graphs/commit-activity
+.. image https://img.shields.io/github/license/pdssp/planet_crs_registry
+.. image https://img.shields.io/github/forks/pdssp/planet_crs_registry?style=social
 
 
 The coordinates reference system registry for solar bodies
@@ -48,13 +48,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/pole-surfaces-planetaires/planet_crs_registry
+    $ git clone git://github.com/pdssp/planet_crs_registry
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/pole-surfaces-planetaires/planet_crs_registry/tarball/master
+    $ curl -OJL https://github.com/pdssp/planet_crs_registry/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -64,8 +64,8 @@ Once you have a copy of the source, you can install it with:
     $ make user # or Install for non-root usage
 
 
-.. _Github repo: https://github.com/pole-surfaces-planetaires/planet_crs_registry
-.. _tarball: https://github.com/pole-surfaces-planetaires/planet_crs_registry/tarball/master
+.. _Github repo: https://github.com/pdssp/planet_crs_registry
+.. _tarball: https://github.com/pdssp/planet_crs_registry/tarball/master
 
 
 
@@ -78,13 +78,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/pole-surfaces-planetaires/planet_crs_registry
+    $ git clone git://github.com/pdssp/planet_crs_registry
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/pole-surfaces-planetaires/planet_crs_registry/tarball/master
+    $ curl -OJL https://github.com/pdssp/planet_crs_registry/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -95,8 +95,8 @@ Once you have a copy of the source, you can install it with:
     $ make
 
 
-.. _Github repo: https://github.com/pole-surfaces-planetaires/planet_crs_registry
-.. _tarball: https://github.com/pole-surfaces-planetaires/planet_crs_registry/tarball/master
+.. _Github repo: https://github.com/pdssp/planet_crs_registry
+.. _tarball: https://github.com/pdssp/planet_crs_registry/tarball/master
 
 
 
@@ -105,7 +105,7 @@ Development
 
 .. code-block:: console
 
-        $ git clone https://github.com/pole-surfaces-planetaires/planet_crs_registry
+        $ git clone https://github.com/pdssp/planet_crs_registry
         $ cd planet_crs_registry
         $ make prepare-dev
         $ source .planet_crs_registry
@@ -134,9 +134,94 @@ Docker
 
 .. code-block:: console
 
-        $ docker pull mizarweb/planetary-crs-registry # get the image
-        $ docker run -p 8080:8080 mizarweb/planetary-crs-registry # Start the instance
+        $ docker pull pdssp/planetary-crs-registry # get the image
 
+### Run the registry as Http
+
+.. code-block:: console
+
+        $ docker run -p 8080:8080 mizarweb/planetary-crs-registry
+
+### Run the registry as Https
+
+Create the SSL certificate
+
+.. code-block:: console
+
+        $ mkdir -p /tmp/conf
+        $ cd /tmp/conf
+        $ mkcert -cert-file cert.pem -key-file key.pem 0.0.0.0 localhost 127.0.0.1 ::1
+
+Edit the configuration file
+
+.. code-block:: console
+
+        $ vi /tmp/conf/planet_crs_registry.conf
+
+And set the configuration file as follows:
+
+```
+[HTTPS]
+host = 0.0.0.0
+port = 5000
+ssl_keyfile = key.pem
+ssl_certfile = cert.pem
+```
+Create the container
+
+.. code-block:: console
+
+        $ docker run --name=pdssp-planet_crs_registry -p 5000:5000 -v /tmp/conf:/conf pdssp/planet_crs_registry
+
+
+     ### Run the registry as both Http and Https
+
+Create the SSL certificate
+
+.. code-block:: console
+
+        $ mkdir -p /tmp/conf
+        $ cd /tmp/conf
+        $ mkcert -cert-file cert.pem -key-file key.pem 0.0.0.0 localhost 127.0.0.1 ::1
+
+Edit the configuration file
+
+.. code-block:: console
+
+        $ vi /tmp/conf/planet_crs_registry.conf
+
+And set the configuration file as follows:
+
+```
+[HTTP]
+host = 0.0.0.0
+port = 8080
+
+[HTTPS]
+host = 0.0.0.0
+port = 5000
+ssl_keyfile = key.pem
+ssl_certfile = cert.pem
+```
+Create the container
+
+.. code-block:: console
+
+        $ docker run --name=pdssp-planet_crs_registry -p 5000:5000 -p 8080:8080 -v /tmp/conf:/conf pdssp/planet_crs_registry
+
+
+### Stop the registry
+
+.. code-block:: console
+
+        $ docker stop pdssp-planet_crs_registry
+
+
+### Restart the registry
+
+.. code-block:: console
+
+        $ docker start pdssp-planet_crs_registry
 
 
 Run tests
@@ -145,7 +230,6 @@ Run tests
 .. code-block:: console
 
         $make tests
-
 
 
 Author
