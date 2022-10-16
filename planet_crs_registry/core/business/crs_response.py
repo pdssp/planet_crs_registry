@@ -23,7 +23,7 @@ from typing import Any
 from fastapi import Response
 
 from ..models import Identifiers
-from planet_crs_registry.config.cfg import IS_PROD
+from planet_crs_registry.config.cfg import IS_PROD  # pylint: disable=C0411
 
 
 class IdentifiersResponse(Response):

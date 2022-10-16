@@ -95,9 +95,11 @@ lint:  ## Lint and static-check
 	mypy planet_crs_registry
 
 tests:  ## Run tests
+	export API_TEST=True
 	pytest -ra
 
 tox:
+	export API_TEST=True
 	tox -e py38
 
 doc:

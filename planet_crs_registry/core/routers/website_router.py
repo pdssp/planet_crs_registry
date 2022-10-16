@@ -34,7 +34,7 @@ from tortoise.contrib.fastapi import HTTPNotFoundError
 from ..business import query_rep
 from ..models import ContactEmail
 from ..models import WKT_model
-from planet_crs_registry.config import cfg
+from planet_crs_registry.config import cfg  # pylint: disable=C0411
 
 logger = logging.getLogger(__name__)
 
@@ -83,9 +83,9 @@ async def send_email(contact: ContactEmail):
             server.sendmail(sender, receiver, msg.as_string())
             logger.info("mail successfully sent")
     except ConnectionRefusedError as err:
-        logger.error(
+        logger.error(  # pylint: disable=W1203
             f"SMTP error ({hostname}:{port}): {err}"
-        )  # pylint: disable=W1203
+        )
         raise HTTPException(
             status_code=500, detail="Cannot connect to SMTP server !"
         ) from err

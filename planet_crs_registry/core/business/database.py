@@ -68,7 +68,8 @@ class WktDatabase:  # pylint: disable=R0903
         self.__index: List[DatabaseRecord] = list()
         logger.info("Create database based on data/result.wkts")
         wkts: Dict[int, Dict[str, str]] = WktDatabase._load_wkts()
-        for wkt in wkts:
+        for key in wkts:
+            wkt = wkts[key]
             match, origin_ref = WktDatabase._parse(wkt)
             self._add_record(match, wkt, origin_ref)
 

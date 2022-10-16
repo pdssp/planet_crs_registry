@@ -135,7 +135,7 @@ class PlanetCrsRegistryLib:
             if ssl_certfile.startswith("/")
             else os.path.join(self.dir_conf, ssl_certfile)
         )
-        logger.info(
+        logger.info(  # pylint: disable=W1203
             f"SSL keyfile: {os.path.abspath(ssl_keyfile)}"
         )  # pylint: disable=W1203
         logger.info(
