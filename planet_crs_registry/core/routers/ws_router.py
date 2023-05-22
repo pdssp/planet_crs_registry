@@ -106,7 +106,6 @@ async def wkts_count() -> int:
 )
 async def get_wkt(
     wkt_id: str = Path(
-        default="IAU:2015:1000",
         title="ID of the WKT.",
         description="ID of the WKT following this pattern : IAU:<version>:<code>",
         regex="^.*:\d*:\d*",  # noqa: W605  # pylint: disable=W1401
@@ -115,7 +114,7 @@ async def get_wkt(
     """Get a WKT representation for a given WKT identifier.
 
     Args:
-        wkt_id (str, optional): ID of the WKT. Defaults to IAU:2015:1000.
+        wkt_id (str, optional): ID of the WKT.
 
     Returns:
         str: The WKT representation
@@ -161,9 +160,7 @@ async def get_versions() -> List[int]:
     tags=["Browse by WKT version"],
 )
 async def get_version(
-    version_id: int = Path(
-        default=2015, description="Version of the WKT", gt=2014
-    ),
+    version_id: int = Path(description="Version of the WKT", gt=2014),
     limit: Optional[int] = LIMIT_QUERY,
     offset: Optional[int] = OFFSET_QUERY,
 ) -> List[WKT_model]:
@@ -171,7 +168,6 @@ async def get_version(
 
     Args:
         version_id (int, optional): Version of the WKT to search.
-        Defaults to 2015.
         limit (Optional[int], optional): Number of records to display.
         Defaults to 50.
         offset (Optional[int], optional): Number of records from which we
@@ -203,7 +199,6 @@ async def get_version(
 )
 async def version_count(
     version_id: int = Path(
-        default=2015,
         description="Count the number of WKTs for a given version",
         gt=2014,
     )
@@ -211,7 +206,7 @@ async def version_count(
     """Count the number of WKTs for a given version.
 
     Args:
-        version_id (int, optional): version. Defaults to 2015.
+        version_id (int, optional): version.
 
     Returns:
         int: The number of WKTs for a given version
@@ -231,11 +226,8 @@ async def version_count(
     },
 )
 async def get_wkt_version(
-    version_id: int = Path(
-        default=2015, description="Version of the WKT", gt=2014
-    ),
+    version_id: int = Path(description="Version of the WKT", gt=2014),
     wkt_id: str = Path(
-        default="IAU:2015:1000",
         description="Identifier of the WKT",
         regex="^.*:\d*:\d*$",  # noqa: W605  # pylint: disable=W1401
     ),
@@ -243,8 +235,8 @@ async def get_wkt_version(
     """Get a WKT representation for both a given version and WKT Id
 
     Args:
-        version_id (int, optional): Version of the WKT. Defaults to 2015.
-        wkt_id (str, optional): Identifier of the WKT. Defaults to IAU:2015:1000.
+        version_id (int, optional): Version of the WKT.
+        wkt_id (str, optional): Identifier of the WKT.
 
     Raises:
         HTTPException: Version or WKT Id not found
@@ -405,7 +397,6 @@ async def get_solar_body_count(
 async def get_wkt_body(
     solar_body: str,
     wkt_id: str = Path(
-        default="IAU:2015:1000",
         description="Identifier of the WKT",
         regex="^.*:\d*:\d*$",  # noqa: W605  # pylint: disable=W1401
     ),
@@ -414,7 +405,7 @@ async def get_wkt_body(
 
     Args:
         solar_body (str): solar body
-        wkt_id (str, optional): Identifier of the WKT. Defaults to IAU:2015:1000.
+        wkt_id (str, optional): Identifier of the WKT.
 
     Raises:
         HTTPException: solar body not found
@@ -527,16 +518,14 @@ async def get_iau_versions() -> IdentifiersResponse:
     tags=["OGC Bridge"],
 )
 async def get_iau_wkts(
-    iau_version: int = Path(
-        default=2015, description="Version of the WKT", gt=2014
-    ),
+    iau_version: int = Path(description="Version of the WKT", gt=2014),
 ) -> IdentifiersResponse:
     """Returns the list of IAU CRS code for a given version.
     Note: Triaxial Axis are ignored in this list.
 
     Args:
         iau_version (int, optional): IAU version. \
-            Defaults to Path( default=2015, description="Version of the WKT", gt=2014 ).
+            Defaults to Path( description="Version of the WKT", gt=2014 ).
 
     Returns:
         IdentifiersResponse: the list of IAU CRS code as XML response
@@ -563,11 +552,8 @@ async def get_iau_wkts(
     tags=["OGC Bridge"],
 )
 async def get_iau_gml(
-    iau_version: int = Path(
-        default=2015, description="Version of the WKT", gt=2014
-    ),
+    iau_version: int = Path(description="Version of the WKT", gt=2014),
     code: str = Path(
-        default="1000",
         description="Identifier of the WKT",
         regex="^\d*$",  # noqa: W605  # pylint: disable=W1401
     ),
@@ -576,9 +562,9 @@ async def get_iau_gml(
 
     Args:
         iau_version (int, optional): version of the IAU CRS. \
-            Defaults to Path( default=2015, description="Version of the WKT", gt=2014 ).
+            Defaults to Path( description="Version of the WKT", gt=2014 ).
         code (_type_, optional): IAU CRS code. \
-            Defaults to Path( default="1000", description="Identifier of the WKT", \
+            Defaults to Path( description="Identifier of the WKT", \
                 regex="^\\d*$",).
 
     Raises:

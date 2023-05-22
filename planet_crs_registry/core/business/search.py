@@ -27,7 +27,7 @@ from typing import Dict
 from typing import List
 from typing import Tuple
 
-import http3  # type: ignore
+import httpx  # type: ignore
 from fastapi import Request
 from fastapi import status
 from fastapi.templating import Jinja2Templates
@@ -52,7 +52,7 @@ class QuerySearch:
 
     def __init__(self):
         """Initialization"""
-        self.__client = http3.AsyncClient(verify=False)
+        self.__client = httpx.AsyncClient(verify=False)
 
     @property
     def client(self):

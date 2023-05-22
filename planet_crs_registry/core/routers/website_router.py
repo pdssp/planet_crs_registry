@@ -20,6 +20,7 @@
 import logging
 import smtplib
 from email.mime.text import MIMEText
+from typing import Any
 from typing import List
 from typing import Union
 
@@ -145,7 +146,7 @@ async def get_all_wkts_name_or_version(
     name_or_version: str,
     page: int = 1,
     limit: int = 100,
-) -> Union[List[int], object, List[WKT_model]]:
+):
     """Retrive the error page, the WKTs for a given version of planet name.
 
     Args:
@@ -153,11 +154,8 @@ async def get_all_wkts_name_or_version(
         name_or_version (str): planet name or version
         page (int, optional): Current page to display. Defaults to 1.
         limit (int, optional): Number of records per page. Defaults to 100.
-
-    Returns:
-        Union[List[int], object, List[WKT_model]]: Representation of the response
     """
-    result: Union[List[int], object, List[WKT_model]]
+    result: Union[List[int], Any, List[WKT_model]]
     if name_or_version.isnumeric() and int(name_or_version) == 404:
         result = query_rep.get_404(request)
     elif name_or_version.isnumeric():

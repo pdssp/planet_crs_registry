@@ -24,12 +24,19 @@ import ssl
 
 import uvicorn  # type: ignore
 from fastapi import FastAPI
+from uvicorn.config import LOGGING_CONFIG
 
 from ._version import __name_soft__
 from .config import openapi_config
 from .initializer import init
 
 logger = logging.getLogger(__name__)
+LOGGING_CONFIG["formatters"]["default"][
+    "fmt"
+] = "%(asctime)s [%(name)s] %(levelprefix)s %(message)s"
+LOGGING_CONFIG["formatters"]["access"][
+    "fmt"
+] = '%(asctime)s [%(name)s] %(levelprefix)s %(client_addr)s - "%(request_line)s" %(status_code)s'
 
 
 class PlanetCrsRegistryLib:
