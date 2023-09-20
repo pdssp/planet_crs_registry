@@ -140,7 +140,7 @@ Docker
 
 .. code-block:: console
 
-        $ docker run -p 8080:8080 mizarweb/planetary-crs-registry
+        $ docker run -p 8080:8080 pdssp/planetary-crs-registry
 
 ### Run the registry as Https
 
