@@ -17,11 +17,14 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Handles the IAU responses of the IAU web services."""
+import os
 import subprocess
+import tempfile
 from typing import Any
 
 from fastapi import Response
 
+from _version import __apache_sis__
 from ..models import Identifiers
 from planet_crs_registry.config.cfg import IS_PROD  # pylint: disable=C0411
 
@@ -50,11 +53,7 @@ class GmlResponse(Response):
     media_type = "application/xml"
 
     def render(self, content: str) -> bytes:
-        """Renders the GML response.
-        The GML response is renders in two different ways:
-        - in prod : use gdalsrsinfo because the web service is installed
-        in the same image as gdal
-        - in dev : use gdal image
+        """Renders the GML response with ApacheSIS CLI.
 
         Args:
             content (str): IAU identifier
@@ -62,41 +61,31 @@ class GmlResponse(Response):
         Returns:
             bytes: the response in GML
         """
+
+        # ApacheSIS CLI needs a file as input
+        with tempfile.NamedTemporaryFile(mode='w', delete=False) as temp_file:
+            temp_file.write(content)
+
         data: bytes
-        if IS_PROD:
-            data = subprocess.check_output(
-                [
-                    "gdalsrsinfo",
-                    content,
-                    "-o",
-                    "xml",
-                ]
-            )
-        else:
-            data = subprocess.check_output(
-                [
-                    "docker",
-                    "run",
-                    "--rm",
-                    "osgeo/gdal",
-                    "gdalsrsinfo",
-                    content,
-                    "-o",
-                    "xml",
-                ]
-            )
+        data = subprocess.check_output(
+            [f"/apache-sis-{__apache_sis__}/bin/sis", "crs", temp_file.name,
+             "--format", "xml"]
+        )
+
+        os.unlink(temp_file.name)
+
         data_str: str = data.decode("utf-8")
-        data_str = data_str.replace(
-            "<gml:GeographicCRS",
-            '<gml:GeographicCRS xmlns:gml="http://www.opengis.net/gml/3.2"\
-                 xmlns:gmd="http://www.isotc211.org/2005/gmd"',
-        )
-        data_str = data_str.replace(
-            "<gml:ProjectedCRS",
-            '<gml:ProjectedCRS xmlns:gml="http://www.opengis.net/gml/3.2"\
-                 xmlns:gmd="http://www.isotc211.org/2005/gmd"',
-        )
-        data_str = data_str.replace("\n", "")
+        # data_str = data_str.replace(
+        #     "<gml:GeographicCRS",
+        #     '<gml:GeographicCRS xmlns:gml="http://www.opengis.net/gml/3.2"\
+        #          xmlns:gmd="http://www.isotc211.org/2005/gmd"',
+        # )
+        # data_str = data_str.replace(
+        #     "<gml:ProjectedCRS",
+        #     '<gml:ProjectedCRS xmlns:gml="http://www.opengis.net/gml/3.2"\
+        #          xmlns:gmd="http://www.isotc211.org/2005/gmd"',
+        # )
+        # data_str = data_str.replace("\n", "")
         return Response(content=data_str, media_type="application/xml").render(
             data_str
         )

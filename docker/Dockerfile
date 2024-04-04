@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-FROM osgeo/gdal:latest
-
 LABEL maintainer="Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>"
 
 # Runtime distribution filename
