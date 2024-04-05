@@ -99,8 +99,20 @@ class QuerySearch:
         return filtered_result
 
     async def _query_records(
-            self, base_url: str, endpoint: str, page: int, limit: int, params: dict[str, str] | None = None
+            self, base_url: str, endpoint: str, page: int, limit: int, params: dict[str, int] | None = None
     ) -> Tuple[int, List]:
+        """Query the WKTs for a given endpoint using the web service.
+
+        Args:
+            base_url (str): base URL of the web service
+            endpoint (str): endpoint to query
+            page (int): current page
+            limit (int): number of elements in the page
+            params (dict[str, int]): dictionary of additional URL parameters
+
+        Returns:
+            Tuple[int, List]: total number of records, results in the page
+        """
         count_records: int = 0
         result: List = list()
         is_over = False
@@ -125,7 +137,7 @@ class QuerySearch:
         return count_records, result
 
     async def query_wkts(self, base_url: str, page: int, limit: int) -> Tuple[int, List]:
-        """Query the WKTs using the web service
+        """Query the WKTs using the web service.
 
         Args:
             base_url (str): base URL of the web service
@@ -141,7 +153,7 @@ class QuerySearch:
         return result
 
     async def query_version(self, base_url: str, version: int, page: int, limit: int):
-        """Get WKTs for a given version from the web service.
+        """Query the WKTs for a given version using the web service.
 
         Args:
             base_url (str): base URL
@@ -158,7 +170,7 @@ class QuerySearch:
         return result
 
     async def query_name(self, base_url: str, name: str, page: int, limit: int):
-        """Get WKTs for a given solar body using the web service.
+        """Query the WKTs for a given solar body using the web service.
 
         Args:
             base_url (str): base URL of the web service
@@ -192,7 +204,7 @@ class QuerySearch:
         return result
 
     async def query_version_list(self, base_url: str) -> List[int]:
-        """Get the different version numbers using the web service.
+        """Query the different version numbers using the web service.
 
         Args:
             base_url (str): base URL of the web service
