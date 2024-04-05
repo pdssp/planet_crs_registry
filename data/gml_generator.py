@@ -2,6 +2,8 @@ from subprocess import check_output, CalledProcessError
 from tempfile import NamedTemporaryFile
 import os
 from re import findall
+from tqdm import tqdm
+import threading
 
 from _version import __apache_sis__
 
@@ -93,13 +95,19 @@ def generate_gml_file_from_wkt(wkt: str, override_file_flag: bool) -> None:
         with open(f"gml/IAU_{iau_version}_{code}.xml", mode='wb') as output_file:
             output_file.write(result)
 
-    except FileNotFoundError:
+    except FileNotFoundError:   
         raise FileNotFoundError("ApacheSIS executable not found."
                                 "Please make sure ApacheSIS is installed and accessible.")
     except CalledProcessError as e:
         raise RuntimeError(f"ApacheSIS command execution failed with exit code {e.returncode}. Error: {e.output}")
     except Exception as e:
         raise RuntimeError(f"An unexpected error occurred: {str(e)}")
+
+
+def thread_worker(chunk, progress_bar, override_flag):
+    for wkt_content in chunk:
+        generate_gml_file_from_wkt(wkt_content, override_flag)
+        progress_bar.update(1)
 
 
 def generate_all_gml_files():
@@ -115,8 +123,24 @@ def generate_all_gml_files():
     with open("result.wkts", mode='r') as file:
         wkts = file.read().split("\n\n")
 
-    for wkt_content in wkts:
-        generate_gml_file_from_wkt(wkt_content, override_flag)
+    # tqdm for visual representation of the process
+    # for wkt_content in tqdm(wkts, desc="Generating GML files", unit="files"):
+    #     generate_gml_file_from_wkt(wkt_content, override_flag)
+
+    num_threads = 4
+    chunk_size = (len(wkts) + num_threads - 1) // num_threads
+    chunks = [wkts[i:i+chunk_size] for i in range(0, len(wkts), chunk_size)]
+
+    total_items = len(wkts)
+    with tqdm(total=total_items) as pbar:
+        threads = []
+        for chunk in chunks:
+            thread = threading.Thread(target=thread_worker, args=(chunk, pbar, override_flag))
+            thread.start()
+            threads.append(thread)
+        for thread in threads:
+            thread.join()
+    print("All threads have completed.")
 
 
 if __name__ == "__main__":

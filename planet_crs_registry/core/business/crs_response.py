@@ -17,9 +17,6 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Handles the IAU responses of the IAU web services."""
-import os
-import subprocess
-import tempfile
 from typing import Any
 
 from fastapi import Response

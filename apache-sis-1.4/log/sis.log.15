@@ -1,0 +1,7 @@
+PRÉCIS         [org.apache.sis.referencing.factory] Création d’une instance de ‘CoordinateSystemAxis’ nommée « Geodetic latitude ».
+PRÉCIS         [org.apache.sis.referencing.factory] Création d’une instance de ‘CoordinateSystemAxis’ nommée « Geodetic longitude ».
+PRÉCIS         [org.apache.sis.referencing.factory] Création d’une instance de ‘EllipsoidalCS’ nommée « Ellipsoidal CS: North (°), East (°). ».
+PRÉCIS         [org.apache.sis.referencing.factory] Création d’une instance de ‘PrimeMeridian’ nommée « Reference Meridian ».
+PRÉCIS         [org.apache.sis.referencing.factory] Création d’une instance de ‘Ellipsoid’ nommée « Despina (2015) ».
+PRÉCIS         [org.apache.sis.referencing.factory] Création d’une instance de ‘GeodeticDatum’ nommée « Despina (2015) ».
+PRÉCIS         [org.apache.sis.referencing.factory] Création d’une instance de ‘GeographicCRS’ nommée « Despina (2015) / Ographic » avec l’identifiant « IAU:80501 ».

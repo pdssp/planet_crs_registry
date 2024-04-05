@@ -8,5 +8,6 @@ pydantic-xml[lxml]==0.2.2
 python-dotenv==0.21.0
 setuptools-scm==7.0.5
 tortoise-orm==0.19.3
+tqdm==4.66.2
 types-setuptools==65.4.0.0
 uvicorn==0.22
