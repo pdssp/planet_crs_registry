@@ -24,7 +24,6 @@ from typing import Any
 
 from fastapi import Response
 
-from _version import __apache_sis__
 from ..models import Identifiers
 from planet_crs_registry.config.cfg import IS_PROD  # pylint: disable=C0411
 
@@ -34,7 +33,8 @@ class IdentifiersResponse(Response):
 
     media_type = "application/xml"
 
-    def render(self, content: Any) -> bytes:
+    @staticmethod
+    def render(content: Any) -> bytes:
         result: bytes
         if content is None:
             result = b""
@@ -52,27 +52,18 @@ class GmlResponse(Response):
 
     media_type = "application/xml"
 
-    def render(self, content: str) -> bytes:
-        """Renders the GML response with ApacheSIS CLI.
+    @staticmethod
+    def render(content: str) -> bytes:
+        """Renders the GML response from stored data.
 
         Args:
-            content (str): IAU identifier
+            content (str): IAU identifier (separated by underscore)
 
         Returns:
             bytes: the response in GML
         """
-
-        # ApacheSIS CLI needs a file as input
-        with tempfile.NamedTemporaryFile(mode='w', delete=False) as temp_file:
-            temp_file.write(content)
-
-        data: bytes
-        data = subprocess.check_output(
-            [f"/apache-sis-{__apache_sis__}/bin/sis", "crs", temp_file.name,
-             "--format", "xml"]
-        )
-
-        os.unlink(temp_file.name)
+        with open(f"{content}.xml", mode="rb") as gml_file:
+            data: bytes = gml_file.read()
 
         data_str: str = data.decode("utf-8")
         # data_str = data_str.replace(

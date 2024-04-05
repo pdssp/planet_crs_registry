@@ -125,10 +125,8 @@ def test_iau(conn):
         response.raise_for_status()  # Raise an HTTPError for bad responses
         content = response.content.decode("UTF-8")
         result = xmltodict.parse(content)
-        assert (
-            result["ns0:identifiers"]["ns0:identifier"]
-            == "http://www.opengis.net/def/crs/IAU/2015"
-        )
+        assert (result["ns0:identifiers"]["ns0:identifier"]
+                == "http://www.opengis.net/def/crs/IAU/2015")
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")
 
