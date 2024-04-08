@@ -60,10 +60,10 @@ class GmlResponse(Response):
             bytes: the response in GML
         """
         try:
-            with open(f"{content}.xml", mode="rb") as gml_file:
+            with open(f"../../../data/gml/{content}.xml", mode="rb") as gml_file:
                 data: bytes = gml_file.read()
         except FileNotFoundError:
-            raise FileNotFoundError(f"Error: File '{content}.xml' not found.")
+            raise FileNotFoundError(f"Error: File '/data/gml/{content}.xml' not found.")
         except IOError as e:
             raise IOError(f"Error: An I/O error occurred while opening '{content}.xml': {e}")
 
