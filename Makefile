@@ -2,74 +2,70 @@
 .PHONY: prepare-dev install-dev data help lint tests coverage upload-prod-pypi upload-test-pypi update_req update_req_dev pyclean doc doc-pdf visu-doc-pdf visu-doc tox licences
 VENV = ".planet_crs_registry"
 
-define PROJECT_HELP_MSG
-
-Usage:\n
-	\n
-    make help\t\t\t             show this message\n
-	\n
-	-------------------------------------------------------------------------\n
-	\t\tInstallation\n
-	-------------------------------------------------------------------------\n
-	make\t\t\t\t                Install planet_crs_registry in the system (root)\n
-	make user\t\t\t 			Install planet_crs_registry for non-root usage\n
-	\n
-	-------------------------------------------------------------------------\n
-	\t\tDevelopment\n
-	-------------------------------------------------------------------------\n
-	make prepare-dev\t\t 		Prepare Development environment\n
-	make install-dev\t\t 		Install COTS and planet_crs_registry for development purpose\n
-	make data\t\t\t				Download data\n
-	make test\t\t\t             Run units and integration tests\n
-	\n
-	make doc\t\t\t 				Generate the documentation\n
-	make doc-pdf\t\t\t 			Generate the documentation as PDF\n
-	make visu-doc-pdf\t\t 		View the generated PDF\n
-	make visu-doc\t\t\t			View the generated documentation\n
-	\n
-	make release\t\t\t 			Release the package as tar.gz\n
-	make upload-test-pypi\t\t   Upload the pypi package on the test platform\n
-	make upload-prod-pypi\t\t   Upload the pypi package on the prod platform\n
-	\n
-	make update_req\t\t			Update the version of the packages in requirements.txt\n
-	make update_req_dev\t\t 	Update the version of the packages in requirements_dev.txt\n
-	\n
-	make pyclean\t\t\t		Clean .pyc files and __pycache__ directories\n
-	\n
-	-------------------------------------------------------------------------\n
-	\t\tDocker\n
-	-------------------------------------------------------------------------\n
-	make docker-build\t\t 		Build the docker image\n
-	make docker-deploy\t\t 		Deploy the docker image\n
-	\n
-	-------------------------------------------------------------------------\n
-	\t\tOthers\n
-	-------------------------------------------------------------------------\n
-	make licences\t\t\t		Display the list of licences\n
-	make version\t\t\t		Display the version\n
-	make coverage\t\t\t 	Coverage\n
-	make lint\t\t\t			Lint\n
-	make tox\t\t\t 			Run all tests\n
-
-endef
-export PROJECT_HELP_MSG
-
+PROJECT_HELP_MSG := "Usage:\n\
+-------------------------------------------------------------------------\n\
+\t\tHelp\n\
+-------------------------------------------------------------------------\n\
+\n\
+ make help\t\t\t show this message\n\
+\n\
+-------------------------------------------------------------------------\n\
+\t\tInstallation\n\
+-------------------------------------------------------------------------\n\
+make\t\t\t\t Install planet_crs_registry in the system (root)\n\
+make user\t\t\t Install planet_crs_registry for non-root usage\n\
+\n\
+-------------------------------------------------------------------------\n\
+\t\tDevelopment\n\
+-------------------------------------------------------------------------\n\
+make prepare-dev\t\t Prepare Development environment\n\
+make install-dev\t\t Install COTS and planet_crs_registry for development purpose\n\
+make data\t\t\t Download data\n\
+make test\t\t\t Run units and integration tests\n\
+\n\
+make doc\t\t\t Generate the documentation\n\
+make doc-pdf\t\t\t Generate the documentation as PDF\n\
+make visu-doc-pdf\t\t View the generated PDF\n\
+make visu-doc\t\t\t View the generated documentation\n\
+\n\
+make release\t\t\t Release the package as tar.gz\n\
+make upload-test-pypi\t\t Upload the pypi package on the test platform\n\
+make upload-prod-pypi\t\t Upload the pypi package on the prod platform\n\
+\n\
+make update_req\t\t Update the version of the packages in requirements.txt\n\
+make update_req_dev\t\t Update the version of the packages in requirements_dev.txt\n\
+\n\
+make pyclean\t\t\t Clean .pyc files and __pycache__ directories\n\
+\n\
+-------------------------------------------------------------------------\n\
+\t\t Docker\n\
+-------------------------------------------------------------------------\n\
+make docker-build\t\t Build the docker image\n\
+make docker-deploy\t\t Deploy the docker image\n\
+\n\
+-------------------------------------------------------------------------\n\
+\t\tOthers\n\
+-------------------------------------------------------------------------\n\
+make licences\t\t\t Display the list of licences\n\
+make version\t\t\t Display the version\n\
+make coverage\t\t\t Coverage\n\
+make lint\t\t\t Lint\n\
+make tox\t\t\t Run all tests\n"
 
 #Show help
 #---------
 help:
-	echo $$PROJECT_HELP_MSG
-
+	@echo -e $(PROJECT_HELP_MSG)
 
 #
-# Sotware Installation in the system (need root access)
+# Software Installation in the system (need root access)
 # -----------------------------------------------------
 #
 init:
 	python3 setup.py install
 
 #
-# Sotware Installation for user
+# Software Installation for user
 # -----------------------------
 # This scheme is designed to be the most convenient solution for users
 # that don’t have write permission to the global site-packages directory or

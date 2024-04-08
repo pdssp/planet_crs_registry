@@ -22,7 +22,7 @@ set ps
 search=`docker images | grep pdssp/planet_crs_registry | wc -l`
 if [ $search = 0 ];
 then
-	# only the heaader - no image found
+	# only the header - no image found
 	echo "Please build the image by running 'make docker-build'"
 	exit 1
 fi
