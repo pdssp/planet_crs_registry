@@ -1,11 +1,12 @@
-from subprocess import check_output, CalledProcessError
-from tempfile import NamedTemporaryFile
 import os
 from re import findall
 from tqdm import tqdm
-import threading
 
 from _version import __apache_sis__
+
+import jpype
+import jpype.imports
+from jpype.types import *
 
 
 def _remove_files_in_directory(directory: str) -> None:
@@ -52,7 +53,7 @@ def _get_user_input() -> tuple[bool, bool]:
 
 
 def generate_gml_file_from_wkt(wkt: str, override_file_flag: bool) -> None:
-    """Using ApacheSIS CLI and from a given WKT, create a GML file in the XML format.
+    """Using ApacheSIS and from a given WKT, create a GML file in the XML format.
     Files are put in the "gml" directory.
     Name of the file follows this format: ``IAU_(iau_version)_(code).xml``
 
@@ -86,28 +87,20 @@ def generate_gml_file_from_wkt(wkt: str, override_file_flag: bool) -> None:
     wkt = wkt.replace("GEOGCRS", "GEODCRS")
 
     try:
-        # ApacheSIS CLI needs a file as input
-        with NamedTemporaryFile(mode='w', delete=False) as temp_file:
-            temp_file.write(wkt)
-        result = check_output([sis, "crs", temp_file.name, "--format", "xml"])
-        os.unlink(temp_file.name)
+        crs = CRS.fromWKT(wkt)
+        result = str(XML.marshal(crs))
 
-        with open(f"gml/IAU_{iau_version}_{code}.xml", mode='wb') as output_file:
+        with open(f"gml/IAU_{iau_version}_{code}.xml", mode='w') as output_file:
             output_file.write(result)
 
+    except jpype.JException as ex:
+        raise RuntimeError(f"Java error: {ex.message()}")
+
     except FileNotFoundError:
-        raise FileNotFoundError("ApacheSIS executable not found."
-                                "Please make sure ApacheSIS is installed and accessible.")
-    except CalledProcessError as e:
-        raise RuntimeError(f"ApacheSIS command execution failed with exit code {e.returncode}. Error: {e.output}")
+        raise FileNotFoundError("Error: File or directory not found.")
+
     except Exception as e:
-        raise RuntimeError(f"An unexpected error occurred: {str(e)}")
-
-
-def thread_worker(chunk, progress_bar, override_flag):
-    for wkt_content in chunk:
-        generate_gml_file_from_wkt(wkt_content, override_flag)
-        progress_bar.update(1)
+        raise RuntimeError(f"Error: An unexpected error occurred - {str(e)}")
 
 
 def generate_all_gml_files():
@@ -124,27 +117,18 @@ def generate_all_gml_files():
         wkts = file.read().split("\n\n")
 
     # tqdm for visual representation of the process
-    # for wkt_content in tqdm(wkts, desc="Generating GML files", unit="files"):
-    #     generate_gml_file_from_wkt(wkt_content, override_flag)
-
-    num_threads = 4
-    chunk_size = (len(wkts) + num_threads - 1) // num_threads
-    chunks = [wkts[i:i+chunk_size] for i in range(0, len(wkts), chunk_size)]
-
-    total_items = len(wkts)
-    with tqdm(total=total_items) as pbar:
-        threads = []
-        for chunk in chunks:
-            thread = threading.Thread(target=thread_worker, args=(chunk, pbar, override_flag))
-            thread.start()
-            threads.append(thread)
-        for thread in threads:
-            thread.join()
-    print("All threads have completed.")
+    for wkt_content in tqdm(wkts, desc="Generating GML files", unit="files"):
+        generate_gml_file_from_wkt(wkt_content, override_flag)
 
 
 if __name__ == "__main__":
-    # Using ApacheSIS CLI to generate the GML
-    sis = f"../apache-sis-{__apache_sis__}/bin/sis"
+    # Using ApacheSIS to generate the GML
+    jpype.startJVM(classpath=[f"../apache-sis-{__apache_sis__}/lib/*"])
+
+    # Java imports for ApacheSIS
+    from org.apache.sis.referencing import CRS
+    from org.apache.sis.xml import XML
 
     generate_all_gml_files()
+
+    jpype.shutdownJVM()

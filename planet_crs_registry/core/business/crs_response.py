@@ -51,7 +51,7 @@ class GmlResponse(Response):
 
     @staticmethod
     def render(content: str) -> bytes:
-        """Renders the GML response from stored data.
+        """Render the GML response from stored data.
 
         Args:
             content (str): IAU identifier (separated by underscore)
@@ -59,8 +59,13 @@ class GmlResponse(Response):
         Returns:
             bytes: the response in GML
         """
-        with open(f"{content}.xml", mode="rb") as gml_file:
-            data: bytes = gml_file.read()
+        try:
+            with open(f"{content}.xml", mode="rb") as gml_file:
+                data: bytes = gml_file.read()
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Error: File '{content}.xml' not found.")
+        except IOError as e:
+            raise IOError(f"Error: An I/O error occurred while opening '{content}.xml': {e}")
 
         data_str: str = data.decode("utf-8")
         # data_str = data_str.replace(

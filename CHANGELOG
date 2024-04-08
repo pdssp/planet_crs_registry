@@ -1,5 +1,5 @@
-### tweak(Git): Git ignore logs (HEAD -> feat/ApacheSIS)
->Mon, 8 Apr 2024 09:47:46 +0200
+### feat(GML): Changed GML generation to use source ApacheSIS instead of CLI (HEAD -> feat/ApacheSIS)
+>Mon, 8 Apr 2024 12:24:28 +0200
 
 >Author: Emile Muller (emuller@pc14.geomatys.lan)
 
@@ -9,6 +9,16 @@
 
 
 ### tweak(Git): Git ignore logs (origin/feat/ApacheSIS)
+>Mon, 8 Apr 2024 09:47:46 +0200
+
+>Author: Emile Muller (emuller@pc14.geomatys.lan)
+
+>Commiter: Emile Muller (emuller@pc14.geomatys.lan)
+
+
+
+
+### tweak(Git): Git ignore logs
 >Mon, 8 Apr 2024 09:45:28 +0200
 
 >Author: Emile Muller (emuller@pc14.geomatys.lan)

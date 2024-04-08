@@ -3,8 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# ApacheSIS logs
-apache-sis-*/log/sis.log.*
+# ApacheSIS
+apache-sis-1.4/
 
 # certificate
 *.pem
