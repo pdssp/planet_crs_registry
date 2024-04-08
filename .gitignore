@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # ApacheSIS logs
-apache-sis-1.4/log/sis.log.*
+apache-sis-*/log/sis.log.*
 
 # certificate
 *.pem

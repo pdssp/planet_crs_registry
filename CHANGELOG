@@ -1,4 +1,14 @@
 ### tweak(Git): Git ignore logs (HEAD -> feat/ApacheSIS)
+>Mon, 8 Apr 2024 09:47:46 +0200
+
+>Author: Emile Muller (emuller@pc14.geomatys.lan)
+
+>Commiter: Emile Muller (emuller@pc14.geomatys.lan)
+
+
+
+
+### tweak(Git): Git ignore logs (origin/feat/ApacheSIS)
 >Mon, 8 Apr 2024 09:45:28 +0200
 
 >Author: Emile Muller (emuller@pc14.geomatys.lan)
@@ -8,7 +18,7 @@
 
 
 
-### feat(GML generation): Optimizing the GML generation with multithreading (origin/feat/ApacheSIS)
+### feat(GML generation): Optimizing the GML generation with multithreading
 >Fri, 5 Apr 2024 17:15:23 +0200
 
 >Author: Emile Muller (emuller@pc14.geomatys.lan)
