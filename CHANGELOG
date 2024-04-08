@@ -1,4 +1,14 @@
-### build(Docker): Building docker image and updating libraries (HEAD -> feat/ApacheSIS)
+### build(docker): Reverted RUN commands to stay in the same context (HEAD -> feat/ApacheSIS)
+>Mon, 8 Apr 2024 17:08:24 +0200
+
+>Author: Emile Muller (emuller@pc14.geomatys.lan)
+
+>Commiter: Emile Muller (emuller@pc14.geomatys.lan)
+
+
+
+
+### build(Docker): Building docker image and updating libraries (origin/feat/ApacheSIS)
 >Mon, 8 Apr 2024 16:30:54 +0200
 
 >Author: Emile Muller (emuller@pc14.geomatys.lan)
@@ -8,7 +18,7 @@
 
 
 
-### tweak(GML): Changed context for loading the GML files (origin/feat/ApacheSIS)
+### tweak(GML): Changed context for loading the GML files
 >Mon, 8 Apr 2024 12:35:17 +0200
 
 >Author: Emile Muller (emuller@pc14.geomatys.lan)

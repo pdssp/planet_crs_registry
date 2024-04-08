@@ -44,17 +44,18 @@ LABEL \
     org.label-schema.vendor="PDSSP" \
     org.label-schema.version=$VERSION
 
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive
-RUN apt-get install -y software-properties-common apt-transport-https curl git python3-pip
-RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
-RUN pip install setuptools
-RUN git clone "https://github.com/pdssp/planet_crs_registry.git"
-RUN cd planet_crs_registry
-RUN export API_TEST=True
-RUN make
-RUN mkdir -p /conf
-RUN cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive && \
+    apt-get install -y \
+    software-properties-common apt-transport-https curl git python3-pip && \
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+    pip install setuptools && \
+    git clone "https://github.com/pdssp/planet_crs_registry.git" && \
+    cd planet_crs_registry && \
+    export API_TEST=True &&\
+    make && \
+    mkdir -p /conf && \
+    cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
 
 # Expose the http server on 8080
 EXPOSE 8080 5000
