@@ -95,7 +95,7 @@ def generate_gml_file_from_wkt(wkt: str, override_file_flag: bool) -> None:
         with open(f"gml/IAU_{iau_version}_{code}.xml", mode='wb') as output_file:
             output_file.write(result)
 
-    except FileNotFoundError:   
+    except FileNotFoundError:
         raise FileNotFoundError("ApacheSIS executable not found."
                                 "Please make sure ApacheSIS is installed and accessible.")
     except CalledProcessError as e:
