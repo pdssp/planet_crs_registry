@@ -26,6 +26,7 @@ from dataclasses import dataclass
 from typing import Dict
 from typing import List
 from typing import Tuple
+from urllib.parse import urlencode
 
 import httpx  # type: ignore
 from fastapi import Request
@@ -33,7 +34,6 @@ from fastapi import status
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException
 from tortoise.expressions import Q
-from urllib.parse import urlencode
 
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
@@ -99,7 +99,12 @@ class QuerySearch:
         return filtered_result
 
     async def _query_records(
-            self, base_url: str, endpoint: str, page: int, limit: int, params: dict[str, int] | None = None
+        self,
+        base_url: str,
+        endpoint: str,
+        page: int,
+        limit: int,
+        params: dict[str, str] | None = None,
     ) -> Tuple[int, List]:
         """Query the WKTs for a given endpoint using the web service.
 
@@ -120,7 +125,9 @@ class QuerySearch:
             try:
                 parameters = "" if params is None else f"?{urlencode(params)}"
                 count_records = int(
-                    await self._call_api(f"{base_url}ws/{endpoint}/count{parameters}")
+                    await self._call_api(
+                        f"{base_url}ws/{endpoint}/count{parameters}"
+                    )
                 )
                 offset = limit * (page - 1)
                 params = {} if params is None else params
@@ -128,7 +135,9 @@ class QuerySearch:
                 params["limit"] = limit
                 parameters = "" if params is None else f"?{urlencode(params)}"
                 result = self._filter_records(
-                    await self._call_api(f"{base_url}ws/{endpoint}{parameters}")
+                    await self._call_api(
+                        f"{base_url}ws/{endpoint}{parameters}"
+                    )
                 )
                 is_over = True
             except Exception as exp:  # pylint: disable=W0703
@@ -136,7 +145,9 @@ class QuerySearch:
                 time.sleep(0.2)
         return count_records, result
 
-    async def query_wkts(self, base_url: str, page: int, limit: int) -> Tuple[int, List]:
+    async def query_wkts(
+        self, base_url: str, page: int, limit: int
+    ) -> Tuple[int, List]:
         """Query the WKTs using the web service.
 
         Args:
@@ -147,12 +158,12 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        result = await self._query_records(
-            base_url, "wkts", page, limit
-        )
+        result = await self._query_records(base_url, "wkts", page, limit)
         return result
 
-    async def query_version(self, base_url: str, version: int, page: int, limit: int):
+    async def query_version(
+        self, base_url: str, version: int, page: int, limit: int
+    ):
         """Query the WKTs for a given version using the web service.
 
         Args:
@@ -169,7 +180,9 @@ class QuerySearch:
         )
         return result
 
-    async def query_name(self, base_url: str, name: str, page: int, limit: int):
+    async def query_name(
+        self, base_url: str, name: str, page: int, limit: int
+    ):
         """Query the WKTs for a given solar body using the web service.
 
         Args:
@@ -186,7 +199,9 @@ class QuerySearch:
         )
         return result
 
-    async def query_search_terms(self, base_url: str, search_term_kw: str, page: int, limit: int):
+    async def query_search_terms(
+        self, base_url: str, search_term_kw: str, page: int, limit: int
+    ):
         """Query the WKTs for a given keyword using the web service.
 
         Args:
@@ -199,7 +214,11 @@ class QuerySearch:
             Tuple[int, List]: total number of records, results in the page
         """
         result = await self._query_records(
-            base_url, "search", page, limit, params={"search_term_kw": search_term_kw}
+            base_url,
+            "search",
+            page,
+            limit,
+            params={"search_term_kw": search_term_kw},
         )
         return result
 
@@ -284,7 +303,7 @@ class QuerySearch:
 
 
 class QueryRepresentation:
-    """Class thats handles the representation of a template."""
+    """Class that handles the representation of a template."""
 
     def __init__(self):
         """Initialization."""
@@ -371,9 +390,11 @@ class QueryRepresentation:
                 "next_pages": next_pages,
                 "page_current": current_page,
                 "previous_page": pagination.page - 1,
-                "next_page": pagination.page + 1
-                if pagination.page * pagination.limit <= pagination.count
-                else -1,
+                "next_page": (
+                    pagination.page + 1
+                    if pagination.page * pagination.limit <= pagination.count
+                    else -1
+                ),
                 "url_ws": url_ws,
             },
         )
@@ -496,7 +517,7 @@ class QueryRepresentation:
 
         Args:
             request (Request): request
-            name (str): solar body
+            search_term_kw (str): keyword to search
             page (int, optional): current page. Defaults to 1.
             limit (int, optional): number of elements in the page. Defaults to 100.
 

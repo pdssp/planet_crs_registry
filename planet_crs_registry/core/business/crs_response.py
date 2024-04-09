@@ -59,13 +59,16 @@ class GmlResponse(Response):
         Returns:
             bytes: the response in GML
         """
+        gml_path = f"/planet_crs_registry/data/gml/{content}.xml"
         try:
-            with open(f"../../../data/gml/{content}.xml", mode="rb") as gml_file:
+            with open(gml_path, mode="rb") as gml_file:
                 data: bytes = gml_file.read()
         except FileNotFoundError:
-            raise FileNotFoundError(f"Error: File '/data/gml/{content}.xml' not found.")
+            raise FileNotFoundError(f"ErrorTEST: File '{gml_path}' not found.")
         except IOError as e:
-            raise IOError(f"Error: An I/O error occurred while opening '{content}.xml': {e}")
+            raise IOError(
+                f"Error: An I/O error occurred while opening '{gml_path}': {e}"
+            )
 
         data_str: str = data.decode("utf-8")
         # data_str = data_str.replace(
