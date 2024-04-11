@@ -36,7 +36,7 @@ def str2bool(string_to_test: str) -> bool:
     Returns:
         bool: True when the string is a boolean otherwise False
     """
-    return string_to_test.lower() in ("yes", "true", "True", "t", "1")
+    return string_to_test.lower() in ("yes", "true", "t", "1")
 
 
 def parse_cli() -> argparse.Namespace:
@@ -120,36 +120,32 @@ def test_logger():
 
 
 def test_iau(conn):
-    response = requests.get("http://localhost:8080/ws/IAU")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/IAU")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = response.content.decode("UTF-8")
         result = xmltodict.parse(content)
-        response.close()
         assert (
             result["ns0:identifiers"]["ns0:identifier"]
             == "http://www.opengis.net/def/crs/IAU/2015"
         )
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/IAU"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_iau_2015(conn):
-    response = requests.get("http://localhost:8080/ws/IAU/2015")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/IAU/2015")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = response.content.decode("UTF-8")
         result = xmltodict.parse(content)
-        response.close()
         assert (
             result["ns0:identifiers"]["ns0:identifier"][0]
             == "http://www.opengis.net/def/crs/IAU/2015/1000"
         )
         assert len(result["ns0:identifiers"]["ns0:identifier"]) == 2397
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/IAU/2015"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_iau_2015_gml(conn):
@@ -220,16 +216,14 @@ def test_iau_2015_gml(conn):
    </gml:usesGeodeticDatum>
 </gml:GeographicCRS>
     """
-    response = requests.get("http://localhost:8080/ws/IAU/2015/1000")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/IAU/2015/1000")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = response.content.decode("UTF-8")
         result = xmltodict.parse(content)
-        response.close()
         assert result == xmltodict.parse(xml_2015_1000)
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/IAU/2015"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_wkts(conn):
@@ -246,42 +240,38 @@ def test_wkts(conn):
             "wkt": 'GEOGCRS["Sun (2015) - Sphere / Ocentric",\n    DATUM["Sun (2015) - Sphere",\n    \tELLIPSOID["Sun (2015) - Sphere", 695700000, 0,\n\t\tLENGTHUNIT["metre", 1, ID["EPSG", 9001]]]],\n    \tPRIMEM["Reference Meridian", 0,\n            ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]],\n\tCS[ellipsoidal, 2],\n\t    AXIS["geodetic latitude (Lat)", north,\n\t        ORDER[1],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\t    AXIS["geodetic longitude (Lon)", east,\n\t        ORDER[2],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\tID["IAU", 1000, 2015],\n\tREMARK["Source of IAU Coordinate systems: doi://10.1007/s10569-017-9805-5"]]',
         }
     ]
-    response = requests.get("http://localhost:8080/ws/wkts?limit=1&offset=0")
-    if response.status_code == 200:
+    try:
+        response = requests.get(
+            "http://localhost:8080/ws/wkts?limit=1&offset=0"
+        )
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = json.loads(response.text)
-        response.close()
         assert content[0]["id"] == json_response[0]["id"]
         assert len(content) == 1
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/wkts?limit=1&offset=0"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_wkts_count(conn):
-    response = requests.get("http://localhost:8080/ws/wkts/count")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/wkts/count")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = int(response.text)
-        response.close()
         assert content == 4029
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/wkts?limit=1&offset=0"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_version(conn):
     json_response = [2015]
-    response = requests.get("http://localhost:8080/ws/versions")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/versions")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = json.loads(response.text)
-        response.close()
         assert content[0] == json_response[0]
         assert len(content) == 1
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/versions"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_version_2015(conn):
@@ -298,55 +288,47 @@ def test_version_2015(conn):
             "wkt": 'GEOGCRS["Sun (2015) - Sphere / Ocentric",\n    DATUM["Sun (2015) - Sphere",\n    \tELLIPSOID["Sun (2015) - Sphere", 695700000, 0,\n\t\tLENGTHUNIT["metre", 1, ID["EPSG", 9001]]]],\n    \tPRIMEM["Reference Meridian", 0,\n            ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]],\n\tCS[ellipsoidal, 2],\n\t    AXIS["geodetic latitude (Lat)", north,\n\t        ORDER[1],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\t    AXIS["geodetic longitude (Lon)", east,\n\t        ORDER[2],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\tID["IAU", 1000, 2015],\n\tREMARK["Source of IAU Coordinate systems: doi://10.1007/s10569-017-9805-5"]]',
         }
     ]
-    response = requests.get(
-        "http://localhost:8080/ws/versions/2015?limit=1&offset=0"
-    )
-    if response.status_code == 200:
+    try:
+        response = requests.get(
+            "http://localhost:8080/ws/versions/2015?limit=1&offset=0"
+        )
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = json.loads(response.text)
-        response.close()
         assert content[0]["id"] == json_response[0]["id"]
         assert len(content) == 1
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/versions/2015?limit=1&offset=0"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_version_2015_count(conn):
-    response = requests.get("http://localhost:8080/ws/versions/2015/count")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/versions/2015/count")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = int(response.text)
-        response.close()
         assert content == 4029
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/versions/2015/count"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_solar_bodies(conn):
-    response = requests.get("http://localhost:8080/ws/solar_bodies")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/solar_bodies")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = json.loads(response.text)
-        response.close()
         print()
         assert "Mars" in content
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/solar_bodies"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_solar_bodies_count(conn):
-    response = requests.get("http://localhost:8080/ws/solar_bodies/count")
-    if response.status_code == 200:
+    try:
+        response = requests.get("http://localhost:8080/ws/solar_bodies/count")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
         content = int(response.text)
-        response.close()
         assert content == 97
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/solar_bodies/count"
-        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_solar_bodies_mars(conn):
@@ -363,29 +345,27 @@ def test_solar_bodies_mars(conn):
             "wkt": 'GEOGCRS["Mars (2015) - Sphere / Ocentric",\n    DATUM["Mars (2015) - Sphere",\n    \tELLIPSOID["Mars (2015) - Sphere", 3396190, 0,\n\t\tLENGTHUNIT["metre", 1, ID["EPSG", 9001]]],\n\t\tANCHOR["Viking 1 lander : 47.95137 W"]],\n    \tPRIMEM["Reference Meridian", 0,\n            ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]],\n\tCS[ellipsoidal, 2],\n\t    AXIS["geodetic latitude (Lat)", north,\n\t        ORDER[1],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\t    AXIS["geodetic longitude (Lon)", east,\n\t        ORDER[2],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\tID["IAU", 49900, 2015],\n\tREMARK["Use semi-major radius as sphere radius for interoperability. Source of IAU Coordinate systems: doi://10.1007/s10569-017-9805-5"]]',
         }
     ]
-    response = requests.get(
-        "http://localhost:8080/ws/solar_bodies/mars?limit=1&offset=0"
-    )
-    if response.status_code == 200:
-        content = json.loads(response.text)
-        response.close()
-        assert content[0]["id"] == result_json[0]["id"]
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/solar_bodies/mars?limit=1&offset=0"
+    try:
+        response = requests.get(
+            "http://localhost:8080/ws/solar_bodies/mars?limit=1&offset=0"
         )
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        content = json.loads(response.text)
+        assert content[0]["id"] == result_json[0]["id"]
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_solar_bodies_mars_count(conn):
-    response = requests.get("http://localhost:8080/ws/solar_bodies/mars/count")
-    if response.status_code == 200:
-        content = int(response.text)
-        response.close()
-        assert content == 50
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/solar_bodies/mars/count"
+    try:
+        response = requests.get(
+            "http://localhost:8080/ws/solar_bodies/mars/count"
         )
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        content = int(response.text)
+        assert content == 50
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_search_mars(conn):
@@ -402,28 +382,24 @@ def test_search_mars(conn):
             "wkt": 'GEOGCRS["Mars (2015) - Sphere / Ocentric",\n    DATUM["Mars (2015) - Sphere",\n    \tELLIPSOID["Mars (2015) - Sphere", 3396190, 0,\n\t\tLENGTHUNIT["metre", 1, ID["EPSG", 9001]]],\n\t\tANCHOR["Viking 1 lander : 47.95137 W"]],\n    \tPRIMEM["Reference Meridian", 0,\n            ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]],\n\tCS[ellipsoidal, 2],\n\t    AXIS["geodetic latitude (Lat)", north,\n\t        ORDER[1],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\t    AXIS["geodetic longitude (Lon)", east,\n\t        ORDER[2],\n\t        ANGLEUNIT["degree", 0.0174532925199433]],\n\tID["IAU", 49900, 2015],\n\tREMARK["Use semi-major radius as sphere radius for interoperability. Source of IAU Coordinate systems: doi://10.1007/s10569-017-9805-5"]]',
         }
     ]
-    response = requests.get(
-        "http://localhost:8080/ws/search?search_term_kw=mars&limit=1&offset=0"
-    )
-    if response.status_code == 200:
-        content = json.loads(response.text)
-        response.close()
-        assert content[0]["id"] == result_json[0]["id"]
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/search?search_term_kw=mars&limit=1&offset=0"
+    try:
+        response = requests.get(
+            "http://localhost:8080/ws/search?search_term_kw=mars&limit=1&offset=0"
         )
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        content = json.loads(response.text)
+        assert content[0]["id"] == result_json[0]["id"]
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
 
 
 def test_search_mars_count(conn):
-    response = requests.get(
-        "http://localhost:8080/ws/search/count?search_term_kw=mars"
-    )
-    if response.status_code == 200:
-        content = int(response.text)
-        response.close()
-        assert content == 51
-    else:
-        raise ValueError(
-            "Cannot parse the response http://localhost:8080/ws/search/count?search_term_kw=mars"
+    try:
+        response = requests.get(
+            "http://localhost:8080/ws/search/count?search_term_kw=mars"
         )
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        content = int(response.text)
+        assert content == 51
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
