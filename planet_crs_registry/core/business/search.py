@@ -26,6 +26,7 @@ from dataclasses import dataclass
 from typing import Dict
 from typing import List
 from typing import Tuple
+from urllib.parse import urlencode
 
 import httpx  # type: ignore
 from fastapi import Request
@@ -97,15 +98,22 @@ class QuerySearch:
             filtered_result.append(res)
         return filtered_result
 
-    async def query_wkts(
-        self, base_url: str, page: int, limit: int
+    async def _query_records(
+        self,
+        base_url: str,
+        endpoint: str,
+        page: int,
+        limit: int,
+        params: dict[str, str | int] | None = None,
     ) -> Tuple[int, List]:
-        """Query the WKTs using the web service
+        """Query the WKTs for a given endpoint using the web service.
 
         Args:
             base_url (str): base URL of the web service
+            endpoint (str): endpoint to query
             page (int): current page
-            limit (int): number of elements in a page
+            limit (int): number of elements in the page
+            params (dict[str, str | int]): dictionary of additional URL parameters
 
         Returns:
             Tuple[int, List]: total number of records, results in the page
@@ -115,13 +123,20 @@ class QuerySearch:
         is_over = False
         while not is_over:
             try:
+                parameters = "" if params is None else f"?{urlencode(params)}"
                 count_records = int(
-                    await self._call_api(f"{base_url}ws/wkts/count")
+                    await self._call_api(
+                        f"{base_url}ws/{endpoint}/count{parameters}"
+                    )
                 )
                 offset = limit * (page - 1)
-                result = QuerySearch._filter_records(
+                params = {} if params is None else params
+                params["offset"] = offset
+                params["limit"] = limit
+                parameters = "" if params is None else f"?{urlencode(params)}"
+                result = self._filter_records(
                     await self._call_api(
-                        f"{base_url}ws/wkts?offset={offset}&limit={limit}"
+                        f"{base_url}ws/{endpoint}{parameters}"
                     )
                 )
                 is_over = True
@@ -130,10 +145,26 @@ class QuerySearch:
                 time.sleep(0.2)
         return count_records, result
 
+    async def query_wkts(
+        self, base_url: str, page: int, limit: int
+    ) -> Tuple[int, List]:
+        """Query the WKTs using the web service.
+
+        Args:
+            base_url (str): base URL of the web service
+            page (int): current page
+            limit (int): number of elements in a page
+
+        Returns:
+            Tuple[int, List]: total number of records, results in the page
+        """
+        result = await self._query_records(base_url, "wkts", page, limit)
+        return result
+
     async def query_version(
         self, base_url: str, version: int, page: int, limit: int
-    ) -> Tuple[int, List]:
-        """Get WKTs for a given version from the web service.
+    ):
+        """Query the WKTs for a given version using the web service.
 
         Args:
             base_url (str): base URL
@@ -144,32 +175,15 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        count_records: int = 0
-        result: List = list()
-        is_over = False
-        while not is_over:
-            try:
-                count_records = int(
-                    await self._call_api(
-                        f"{base_url}ws/versions/{version}/count"
-                    )
-                )
-                offset = limit * (page - 1)
-                result = self._filter_records(
-                    await self._call_api(
-                        f"{base_url}ws/versions/{version}?offset={offset}&limit={limit}"
-                    )
-                )
-                is_over = True
-            except Exception as exp:  # pylint: disable=W0703
-                logging.error(exp)
-                time.sleep(0.2)
-        return count_records, result
+        result = await self._query_records(
+            base_url, f"versions/{version}", page, limit
+        )
+        return result
 
     async def query_name(
         self, base_url: str, name: str, page: int, limit: int
-    ) -> Tuple[int, List]:
-        """Get WKTs for a given solar body using the web service.
+    ):
+        """Query the WKTs for a given solar body using the web service.
 
         Args:
             base_url (str): base URL of the web service
@@ -180,31 +194,14 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        count_records: int = 0
-        result: List = list()
-        is_over = False
-        while not is_over:
-            try:
-                count_records = int(
-                    await self._call_api(
-                        f"{base_url}ws/solar_bodies/{name}/count"
-                    )
-                )
-                offset = limit * (page - 1)
-                result = self._filter_records(
-                    await self._call_api(
-                        f"{base_url}ws/solar_bodies/{name}?offset={offset}&limit={limit}"
-                    )
-                )
-                is_over = True
-            except Exception as exp:  # pylint: disable=W0703
-                logging.error(exp)
-                time.sleep(0.2)
-        return count_records, result
+        result = await self._query_records(
+            base_url, f"solar_bodies/{name}", page, limit
+        )
+        return result
 
     async def query_search_terms(
         self, base_url: str, search_term_kw: str, page: int, limit: int
-    ) -> Tuple[int, List]:
+    ):
         """Query the WKTs for a given keyword using the web service.
 
         Args:
@@ -216,30 +213,17 @@ class QuerySearch:
         Returns:
             Tuple[int, List]: total number of records, results in the page
         """
-        count_records: int = 0
-        result: List = list()
-        is_over = False
-        while not is_over:
-            try:
-                count_records = int(
-                    await self._call_api(
-                        f"{base_url}ws/search/count?search_term_kw={search_term_kw}"
-                    )
-                )
-                offset = limit * (page - 1)
-                result = self._filter_records(
-                    await self._call_api(
-                        f"{base_url}ws/search?search_term_kw={search_term_kw}&offset={offset}&limit={limit}"  # pylint: disable=C0301
-                    )
-                )
-                is_over = True
-            except Exception as exp:  # pylint: disable=W0703
-                logging.error(exp)
-                time.sleep(0.2)
-        return count_records, result
+        result = await self._query_records(
+            base_url,
+            "search",
+            page,
+            limit,
+            params={"search_term_kw": search_term_kw},
+        )
+        return result
 
     async def query_version_list(self, base_url: str) -> List[int]:
-        """Get the different version numbers using the web service.
+        """Query the different version numbers using the web service.
 
         Args:
             base_url (str): base URL of the web service
@@ -260,8 +244,9 @@ class QuerySearch:
                 time.sleep(0.2)
         return result
 
+    @staticmethod
     async def search_term(
-        self, search_term_kw: str, limit: int = 50, offset: int = 0
+        search_term_kw: str, limit: int = 50, offset: int = 0
     ) -> List[WKT_model]:
         """Search term in wkt ot id.
 
@@ -283,7 +268,8 @@ class QuerySearch:
             .offset(offset)
         )
 
-    async def search_term_count(self, search_term_kw: str) -> int:
+    @staticmethod
+    async def search_term_count(search_term_kw: str) -> int:
         """Count the result of the search term.
 
         Args:
@@ -296,7 +282,8 @@ class QuerySearch:
             Q(wkt__contains=search_term_kw) | Q(id__contains=search_term_kw)
         ).count()
 
-    async def get_wkt_obj(self, wkt_id: str) -> WKT_model:
+    @staticmethod
+    async def get_wkt_obj(wkt_id: str) -> WKT_model:
         """Retrieves the WKT representation from the database based on its id.
 
         Args:
@@ -319,7 +306,7 @@ class QuerySearch:
 
 
 class QueryRepresentation:
-    """Class thats handles the representation of a template."""
+    """Class that handles the representation of a template."""
 
     def __init__(self):
         """Initialization."""
@@ -406,9 +393,11 @@ class QueryRepresentation:
                 "next_pages": next_pages,
                 "page_current": current_page,
                 "previous_page": pagination.page - 1,
-                "next_page": pagination.page + 1
-                if pagination.page * pagination.limit <= pagination.count
-                else -1,
+                "next_page": (
+                    pagination.page + 1
+                    if pagination.page * pagination.limit <= pagination.count
+                    else -1
+                ),
                 "url_ws": url_ws,
             },
         )
@@ -531,7 +520,7 @@ class QueryRepresentation:
 
         Args:
             request (Request): request
-            name (str): solar body
+            search_term_kw (str): keyword to search
             page (int, optional): current page. Defaults to 1.
             limit (int, optional): number of elements in the page. Defaults to 100.
 
