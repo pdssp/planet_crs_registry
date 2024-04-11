@@ -1,4 +1,14 @@
-### refactor(tests): Refactored and optimized code for tests (HEAD)
+### fix(Makefile): Fixed the 'make help' function in Makefile (HEAD)
+>Thu, 11 Apr 2024 14:22:25 +0200
+
+>Author: Emile-Muller (emile.muller.contact@gmail.com)
+
+>Commiter: Emile-Muller (emile.muller.contact@gmail.com)
+
+
+
+
+### refactor(tests): Refactored and optimized code for tests
 >Thu, 11 Apr 2024 14:20:59 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
