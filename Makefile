@@ -62,14 +62,14 @@ help:
 
 
 #
-# Sotware Installation in the system (need root access)
+# Software Installation in the system (need root access)
 # -----------------------------------------------------
 #
 init:
 	python3 setup.py install
 
 #
-# Sotware Installation for user
+# Software Installation for user
 # -----------------------------
 # This scheme is designed to be the most convenient solution for users
 # that don’t have write permission to the global site-packages directory or

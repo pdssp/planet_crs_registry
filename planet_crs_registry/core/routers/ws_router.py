@@ -232,14 +232,14 @@ async def get_wkt_version(
         regex="^.*:\d*:\d*$",  # noqa: W605  # pylint: disable=W1401
     ),
 ) -> str:
-    """Get a WKT representation for both a given version and WKT Id
+    """Get a WKT representation for both a given version and WKT ID
 
     Args:
         version_id (int, optional): Version of the WKT.
         wkt_id (str, optional): Identifier of the WKT.
 
     Raises:
-        HTTPException: Version or WKT Id not found
+        HTTPException: Version or WKT ID not found
 
     Returns:
         str: The WKT representation
@@ -444,7 +444,7 @@ async def search(
 
     Args:
         search_term_kw (str): Term to search
-        limit (int, optional):  Number of records to display.. Defaults to LIMIT_QUERY.
+        limit (int, optional):  Number of records to display. Defaults to LIMIT_QUERY.
         offset (int, optional): Number of records from which we start to display. \
             Defaults to OFFSET_QUERY.
 
@@ -543,7 +543,7 @@ async def get_iau_wkts(
 
 @router.get(
     "/IAU/{iau_version}/{code}",
-    summary="Get the GML represention for a given WKT",
+    summary="Get the GML representation for a given WKT",
     description="The GML representation for a given WKT",
     responses={
         status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},

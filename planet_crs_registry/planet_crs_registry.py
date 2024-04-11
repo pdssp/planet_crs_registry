@@ -62,7 +62,7 @@ class PlanetCrsRegistryLib:
 
     @staticmethod
     def _parse_level(level: str):
-        """Parse level name and set the rigt level for the logger.
+        """Parse level name and set the right level for the logger.
         If the level is not known, the INFO level is set
 
         Args:

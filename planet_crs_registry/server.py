@@ -218,13 +218,13 @@ class Server:
 
     @staticmethod
     def __run_http(planet_crs_registry: PlanetCrsRegistryLib):
-        """Main function that instanciates the library with http."""
+        """Main function that instantiates the library with http."""
         logger.info("Starting Planet Crs Registry with http")
         planet_crs_registry.start_http()
 
     @staticmethod
     def __run_https(planet_crs_registry: PlanetCrsRegistryLib):
-        """Main function that instanciates the library with https."""
+        """Main function that instantiates the library with https."""
         logger.info("Starting Planet Crs Registry with https")
         planet_crs_registry.start_https()
 

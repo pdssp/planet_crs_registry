@@ -26,7 +26,7 @@ from starlette.responses import RedirectResponse
 async def custom_404_exception_handler(
     request: Request, exc: StarletteHTTPException
 ):
-    """Custon 404 page.
+    """Custom 404 page.
 
     Args:
         request (Request): Request

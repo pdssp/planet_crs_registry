@@ -1,4 +1,14 @@
-### fix(config): Added IntelliJ and ApacheSIS files to .gitignore. Updated pre-commit-config and requirements. (HEAD)
+### fix(*): Correcting typos (HEAD)
+>Thu, 11 Apr 2024 14:17:42 +0200
+
+>Author: Emile-Muller (emile.muller.contact@gmail.com)
+
+>Commiter: Emile-Muller (emile.muller.contact@gmail.com)
+
+
+
+
+### fix(config): Added IntelliJ and ApacheSIS files to .gitignore. Updated pre-commit-config and requirements.
 >Thu, 11 Apr 2024 14:11:08 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)

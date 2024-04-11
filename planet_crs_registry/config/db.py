@@ -28,7 +28,7 @@ SQLITE_DB_URL = "sqlite://{sqlite_db}"  # sqlite://:memory:"
 
 
 class SqlLiteSettings(BaseSettings):  # pylint: disable=too-few-public-methods
-    """SQL liste env values"""
+    """SQL list env values"""
 
     sqlite_db: str = Field("db.sqlite3", env="SQLITE_DB")
 

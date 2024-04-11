@@ -78,7 +78,7 @@ class WKT(models.Model):
         max_length=100, indexed=True, description="Datum name"
     )
     ellipsoid_name = fields.CharField(
-        max_length=100, indexed=True, description="Ellispoid name"
+        max_length=100, indexed=True, description="Ellipsoid name"
     )
     projection_name = fields.CharField(
         max_length=100, indexed=True, null=True, description="Projection name"
