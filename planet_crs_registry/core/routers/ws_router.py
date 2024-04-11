@@ -574,17 +574,18 @@ async def get_iau_gml(
     Returns:
         GmlResponse: IAU crs as GML representation
     """
+    iau_version_code = f"IAU:{iau_version}:{code}"
     try:
-        return GmlResponse(content=f"IAU:{iau_version}:{code}")
+        return GmlResponse(content=iau_version_code.replace(":", "_"))
     except Exception as error:
         if "crs not found" in str(error):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"IAU:{iau_version}:{code} not found",
+                detail=f"{iau_version_code} not found",
             ) from error
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error when retrieving IAU:{iau_version}:{code} as GML - {error}",
+            detail=f"Error when retrieving {iau_version_code} as GML - {error}",
         ) from error
 
 

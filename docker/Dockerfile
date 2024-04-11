@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-FROM osgeo/gdal:latest
+FROM ubuntu:latest
 
 LABEL maintainer="Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>"
 
@@ -57,6 +57,7 @@ RUN apt-get update && \
     mkdir -p /conf && \
     cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
 
+ENV GML_PATH=/planet_crs_registry/data/gml
 
 # Expose the http server on 8080
 EXPOSE 8080 5000

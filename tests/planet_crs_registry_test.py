@@ -150,71 +150,63 @@ def test_iau_2015(conn):
 
 def test_iau_2015_gml(conn):
     xml_2015_1000 = """
-<gml:GeographicCRS xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" gml:id="ogrcrs1">
-   <gml:srsName>Sun (2015) - Sphere / Ocentric</gml:srsName>
-   <gml:srsID>
-      <gml:name codeSpace="urn:ogc:def:crs:IAU::">1000</gml:name>
-   </gml:srsID>
-   <gml:usesEllipsoidalCS>
-      <gml:EllipsoidalCS gml:id="ogrcrs2">
-         <gml:csName>ellipsoidal</gml:csName>
-         <gml:csID>
-            <gml:name codeSpace="urn:ogc:def:cs:EPSG::">6402</gml:name>
-         </gml:csID>
-         <gml:usesAxis>
-            <gml:CoordinateSystemAxis gml:id="ogrcrs3" gml:uom="urn:ogc:def:uom:EPSG::9102">
-               <gml:name>Geodetic latitude</gml:name>
-               <gml:axisID>
-                  <gml:name codeSpace="urn:ogc:def:axis:EPSG::">9901</gml:name>
-               </gml:axisID>
-               <gml:axisAbbrev>Lat</gml:axisAbbrev>
-               <gml:axisDirection>north</gml:axisDirection>
-            </gml:CoordinateSystemAxis>
-         </gml:usesAxis>
-         <gml:usesAxis>
-            <gml:CoordinateSystemAxis gml:id="ogrcrs4" gml:uom="urn:ogc:def:uom:EPSG::9102">
-               <gml:name>Geodetic longitude</gml:name>
-               <gml:axisID>
-                  <gml:name codeSpace="urn:ogc:def:axis:EPSG::">9902</gml:name>
-               </gml:axisID>
-               <gml:axisAbbrev>Lon</gml:axisAbbrev>
-               <gml:axisDirection>east</gml:axisDirection>
-            </gml:CoordinateSystemAxis>
-         </gml:usesAxis>
-      </gml:EllipsoidalCS>
-   </gml:usesEllipsoidalCS>
-   <gml:usesGeodeticDatum>
-      <gml:GeodeticDatum gml:id="ogrcrs5">
-         <gml:datumName>Sun (2015) - Sphere</gml:datumName>
-         <gml:datumID>
-            <gml:name codeSpace="urn:ogc:def:datum:IAU::">1000</gml:name>
-         </gml:datumID>
-         <gml:usesPrimeMeridian>
-            <gml:PrimeMeridian gml:id="ogrcrs6">
-               <gml:meridianName>Reference Meridian</gml:meridianName>
-               <gml:meridianID>
-                  <gml:name codeSpace="urn:ogc:def:meridian:IAU::">1000</gml:name>
-               </gml:meridianID>
-               <gml:greenwichLongitude>
-                  <gml:angle uom="urn:ogc:def:uom:EPSG::9102">0</gml:angle>
-               </gml:greenwichLongitude>
-            </gml:PrimeMeridian>
-         </gml:usesPrimeMeridian>
-         <gml:usesEllipsoid>
-            <gml:Ellipsoid gml:id="ogrcrs7">
-               <gml:ellipsoidName>Sun (2015) - Sphere</gml:ellipsoidName>
-               <gml:ellipsoidID>
-                  <gml:name codeSpace="urn:ogc:def:ellipsoid:IAU::">1000</gml:name>
-               </gml:ellipsoidID>
-               <gml:semiMajorAxis uom="urn:ogc:def:uom:EPSG::9001">695700000</gml:semiMajorAxis>
-               <gml:secondDefiningParameter>
-                  <gml:inverseFlattening uom="urn:ogc:def:uom:EPSG::9201">0</gml:inverseFlattening>
-               </gml:secondDefiningParameter>
-            </gml:Ellipsoid>
-         </gml:usesEllipsoid>
-      </gml:GeodeticDatum>
-   </gml:usesGeodeticDatum>
-</gml:GeographicCRS>
+<gml:GeodeticCRS xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gmd="http://www.isotc211.org/2005/gmd"
+                 xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:srv1="http://www.isotc211.org/2005/srv"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0" xmlns:fra="http://www.cnig.gouv.fr/2005/fra"
+                 xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0" xmlns:gcol="http://www.isotc211.org/2005/gco"
+                 xmlns:gts="http://www.isotc211.org/2005/gts" gml:id="iau-crs-1000">
+    <gml:identifier codeSpace="IAU:2015">1000</gml:identifier>
+    <gml:name>Sun (2015) - Sphere / Ocentric</gml:name>
+    <gml:remarks>Source of IAU Coordinate systems: doi://10.1007/s10569-017-9805-5</gml:remarks>
+    <gml:ellipsoidalCS>
+        <gml:EllipsoidalCS gml:id="EllipsoidalCSNorthEast">
+            <gml:name>Ellipsoidal CS: North (°), East (°).</gml:name>
+            <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="GeodeticLatitude">
+                    <gml:name>Geodetic latitude</gml:name>
+                    <gml:axisAbbrev>φ</gml:axisAbbrev>
+                    <gml:axisDirection codeSpace="EPSG">north</gml:axisDirection>
+                    <gml:minimumValue>-90.0</gml:minimumValue>
+                    <gml:maximumValue>90.0</gml:maximumValue>
+                    <gml:rangeMeaning codeSpace="EPSG">exact</gml:rangeMeaning>
+                </gml:CoordinateSystemAxis>
+            </gml:axis>
+            <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="GeodeticLongitude">
+                    <gml:name>Geodetic longitude</gml:name>
+                    <gml:axisAbbrev>λ</gml:axisAbbrev>
+                    <gml:axisDirection codeSpace="EPSG">east</gml:axisDirection>
+                    <gml:minimumValue>-180.0</gml:minimumValue>
+                    <gml:maximumValue>180.0</gml:maximumValue>
+                    <gml:rangeMeaning codeSpace="EPSG">wraparound</gml:rangeMeaning>
+                </gml:CoordinateSystemAxis>
+            </gml:axis>
+        </gml:EllipsoidalCS>
+    </gml:ellipsoidalCS>
+    <gml:geodeticDatum>
+        <gml:GeodeticDatum gml:id="Sun2015Sphere">
+            <gml:name>Sun (2015) - Sphere</gml:name>
+            <gml:primeMeridian>
+                <gml:PrimeMeridian gml:id="ReferenceMeridian">
+                    <gml:name>Reference Meridian</gml:name>
+                    <gml:greenwichLongitude uom="urn:ogc:def:uom:EPSG::9102">0.0</gml:greenwichLongitude>
+                </gml:PrimeMeridian>
+            </gml:primeMeridian>
+            <gml:ellipsoid>
+                <gml:Ellipsoid gml:id="Sun2015Sphere-1">
+                    <gml:name>Sun (2015) - Sphere</gml:name>
+                    <gml:semiMajorAxis uom="urn:ogc:def:uom:EPSG::9001">6.957E8</gml:semiMajorAxis>
+                    <gml:secondDefiningParameter>
+                        <gml:SecondDefiningParameter>
+                            <gml:isSphere>true</gml:isSphere>
+                        </gml:SecondDefiningParameter>
+                    </gml:secondDefiningParameter>
+                </gml:Ellipsoid>
+            </gml:ellipsoid>
+        </gml:GeodeticDatum>
+    </gml:geodeticDatum>
+</gml:GeodeticCRS>
     """
     try:
         response = requests.get("http://localhost:8080/ws/IAU/2015/1000")
