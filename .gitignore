@@ -134,3 +134,9 @@ dmypy.json
 planet_crs_registry-env/
 .planet_crs_registry
 docs/build/
+
+# IntelliJ
+.idea
+
+# ApacheSIS
+apache-sis-1.4-bin/

@@ -1,4 +1,24 @@
-### Fix command (HEAD -> main)
+### fix(config): Added IntelliJ and ApacheSIS files to .gitignore. Updated pre-commit-config and requirements. (HEAD)
+>Thu, 11 Apr 2024 14:11:08 +0200
+
+>Author: Emile-Muller (emile.muller.contact@gmail.com)
+
+>Commiter: Emile-Muller (emile.muller.contact@gmail.com)
+
+
+
+
+### Update README.rst (origin/main, origin/HEAD, main)
+>Wed, 20 Sep 2023 14:32:56 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: GitHub (noreply@github.com)
+
+
+
+
+### Fix command
 >Mon, 22 May 2023 17:07:05 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +28,7 @@
 
 
 
-### Add a script to monitor performances Update dockerfile (tag: v0.9.4, origin/main, origin/HEAD)
+### Add a script to monitor performances Update dockerfile
 >Mon, 22 May 2023 16:43:10 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -38,7 +58,7 @@
 
 
 
-### Fix problem with Ctrl+c Improve quality code Add tests (tag: v0.9.3)
+### Fix problem with Ctrl+c Improve quality code Add tests
 >Sun, 16 Oct 2022 23:32:58 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -68,7 +88,7 @@
 
 
 
-### Fix configuration file (tag: v0.9.2)
+### Fix configuration file
 >Thu, 13 Oct 2022 22:06:53 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -178,7 +198,7 @@
 
 
 
-### Remove IAU logo Add PADC logo (tag: v0.9.1)
+### Remove IAU logo Add PADC logo
 >Tue, 7 Jun 2022 11:23:35 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -228,7 +248,7 @@
 
 
 
-### Add new WKTs Update website (logo, the display of WKTs) (tag: v0.9.0)
+### Add new WKTs Update website (logo, the display of WKTs)
 >Mon, 9 May 2022 14:31:17 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
