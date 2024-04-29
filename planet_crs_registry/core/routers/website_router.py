@@ -104,6 +104,12 @@ async def about_us(request: Request):
     return query_rep.get_about_us(request)
 
 
+@router.get("/web/formula.html")
+async def formula(request: Request):
+    """Formula page"""
+    return query_rep.get_formula(request)
+
+
 @router.get("/web/index.html")
 @router.get("/web/")
 async def web_index(request: Request):

@@ -62,6 +62,7 @@ setuptools.setup(
                 "templates/404.html",
                 "templates/index.html",
                 "templates/about_us.html",
+                "templates/formula.html",
             ],
         ),
         (

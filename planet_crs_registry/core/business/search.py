@@ -414,6 +414,12 @@ class QueryRepresentation:
             "about_us.html", {"request": request}
         )
 
+    def get_formula(self, request: Request):
+        """Formula page"""
+        return self.templates.TemplateResponse(
+            "formula.html", {"request": request}
+        )
+
     async def get_versions(self, request: Request):
         """Set the versions in the index.html"""
         base_url = request.base_url
