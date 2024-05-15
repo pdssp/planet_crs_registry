@@ -8,7 +8,7 @@ ab -n 10000 -c 20 -g 6.data http://localhost:8080/web/2015.html
 ab -n 10000 -c 20 -g 7.data http://localhost:8080/ws/IAU/0215
 ab -n 10000 -c 20 -g 8.data http://localhost:8080/ws/IAU/2015
 ab -n 10000 -c 20 -g 9.data http://localhost:8080/ws/IAU
-ab -n 10000 -c 20 -g 10.data http://localhost:8080/ws/formula.html
+ab -n 10000 -c 20 -g 10.data http://localhost:8080/web/formula.html
 gnuplot -e "set terminal png; set title 'ab -n 10000 -c 20 -g 1.data http://localhost:8080/web/'; set output '1.png'; plot '1.data' using 9 smooth sbezier with lines title 'Response Time (ms)'"
 gnuplot -e "set terminal png; set title 'ab -n 10000 -c 20 -g 2.data http://localhost:8080/web/index.html'; set output '2.png'; plot '2.data' using 9 smooth sbezier with lines title 'Response Time (ms)'"
 gnuplot -e "set terminal png; set title 'ab -n 10000 -c 20 -g 3.data http://localhost:8080/web/about_us.html'; set output '3.png'; plot '3.data' using 9 smooth sbezier with lines title 'Response Time (ms)'"
