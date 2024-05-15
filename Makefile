@@ -142,3 +142,9 @@ docker-build:
 
 docker-deploy:
 	sh docker/deploy.sh
+
+generate-gml:
+	python3 -m venv venv
+	venv/bin/pip install -r requirements_gml.txt
+	venv/bin/python data/gml_generator.py
+	rm -rf venv

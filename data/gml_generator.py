@@ -413,31 +413,31 @@ def get_apache_sis_path(
 
     _APACHE_URL = f"https://dlcdn.apache.org/sis/{apache_sis_version}/apache-sis-{apache_sis_version}-bin.zip"
     try:
-        with tempfile.TemporaryDirectory(delete=False) as temp_dir:
-            apache_download_msg = (
-                f"Apache SIS version {apache_sis_version}: downloading..."
-            )
-            print(apache_download_msg)
-            logging.info(apache_download_msg)
+        apache_download_msg = (
+            f"Apache SIS version {apache_sis_version}: downloading..."
+        )
+        print(apache_download_msg)
+        logging.info(apache_download_msg)
 
-            response = requests.get(_APACHE_URL)
-            response.raise_for_status()  # Raise an exception for bad response status codes
+        response = requests.get(_APACHE_URL)
+        response.raise_for_status()  # Raise an exception for bad response status codes
 
-            apache_download_msg = (
-                f"Apache SIS version {apache_sis_version}: download complete."
-            )
-            print(apache_download_msg)
-            logging.info(apache_download_msg)
+        apache_download_msg = (
+            f"Apache SIS version {apache_sis_version}: download complete."
+        )
+        print(apache_download_msg)
+        logging.info(apache_download_msg)
 
-            temp_zip_file = os.path.join(temp_dir, "apache.zip")
-            with open(temp_zip_file, "wb") as f:
-                f.write(response.content)
+        temp_dir = tempfile.mkdtemp()
 
-            with zipfile.ZipFile(temp_zip_file, "r") as zip_ref:
-                zip_ref.extractall(temp_dir)
-            os.remove(temp_zip_file)
+        temp_zip_file = os.path.join(temp_dir, "apache.zip")
+        with open(temp_zip_file, "wb") as f:
+            f.write(response.content)
+        with zipfile.ZipFile(temp_zip_file, "r") as zip_ref:
+            zip_ref.extractall(temp_dir)
+        os.remove(temp_zip_file)
 
-            return True, [temp_dir, apache_sis_directory]
+        return True, [temp_dir, f"apache-sis-{apache_sis_version}"]
 
     except Exception as e:
         shutil.rmtree(temp_dir)
@@ -479,7 +479,8 @@ def generate_gml_file_from_wkt(
         raise ValueError(f"Error: {e}")
 
     path_to_file = f"{path_to_directory}/IAU_{iau_version}_{code}.xml"
-    logging.debug(f"{path_to_file} // WKT: {wkt.split('\n')[0]}")
+    wkt_first_line = wkt.split("\n")[0]
+    logging.debug(f"{path_to_file} // WKT: {wkt_first_line}")
 
     if override_file_flag is False:
         if os.path.exists(path_to_file):
@@ -547,8 +548,10 @@ def generate_all_gml_files(
 
 
 def main() -> None:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
     logging.basicConfig(
-        filename="gml_generator.log",
+        filename=os.path.join(script_dir, "gml_generator.log"),
         level=logging.INFO,
         filemode="w",
         format="%(asctime)s - %(levelname)s - %(module)s (%(funcName)s): %(message)s",
@@ -557,7 +560,9 @@ def main() -> None:
 
     # Using Apache SIS to generate the GML files
     _APACHE_SIS_VERSION = "1.4"
-    _APACHE_SIS_DIRECTORY = f"apache-sis-{_APACHE_SIS_VERSION}"
+    _APACHE_SIS_DIRECTORY = os.path.join(
+        script_dir, f"apache-sis-{_APACHE_SIS_VERSION}"
+    )
     _APACHE_SIS_LIB_PATH = ["lib", "*"]
 
     temp_dir_flag, _apache_sis_path = get_apache_sis_path(
@@ -569,7 +574,11 @@ def main() -> None:
     try:
         with ApacheJVM(apache_libs) as apache_jvm:
             logging.info("Generating all GML files...")
-            generate_all_gml_files(apache_jvm, "result.wkts", "gml")
+            generate_all_gml_files(
+                apache_jvm,
+                os.path.join(script_dir, "result.wkts"),
+                os.path.join(script_dir, "gml"),
+            )
             logging.info("All GML files generated")
     finally:
         if temp_dir_flag:

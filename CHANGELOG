@@ -1,4 +1,14 @@
-### fix(formula): Fixed formula.html URL (HEAD -> main)
+### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README (HEAD -> fix/gml-generator)
+>Wed, 15 May 2024 15:00:08 +0200
+
+>Author: Emile-Muller (emile.muller.contact@gmail.com)
+
+>Commiter: Emile-Muller (emile.muller.contact@gmail.com)
+
+
+
+
+### fix(formula): Fixed formula.html URL (origin/main, origin/HEAD, main)
 >Wed, 15 May 2024 11:44:57 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
@@ -8,7 +18,7 @@
 
 
 
-### design(formula): Link in formula.html now shows properly. (origin/main, origin/HEAD, design/formula)
+### design(formula): Link in formula.html now shows properly.
 >Wed, 15 May 2024 11:30:50 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
@@ -18,7 +28,7 @@
 
 
 
-### chore(copyright): Updated copyright date and copyright test for 'formula.html' (origin/chore/copyright, chore/copyright)
+### chore(copyright): Updated copyright date and copyright test for 'formula.html'
 >Wed, 15 May 2024 10:38:23 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
