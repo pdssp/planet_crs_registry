@@ -2411,3 +2411,20 @@ footer.white-wrapper .social-links li a {
 .demo-selector .masonry-portfolio-item {
     margin-bottom: 30px;
 }
+
+
+/*-----------------------------------------------------------------------------------*/
+
+
+/*  22 - CUSTOM
+/*-----------------------------------------------------------------------------------*/
+
+#formula-epsg-documentation {
+    color: blue;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+#formula-epsg-documentation:hover {
+    color: darkblue;
+}

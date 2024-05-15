@@ -1,4 +1,14 @@
-### chore(copyright): Updated copyright date and copyright test for 'formula.html' (HEAD -> chore/copyright)
+### design(formula): Link in formula.html now shows properly. (HEAD -> design/formula)
+>Wed, 15 May 2024 11:30:50 +0200
+
+>Author: Emile-Muller (emile.muller.contact@gmail.com)
+
+>Commiter: Emile-Muller (emile.muller.contact@gmail.com)
+
+
+
+
+### chore(copyright): Updated copyright date and copyright test for 'formula.html' (origin/main, origin/chore/copyright, origin/HEAD, main, chore/copyright)
 >Wed, 15 May 2024 10:38:23 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
@@ -8,7 +18,7 @@
 
 
 
-### feat(GML): Added GMLDataFiller to fill necessary data for GML validation. Added logging in the script. (origin/main, origin/HEAD, main)
+### feat(GML): Added GMLDataFiller to fill necessary data for GML validation. Added logging in the script.
 >Mon, 29 Apr 2024 09:30:13 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
