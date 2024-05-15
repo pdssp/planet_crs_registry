@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
