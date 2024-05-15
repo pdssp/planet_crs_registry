@@ -1,4 +1,14 @@
-### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README (HEAD -> fix/gml-generator)
+### doc(Makefile): Added help for 'make generate-gml' (HEAD -> main)
+>Wed, 15 May 2024 15:21:12 +0200
+
+>Author: Emile-Muller (emile.muller.contact@gmail.com)
+
+>Commiter: Emile-Muller (emile.muller.contact@gmail.com)
+
+
+
+
+### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README (origin/main, origin/fix/gml-generator, origin/HEAD, fix/gml-generator)
 >Wed, 15 May 2024 15:00:08 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
@@ -8,7 +18,7 @@
 
 
 
-### fix(formula): Fixed formula.html URL (origin/main, origin/HEAD, main)
+### fix(formula): Fixed formula.html URL
 >Wed, 15 May 2024 11:44:57 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)

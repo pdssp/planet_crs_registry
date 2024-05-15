@@ -44,6 +44,11 @@ make docker-build\t\t Build the docker image\n\
 make docker-deploy\t\t Deploy the docker image\n\
 \n\
 -------------------------------------------------------------------------\n\
+\t\t GML Generation\n\
+-------------------------------------------------------------------------\n\
+make generate-gml\t\t Generate GML files from WKT\n\
+\n\
+-------------------------------------------------------------------------\n\
 \t\tOthers\n\
 -------------------------------------------------------------------------\n\
 make licences\t\t\t Display the list of licences\n\
