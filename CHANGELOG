@@ -1,4 +1,14 @@
-### doc(Makefile): Added help for 'make generate-gml' (HEAD -> main)
+### fix(test): Added a method to test GML generation and changed 'make tests' to 'make test' as 'test' singular is more commonly used. (HEAD -> fix/test)
+>Thu, 16 May 2024 11:00:12 +0200
+
+>Author: Emile-Muller (emile.muller.contact@gmail.com)
+
+>Commiter: Emile-Muller (emile.muller.contact@gmail.com)
+
+
+
+
+### doc(Makefile): Added help for 'make generate-gml' (origin/main, origin/HEAD, main)
 >Wed, 15 May 2024 15:21:12 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
@@ -8,7 +18,7 @@
 
 
 
-### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README (origin/main, origin/fix/gml-generator, origin/HEAD, fix/gml-generator)
+### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README
 >Wed, 15 May 2024 15:00:08 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)

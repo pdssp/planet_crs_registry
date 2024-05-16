@@ -58,13 +58,12 @@ class GmlResponse(Response):
         Returns:
             bytes: the response in GML
         """
+        content = content + ".xml"
+
         gml_path = os.environ.get("GML_PATH")
-        if gml_path:
-            gml_file_path = os.path.join(gml_path, f"{content}.xml")
-        else:
-            gml_file_path = os.path.join(
-                "planet_crs_registry", "data", "gml", f"{content}.xml"
-            )
+        if gml_path is None:
+            gml_path = os.path.join("planet_crs_registry", "data", "gml")
+        gml_file_path = os.path.join(gml_path, f"{content}")
 
         try:
             with open(gml_file_path, mode="rb") as gml_file:

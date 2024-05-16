@@ -95,7 +95,7 @@ lint:  ## Lint and static-check
 	pylint planet_crs_registry
 	mypy planet_crs_registry
 
-tests:  ## Run tests
+test:  ## Run tests
 	export API_TEST=True
 	pytest -ra
 
