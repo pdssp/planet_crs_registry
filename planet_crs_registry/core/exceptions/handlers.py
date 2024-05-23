@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -26,7 +26,7 @@ from starlette.responses import RedirectResponse
 async def custom_404_exception_handler(
     request: Request, exc: StarletteHTTPException
 ):
-    """Custon 404 page.
+    """Custom 404 page.
 
     Args:
         request (Request): Request

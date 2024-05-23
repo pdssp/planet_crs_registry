@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -218,13 +218,13 @@ class Server:
 
     @staticmethod
     def __run_http(planet_crs_registry: PlanetCrsRegistryLib):
-        """Main function that instanciates the library with http."""
+        """Main function that instantiates the library with http."""
         logger.info("Starting Planet Crs Registry with http")
         planet_crs_registry.start_http()
 
     @staticmethod
     def __run_https(planet_crs_registry: PlanetCrsRegistryLib):
-        """Main function that instanciates the library with https."""
+        """Main function that instantiates the library with https."""
         logger.info("Starting Planet Crs Registry with https")
         planet_crs_registry.start_https()
 

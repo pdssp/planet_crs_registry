@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -62,7 +62,7 @@ class PlanetCrsRegistryLib:
 
     @staticmethod
     def _parse_level(level: str):
-        """Parse level name and set the rigt level for the logger.
+        """Parse level name and set the right level for the logger.
         If the level is not known, the INFO level is set
 
         Args:

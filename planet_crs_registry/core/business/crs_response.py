@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Handles the IAU responses of the IAU web services."""
-import subprocess
+import os
 from typing import Any
 
 from fastapi import Response
@@ -50,53 +50,33 @@ class GmlResponse(Response):
     media_type = "application/xml"
 
     def render(self, content: str) -> bytes:
-        """Renders the GML response.
-        The GML response is renders in two different ways:
-        - in prod : use gdalsrsinfo because the web service is installed
-        in the same image as gdal
-        - in dev : use gdal image
+        """Render the GML response from stored data.
 
         Args:
-            content (str): IAU identifier
+            content (str): IAU identifier (separated by underscore)
 
         Returns:
             bytes: the response in GML
         """
-        data: bytes
-        if IS_PROD:
-            data = subprocess.check_output(
-                [
-                    "gdalsrsinfo",
-                    content,
-                    "-o",
-                    "xml",
-                ]
+        content = content + ".xml"
+
+        gml_path = os.environ.get("GML_PATH")
+        if gml_path is None:
+            gml_path = os.path.join("planet_crs_registry", "data", "gml")
+        gml_file_path = os.path.join(gml_path, f"{content}")
+
+        try:
+            with open(gml_file_path, mode="rb") as gml_file:
+                data: bytes = gml_file.read()
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Error: File '{content}' not found.")
+        except IOError as e:
+            raise IOError(
+                f"Error: An I/O error occurred while opening '{content}': {e}"
             )
-        else:
-            data = subprocess.check_output(
-                [
-                    "docker",
-                    "run",
-                    "--rm",
-                    "osgeo/gdal",
-                    "gdalsrsinfo",
-                    content,
-                    "-o",
-                    "xml",
-                ]
-            )
+
         data_str: str = data.decode("utf-8")
-        data_str = data_str.replace(
-            "<gml:GeographicCRS",
-            '<gml:GeographicCRS xmlns:gml="http://www.opengis.net/gml/3.2"\
-                 xmlns:gmd="http://www.isotc211.org/2005/gmd"',
-        )
-        data_str = data_str.replace(
-            "<gml:ProjectedCRS",
-            '<gml:ProjectedCRS xmlns:gml="http://www.opengis.net/gml/3.2"\
-                 xmlns:gmd="http://www.isotc211.org/2005/gmd"',
-        )
-        data_str = data_str.replace("\n", "")
+
         return Response(content=data_str, media_type="application/xml").render(
             data_str
         )

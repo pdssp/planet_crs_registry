@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -232,14 +232,14 @@ async def get_wkt_version(
         regex="^.*:\d*:\d*$",  # noqa: W605  # pylint: disable=W1401
     ),
 ) -> str:
-    """Get a WKT representation for both a given version and WKT Id
+    """Get a WKT representation for both a given version and WKT ID
 
     Args:
         version_id (int, optional): Version of the WKT.
         wkt_id (str, optional): Identifier of the WKT.
 
     Raises:
-        HTTPException: Version or WKT Id not found
+        HTTPException: Version or WKT ID not found
 
     Returns:
         str: The WKT representation
@@ -444,7 +444,7 @@ async def search(
 
     Args:
         search_term_kw (str): Term to search
-        limit (int, optional):  Number of records to display.. Defaults to LIMIT_QUERY.
+        limit (int, optional):  Number of records to display. Defaults to LIMIT_QUERY.
         offset (int, optional): Number of records from which we start to display. \
             Defaults to OFFSET_QUERY.
 
@@ -543,7 +543,7 @@ async def get_iau_wkts(
 
 @router.get(
     "/IAU/{iau_version}/{code}",
-    summary="Get the GML represention for a given WKT",
+    summary="Get the GML representation for a given WKT",
     description="The GML representation for a given WKT",
     responses={
         status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
@@ -574,17 +574,18 @@ async def get_iau_gml(
     Returns:
         GmlResponse: IAU crs as GML representation
     """
+    iau_version_code = f"IAU:{iau_version}:{code}"
     try:
-        return GmlResponse(content=f"IAU:{iau_version}:{code}")
+        return GmlResponse(content=iau_version_code.replace(":", "_"))
     except Exception as error:
         if "crs not found" in str(error):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"IAU:{iau_version}:{code} not found",
+                detail=f"{iau_version_code} not found",
             ) from error
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error when retrieving IAU:{iau_version}:{code} as GML - {error}",
+            detail=f"Error when retrieving {iau_version_code} as GML - {error}",
         ) from error
 
 

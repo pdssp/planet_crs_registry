@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -28,7 +28,7 @@ SQLITE_DB_URL = "sqlite://{sqlite_db}"  # sqlite://:memory:"
 
 
 class SqlLiteSettings(BaseSettings):  # pylint: disable=too-few-public-methods
-    """SQL liste env values"""
+    """SQL list env values"""
 
     sqlite_db: str = Field("db.sqlite3", env="SQLITE_DB")
 

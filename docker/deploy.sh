@@ -1,6 +1,6 @@
 #!/bin/sh
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -22,7 +22,7 @@ set ps
 search=`docker images | grep pdssp/planet_crs_registry | wc -l`
 if [ $search = 0 ];
 then
-	# only the heaader - no image found
+	# only the header - no image found
 	echo "Please build the image by running 'make docker-build'"
 	exit 1
 fi

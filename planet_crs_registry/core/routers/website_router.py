@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Planet CRS Registry - The coordinates reference system registry for solar bodies
-# Copyright (C) 2021-2022 - CNES (Jean-Christophe Malapert for PDSSP)
+# Copyright (C) 2021-2024 - CNES (Jean-Christophe Malapert for PDSSP)
 #
 # This file is part of Planet CRS Registry.
 #
@@ -74,7 +74,7 @@ async def send_email(contact: ContactEmail):
         sender = contact.email
         receiver = cfg.CONTACT_EMAIL
         msg = MIMEText(contact.comments)
-        msg["Subject"] = f"[Planetery CRS] {contact.firstName} {contact.name}"
+        msg["Subject"] = f"[Planetary CRS] {contact.firstName} {contact.name}"
         msg["From"] = contact.email
         msg["To"] = [receiver]
         with smtplib.SMTP(hostname, port) as server:
@@ -104,6 +104,12 @@ async def about_us(request: Request):
     return query_rep.get_about_us(request)
 
 
+@router.get("/web/formula.html")
+async def formula(request: Request):
+    """Formula page"""
+    return query_rep.get_formula(request)
+
+
 @router.get("/web/index.html")
 @router.get("/web/")
 async def web_index(request: Request):
@@ -124,7 +130,7 @@ async def search(
     page: int = 1,
     limit: int = 100,
 ) -> object:
-    """Returns the representation related to the ouput of the search query.
+    """Returns the representation related to the output of the search query.
 
     Args:
         request (Request): Request
@@ -133,7 +139,7 @@ async def search(
         limit (int, optional): number of records per page. Defaults to 100.
 
     Returns:
-        object : The representation related to the ouput of the search query
+        object : The representation related to the output of the search query
     """
     return await query_rep.get_all_wkts_search(
         request, search_term_kw, page, limit
@@ -147,7 +153,7 @@ async def get_all_wkts_name_or_version(
     page: int = 1,
     limit: int = 100,
 ):
-    """Retrive the error page, the WKTs for a given version of planet name.
+    """Retrieve the error page, the WKTs for a given version of planet name.
 
     Args:
         request (Request): Request
