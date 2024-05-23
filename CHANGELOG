@@ -1,4 +1,14 @@
-### fix(test): Added a method to test GML generation and changed 'make tests' to 'make test' as 'test' singular is more commonly used. (HEAD -> fix/test)
+### build(Docker): Added a Dockerfile-dev for testing purpose, which copies local files instead of cloning the remote repository. (HEAD -> build/docker)
+>Thu, 23 May 2024 09:12:10 +0200
+
+>Author: emuller (emuller@geomatys.com)
+
+>Commiter: emuller (emuller@geomatys.com)
+
+
+
+
+### fix(test): Added a method to test GML generation and changed 'make tests' to 'make test' as 'test' singular is more commonly used. (origin/main, origin/HEAD, main)
 >Thu, 16 May 2024 11:00:12 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
@@ -8,7 +18,7 @@
 
 
 
-### doc(Makefile): Added help for 'make generate-gml' (origin/main, origin/HEAD, main)
+### doc(Makefile): Added help for 'make generate-gml'
 >Wed, 15 May 2024 15:21:12 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
