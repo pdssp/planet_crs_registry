@@ -1,4 +1,14 @@
-### feat(GML generator): Added missing identifier for OperationMethod - needed for GML validation. (HEAD -> feat/GML)
+### feat(GML): Added 2273 GML files, generated from 'result.wkts', using ApacheSIS. (HEAD -> feat/GML)
+>Thu, 30 May 2024 12:01:14 +0200
+
+>Author: emuller (emuller@geomatys.com)
+
+>Commiter: emuller (emuller@geomatys.com)
+
+
+
+
+### feat(GML generator): Added missing identifier for OperationMethod - needed for GML validation. (origin/feat/GML)
 >Thu, 30 May 2024 11:58:33 +0200
 
 >Author: emuller (emuller@geomatys.com)
