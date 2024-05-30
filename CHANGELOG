@@ -1,4 +1,4 @@
-### Add "Enter" event to seach on a body Add information about formulas (HEAD -> improvements)
+### Add "Enter" event to seach on a body Add information about formulas (origin/improvements)
 >Thu, 30 May 2024 14:18:21 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +8,27 @@
 
 
 
-### Implements #6 (origin/proposal001, proposal001)
+### feat(GML): Added 2273 GML files, generated from 'result.wkts', using ApacheSIS.
+>Thu, 30 May 2024 12:01:14 +0200
+
+>Author: emuller (emuller@geomatys.com)
+
+>Commiter: emuller (emuller@geomatys.com)
+
+
+
+
+### feat(GML generator): Added missing identifier for OperationMethod - needed for GML validation.
+>Thu, 30 May 2024 11:58:33 +0200
+
+>Author: emuller (emuller@geomatys.com)
+
+>Commiter: emuller (emuller@geomatys.com)
+
+
+
+
+### Implements #6 (origin/proposal001)
 >Thu, 30 May 2024 09:53:06 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -38,7 +58,7 @@
 
 
 
-### doc(Makefile): Added help for 'make generate-gml' (Geomatys-main)
+### doc(Makefile): Added help for 'make generate-gml'
 >Wed, 15 May 2024 15:21:12 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
