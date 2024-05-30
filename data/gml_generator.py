@@ -74,6 +74,7 @@ class GMLDataFiller:
             )
             if operation_method is not None:
                 logging.debug("Found OperationMethod element")
+                self._add_identifier_if_missing(operation_method, "method")
                 self._add_formula_citation_if_missing(
                     operation_method, ["remarks", "name", "identifier"]
                 )
