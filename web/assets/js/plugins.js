@@ -383,6 +383,15 @@ kyco.easyShare=function(){0<$("[data-easyshare]").length&&$("[data-easyshare]").
 
 $(function() {
 
+    // Capture the enter key press event on the search input
+    $('#search_terms').on('keydown', function(event) {
+		if (event.key === 'Enter') {
+		  event.preventDefault(); // Prevent the default form submission
+		  $('#search-form').submit(); // Trigger the form submission via jQuery
+		}
+	  });
+
+
     $("input,textarea").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function($form, event, errors) {
