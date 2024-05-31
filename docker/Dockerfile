@@ -26,11 +26,11 @@ ARG VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Environment variable for the use of SQLite
-ENV API_TEST "True"
-
-# Environment variable for the use of docker
-ENV USE_DOCKER "True"
+# Environment variable for the use of SQLite and Docker
+ENV API_TEST=True \
+    USE_DOCKER=True \
+    PIP_BREAK_SYSTEM_PACKAGES=1 \
+    GML_PATH=/planet_crs_registry/data/gml
 
 # Labels (based on http://label-schema.org/rc1/)
 LABEL \
@@ -49,15 +49,12 @@ RUN apt-get update && \
     apt-get install -y \
     software-properties-common apt-transport-https curl git python3-pip && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    pip install setuptools && \
+    pip install --upgrade pip setuptools && \
     git clone "https://github.com/pdssp/planet_crs_registry.git" && \
     cd planet_crs_registry && \
-    export API_TEST=True &&\
     make && \
     mkdir -p /conf && \
     cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
-
-ENV GML_PATH=/planet_crs_registry/data/gml
 
 # Expose the http server on 8080
 EXPOSE 8080 5000
