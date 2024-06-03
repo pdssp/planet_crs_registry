@@ -26,3 +26,5 @@ SMTP_PORT = int(environ.get("SMTP_PORT", 25))
 SMTP_LOGIN = environ.get("SMTP_LOGIN", None)
 SMTP_PASSWD = environ.get("SMTP_PASSWD", None)
 CONTACT_EMAIL = "jean-christophe.malapert@cnes.fr"
+SLACK_TOKEN = environ.get("SLACK_TOKEN", None)
+SLACK_CHANNEL_ID = environ.get("SLACK_CHANNEL_ID", None)
