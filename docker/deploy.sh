@@ -31,10 +31,22 @@ ps=`docker ps -a | grep pdssp-planet_crs_registry | wc -l`
 if [ $ps = 0 ];
 then
 	echo "no container available, start one"
-	docker run --name=pdssp-planet_crs_registry \
-	-p 8080:8080 -p 5000:5000 \
-	pdssp/planet_crs_registry
-	exit $?
+
+    # Check is SLACK_TOKEN is defined
+    if [ -z "$SLACK_TOKEN" ]; then
+        echo "The SLACK_TOKEN environment variable is not defined. Starting CRS registry without the ability to send messages to the administrator."
+		docker run --name=pdssp-planet_crs_registry \
+		-p 8080:8080 -p 5000:5000 \
+		pdssp/planet_crs_registry
+		exit $?
+	else
+		docker run --name=pdssp-planet_crs_registry \
+		-p 8080:8080 -p 5000:5000 \
+		-e SLACK_TOKEN=$SLACK_TOKEN \
+		-e SLACK_CHANNEL_ID=C076N0N5N49 \
+		pdssp/planet_crs_registry
+		exit $?
+	fi
 fi
 
 ps=`docker ps | grep pdssp-planet_crs_registry | wc -l`

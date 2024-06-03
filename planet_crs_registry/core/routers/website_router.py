@@ -27,6 +27,8 @@ from typing import Union
 from fastapi import APIRouter
 from fastapi import Request
 from fastapi import status
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 from starlette.exceptions import HTTPException
 from starlette.responses import HTMLResponse
 from starlette.responses import RedirectResponse
@@ -48,15 +50,6 @@ async def root():
     return RedirectResponse(url="/web")
 
 
-@router.post(
-    "/email/",
-    summary="Send an email to planetary CRS.",
-    description="Send an email to planetary CRS.",
-    responses={
-        status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPNotFoundError}
-    },
-    tags=["Users"],
-)
 async def send_email(contact: ContactEmail):
     """Send Email to contactEmail
 
@@ -90,6 +83,51 @@ async def send_email(contact: ContactEmail):
         raise HTTPException(
             status_code=500, detail="Cannot connect to SMTP server !"
         ) from err
+
+
+@router.post(
+    "/email/",
+    summary="Send an email to planetary CRS.",
+    description="Send an email to planetary CRS.",
+    responses={
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPNotFoundError}
+    },
+    tags=["Users"],
+)
+async def send_slack(contact: ContactEmail):
+    # Slack env
+    slack_token = cfg.SLACK_TOKEN
+    channel_id = cfg.SLACK_CHANNEL_ID
+
+    is_valid = True
+    if slack_token is None:
+        logger.warning(
+            "SLACK_TOKEN environment is not set, cannot send information to the administrator"
+        )
+    if channel_id is None:
+        logger.warning(
+            "SLACK_CHANNEL_ID environment is not set, cannot send information to the administrator"
+        )
+    if not is_valid:
+        raise HTTPException(
+            status_code=500, detail="Check your SLACK tocken and channel"
+        )
+
+    client = WebClient(token=slack_token)
+    try:
+        response = client.chat_postMessage(
+            channel=channel_id,
+            text=f"Contact : {contact.firstName} {contact.name} ({contact.email})\n\n{contact.comments}",
+        )
+        assert response["ok"]
+        logger.info(f"Message envoyé avec succès dans le canal {channel_id}")
+    except SlackApiError as e:
+        logger.error(
+            f"Erreur lors de l'envoi du message : {e.response['error']}"
+        )
+        raise HTTPException(
+            status_code=500, detail="Cannot post a message to SLACK server !"
+        )
 
 
 @router.get("/ping")
