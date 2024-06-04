@@ -3,6 +3,10 @@ asyncpg==0.29.0
 fastapi==0.95.2
 httpx==0.24.1
 jinja2==3.1.2
+# TODO: in the future, we might move that in pyproject.toml as an optional "otel" dependency group (it requires moving complete dependency management system there, though)
+opentelemetry-distro
+opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-instrumentation-fastapi
 pydantic==1.10.2
 pydantic-xml[lxml]==0.2.2
 python-dotenv==0.21.0

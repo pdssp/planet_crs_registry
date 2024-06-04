@@ -1,0 +1,37 @@
+auth_enabled: false
+
+common:
+  replication_factor: 1
+  path_prefix: /loki/
+  ring:
+    kvstore:
+      store: inmemory
+
+server:
+  http_listen_port: 3100
+  log_level: info
+
+storage_config:
+  filesystem:
+    directory: /loki/chunks
+
+schema_config:
+  configs:
+    - store: tsdb
+      from: "2024-01-01"
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: logs_
+        period: 24h
+
+# Prevent sending statistics to Grafana Labs (https://stats.grafana.org)
+analytics:
+  reporting_enabled: false
+
+# WARNING: before raising this limit, double-check your use-case.
+# Loki documentation clearly states that labels must be bounded values with low-cardinality.
+# Their primary goal is fast classification.
+# More details: https://grafana.com/docs/loki/latest/get-started/labels/bp-labels/
+# limits_config:
+#   max_label_names_per_series: 30

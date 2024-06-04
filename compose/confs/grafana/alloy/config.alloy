@@ -1,0 +1,104 @@
+otelcol.receiver.otlp "otel_input" {
+    grpc {}
+    http {}
+
+    output {
+      traces = [otelcol.exporter.otlp.compose_tempo.input]
+      logs = [otelcol.exporter.loki.log_bridge.input]
+    }
+}
+
+otelcol.exporter.loki "log_bridge" {
+  forward_to = [
+    loki.echo.before_transform.receiver,
+    loki.process.transform.receiver,
+  ]
+}
+
+loki.echo "before_transform" {
+
+}
+
+loki.process "transform" {
+  forward_to = [
+    loki.echo.after_transform.receiver,
+    loki.write.compose_loki.receiver,
+  ]
+
+  // Extract common open-telemetry fields from raw log
+  stage.json {
+    expressions = {
+      body = "",
+      spanid ="",
+      traceid = "",
+    }
+  }
+
+  // Extract information from uvicorn access logs (for Python ASGI applications)
+  stage.regex {
+    // Unescaped regex:
+    // (?P<peer_address>(?:\d{1,3})(?:\.(?:\d{1,3})){3})(?:\:(?P<port>\d+))?\s+-\s+"(?P<http_method>[A-Z]+)\s+(?P<uri_path>(?:/[^\s]*)+)\s+(?P<protocol>[^"]+)"\s+(?P<status_code>\d+)
+    expression = "(?P<peer_address>(?:\\d{1,3})(?:\\.(?:\\d{1,3})){3})(?:\\:(?P<port>\\d+))?\\s+-\\s+\"(?P<http_method>[A-Z]+)\\s+(?P<uri_path>(?:/[^\\s]*)+)\\s+(?P<protocol>[^\"]+)\"\\s+(?P<status_code>\\d+)"
+    source = "body"
+  }
+
+  /* Uncomment this to activate geolocation from uvicorn access logs. It requires a GeoLite2 database in the alloy configuration directory.
+  stage.geoip {
+    // Source field providing IP to get location for
+    source = "peer_address"
+    // GeoIP database file to use for correlation
+    db = "/alloy/conf/geolite2-city.mmdb"
+    // The precise type of database used (city or country)
+    db_type = "city"
+  }
+  */
+
+  /* WARNING: no computed field is included in output until we call both stages below.
+   * The first stage modify output log entry (main body) to produce a json with provided values.
+   * The second stage add labels (metadata) to output log.
+   */
+  stage.pack {
+    labels = [
+      "geoip_city_name",
+      "geoip_continent_name",
+      "geoip_country_name",
+      "geoip_location_latitude",
+      "geoip_location_longitude",
+      "peer_address",
+    ]
+  }
+
+  stage.labels {
+      values = {
+        geoip_country_code = "",
+        geoip_continent_code = "",
+        http_method = "",
+        protocol = "",
+        status_code = "",
+        uri_path = "",
+      }
+  }
+}
+
+loki.echo "after_transform" {
+
+}
+
+loki.write "compose_loki" {
+    endpoint {
+        url = "http://grafana-loki:3100/loki/api/v1/push"
+        tls_config {
+          insecure_skip_verify = true
+        }
+    }
+}
+
+otelcol.exporter.otlp "compose_tempo" {
+  client {
+    endpoint = "grafana-tempo:4317"
+    tls {
+      insecure             = true
+      insecure_skip_verify = true
+    }
+  }
+}

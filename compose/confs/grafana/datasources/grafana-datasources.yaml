@@ -1,0 +1,41 @@
+apiVersion: 1
+
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://grafana-loki:3100
+    basicAuth: false
+    isDefault: true
+    editable: false
+    jsonData:
+      timeout: 5
+      maxLines: 1000
+# TODO: in the future, if we add metrics reports we will need this block (or something similar)
+#  - name: Prometheus
+#    type: prometheus
+#    uid: prometheus
+#    access: proxy
+#    orgId: 1
+#    url: http://prometheus:9090
+#    basicAuth: false
+#    isDefault: false
+#    version: 1
+#    editable: false
+#    jsonData:
+#      httpMethod: GET
+  - name: Tempo
+    type: tempo
+    access: proxy
+    orgId: 1
+    url: http://grafana-tempo:3200
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: false
+    apiVersion: 1
+    uid: tempo
+    jsonData:
+      httpMethod: GET
+      serviceMap:
+        datasourceUid: prometheus
