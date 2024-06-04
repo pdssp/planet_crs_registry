@@ -47,10 +47,10 @@ LABEL \
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y \
-    software-properties-common apt-transport-https curl git python3-pip && \
-    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    pip install setuptools
+    software-properties-common apt-transport-https curl git python3-pip
+
 COPY . /planet_crs_registry
+
 RUN cd planet_crs_registry && \
     export API_TEST=True &&\
     make && \

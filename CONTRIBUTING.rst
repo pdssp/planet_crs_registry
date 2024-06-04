@@ -110,6 +110,9 @@ To run a subset of tests::
 
 $ pytest tests.test_planet_crs_registry
 
+Build a docker image from local changes::
+
+$ docker build -t pdssp/planetary-crs-registry -f docker/Dockerfile-dev .
 
 Deploying
 ---------
