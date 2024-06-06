@@ -1,4 +1,14 @@
-### feat(Python): activate uvicorn logging export using open-telemetry (HEAD -> feat/observability)
+### feat(Compose): Add an example dashboard for HTTP access statistics (HEAD -> feat/observability)
+>Thu, 6 Jun 2024 11:28:43 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### feat(Python): activate uvicorn logging export using open-telemetry
 >Thu, 6 Jun 2024 10:28:26 +0200
 
 >Author: Alexis Manin (alexis.manin@geomatys.com)
