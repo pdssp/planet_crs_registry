@@ -1,4 +1,14 @@
-### feat(Compose): Add observability stack (HEAD -> feat/observability)
+### feat(Python): activate uvicorn logging export using open-telemetry (HEAD -> feat/observability)
+>Thu, 6 Jun 2024 10:28:26 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### feat(Compose): Add observability stack (origin/feat/observability)
 >Tue, 4 Jun 2024 18:31:27 +0200
 
 >Author: Alexis Manin (alexis.manin@geomatys.com)
