@@ -44,9 +44,11 @@ This compose environment relies on `Open-telemetry <https://opentelemetry.io/>`_
 
 The monitoring platform itself uses `Grafana open-source edition <https://grafana.com/oss/>`_:
 
+.. image:: telemetry.webp
+   :alt: telemetry overview
 
-.. raw:: html
-  :file: ./telemetry.drawio.html
+.. note::
+   Figure accessible as vector image `here <./telemetry.drawio.html>`_
 
 #. First, *planetary crs registry* application is launched with `FastAPI OpenTelemetry instrumentation <https://opentelemetry-python-contrib.readthedocs.io/en/latest/instrumentation/fastapi/fastapi.html>`_ support. It intercepts activity (ASGI calls and log records), and send related information to an OTLP compatible receiver.
 #. We use `Grafana Alloy <https://grafana.com/oss/alloy-opentelemetry-collector/>`_ as OpenTelemetry collector, as it allow to perform advanced transformation, like Geolocation of client IP addresses.
@@ -67,7 +69,7 @@ To setup the process:
     #. Unzip the download file to get the ``.mmdb`` file directly on your system.
 #. Activate GeoIP processing
     #. Move/copy the GeoLite2 database to ``./confs/grafana/alloy/`` directory, and name it ``geolite2-city.mmdb``.
-    #. Uncomment the ``stage.geoip`` block in `Alloy configuration file <file:./confs/grafana/alloy/config.alloy>`_
+    #. Uncomment the ``stage.geoip`` block in `Alloy configuration file <./confs/grafana/alloy/config.alloy>`_
 #. Restart the compose configuration
 
 

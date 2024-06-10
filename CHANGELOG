@@ -1,4 +1,14 @@
-### doc(compose): Changed code samples to use two backquotes instead of one (RST format). (HEAD -> feat/observability)
+### doc(Compose): fix image and link (HEAD -> feat/observability)
+>Mon, 10 Jun 2024 09:42:35 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### doc(compose): Changed code samples to use two backquotes instead of one (RST format).
 >Thu, 6 Jun 2024 17:06:16 +0200
 
 >Author: emuller (emuller@geomatys.com)
@@ -8,7 +18,7 @@
 
 
 
-### doc(Compose): Add documentation to help using and understanding compose configuration (origin/feat/observability)
+### doc(Compose): Add documentation to help using and understanding compose configuration
 >Thu, 6 Jun 2024 15:32:01 +0200
 
 >Author: Alexis Manin (alexis.manin@geomatys.com)
@@ -159,7 +169,7 @@ Add an observability configuration using Open Telemetry + Grafana to monitor app
 
 
 
-### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README
+### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README (origin/fix/gml-generator, fix/gml-generator)
 >Wed, 15 May 2024 15:00:08 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
