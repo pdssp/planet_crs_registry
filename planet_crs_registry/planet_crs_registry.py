@@ -21,7 +21,6 @@ import configparser
 import logging.config
 import os
 import ssl
-from contextlib import asynccontextmanager
 
 import uvicorn  # type: ignore
 from fastapi import FastAPI
@@ -56,22 +55,18 @@ class PlanetCrsRegistryLib:
         )
         self.__config.read(self.__path_to_conf)
 
-        # Telemetry activation requires proper initialization through FastAPI startup mechanism.
-        # Do NOT try to move this configuration in `logging.conf` configuration file or in `initializer.py`,
-        # unless all initialization related code is migrated to FastAPI "lifespan" feature
-        @asynccontextmanager
-        async def _app_lifecycle(app: FastAPI):
-            logger.debug("Lifecycle init for %s", app.title)
-            _init_uvicorn_log_telemetry()
-            yield
-            logger.debug("Lifecycle shutdown for %s", app.title)
-
         self.__app = FastAPI(
             title=openapi_config.name,
             version=openapi_config.version,
             description=openapi_config.description,
-            lifespan=_app_lifecycle,
         )
+
+        # Telemetry activation requires proper initialization through FastAPI startup mechanism.
+        # Do NOT try to move this configuration in `logging.conf` configuration file or in `initializer.py`,
+        # unless all initialization related code is migrated to FastAPI "lifespan" feature
+        @self.__app.on_event(event_type="startup")
+        async def _bind_telemetry_on_uvicorn_logs():
+            _init_uvicorn_log_telemetry()
 
     @staticmethod
     def _parse_level(level: str):

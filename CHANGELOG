@@ -1,4 +1,15 @@
-### refactor(Compose): change api configuration binding (HEAD -> feat/observability)
+### fix(Python): refactor otel/uvicorn binding to use "on_event('startup')" feature instead of lifespan. (HEAD -> feat/observability)
+>Wed, 12 Jun 2024 16:48:40 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+Use of lifespan broke tortoise shutdown (which use on_event("shutdown") in ws_router file.
+
+
+
+### refactor(Compose): change api configuration binding (origin/feat/observability)
 >Wed, 12 Jun 2024 14:14:28 +0200
 
 >Author: Alexis Manin (alexis.manin@geomatys.com)
@@ -9,7 +20,7 @@ Use bind mount instead of config block, to enhance retro-compatibility with olde
 
 
 
-### doc(Compose): fix image and link (origin/feat/observability)
+### doc(Compose): fix image and link
 >Mon, 10 Jun 2024 09:42:35 +0200
 
 >Author: Alexis Manin (alexis.manin@geomatys.com)
