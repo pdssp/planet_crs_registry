@@ -178,7 +178,7 @@ Create the container
 
 .. code-block:: console
 
-        $ docker run --name=pdssp-planet_crs_registry -p 5000:5000 -v /tmp/conf:/conf pdssp/planet_crs_registry
+        $ docker run --name=pdssp-planet-crs-registry -p 5000:5000 -v /tmp/conf:/conf pdssp/planet-crs-registry
 
 
 Run the registry as both Http and Https
@@ -220,7 +220,7 @@ Create the container
 
 .. code-block:: console
 
-        $ docker run --name=pdssp-planet_crs_registry -p 5000:5000 -p 8080:8080 -v /tmp/conf:/conf pdssp/planet_crs_registry
+        $ docker run --name=pdssp-planet-crs-registry -p 5000:5000 -p 8080:8080 -v /tmp/conf:/conf pdssp/planet-crs-registry
 
 
 Stop the registry
@@ -228,7 +228,7 @@ Stop the registry
 
 .. code-block:: console
 
-        $ docker stop pdssp-planet_crs_registry
+        $ docker stop pdssp-planet-crs-registry
 
 
 Restart the registry
@@ -236,7 +236,7 @@ Restart the registry
 
 .. code-block:: console
 
-        $ docker start pdssp-planet_crs_registry
+        $ docker start pdssp-planet-crs-registry
 
 ---------
 Run tests
