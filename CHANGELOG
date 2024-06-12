@@ -1,4 +1,14 @@
-### Configure automatic import of dashboard Remove ping split observability.yaml in two parts : the crs registry app (crs_registry-server.yaml) and observability.yaml (HEAD -> main)
+### Update README (HEAD -> main)
+>Thu, 13 Jun 2024 01:55:53 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Configure automatic import of dashboard Remove ping split observability.yaml in two parts : the crs registry app (crs_registry-server.yaml) and observability.yaml
 >Thu, 13 Jun 2024 01:38:27 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
