@@ -1,8 +1,8 @@
 .. highlight:: shell
 
-===============================
+===================
 Planet CRS Registry
-===============================
+===================
 
 .. image:: https://img.shields.io/github/v/tag/pdssp/planet_crs_registry
 .. image:: https://img.shields.io/github/v/release/pdssp/planet_crs_registry?include_prereleases
@@ -19,7 +19,7 @@ Planet CRS Registry
 The coordinates reference system registry for solar bodies
 
 
-
+--------------
 Stable release
 --------------
 
@@ -38,9 +38,9 @@ you through the process.
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-
+------------------------------------------
 From sources (without virtual environment)
-------------
+------------------------------------------
 
 The sources for Planet CRS Registry can be downloaded from the `Github repo`_.
 
@@ -68,9 +68,9 @@ Once you have a copy of the source, you can install it with:
 .. _tarball: https://github.com/pdssp/planet_crs_registry/tarball/master
 
 
-
+---------------------------------------
 From sources (with virtual environment)
-------------
+---------------------------------------
 
 The sources for Planet CRS Registry can be downloaded from the `Github repo`_.
 
@@ -99,7 +99,7 @@ Once you have a copy of the source, you can install it with:
 .. _tarball: https://github.com/pdssp/planet_crs_registry/tarball/master
 
 
-
+-----------
 Development
 -----------
 
@@ -119,7 +119,7 @@ To get more information about the preconfigured tasks:
         $ make help
 
 
-
+-----
 Usage
 -----
 
@@ -128,7 +128,7 @@ To use Planet CRS Registry in a project::
     planet_crs_registry
 
 
-
+------
 Docker
 ------
 
@@ -136,15 +136,18 @@ Docker
 
         $ docker pull pdssp/planetary-crs-registry # get the image
 
-### Run the registry as Http
+Run the registry as Http
+========================
 
 .. code-block:: console
 
         $ docker run -p 8080:8080 pdssp/planetary-crs-registry
 
-### Run the registry as Https
+Run the registry as Https
+=========================
 
 Create the SSL certificate
+--------------------------
 
 .. code-block:: console
 
@@ -153,6 +156,7 @@ Create the SSL certificate
         $ mkcert -cert-file cert.pem -key-file key.pem 0.0.0.0 localhost 127.0.0.1 ::1
 
 Edit the configuration file
+---------------------------
 
 .. code-block:: console
 
@@ -160,23 +164,28 @@ Edit the configuration file
 
 And set the configuration file as follows:
 
-```
-[HTTPS]
-host = 0.0.0.0
-port = 5000
-ssl_keyfile = key.pem
-ssl_certfile = cert.pem
-```
+.. code-block:: ini
+
+        [HTTPS]
+        host = 0.0.0.0
+        port = 5000
+        ssl_keyfile = key.pem
+        ssl_certfile = cert.pem
+
+
 Create the container
+--------------------
 
 .. code-block:: console
 
-        $ docker run --name=pdssp-planet_crs_registry -p 5000:5000 -v /tmp/conf:/conf pdssp/planet_crs_registry
+        $ docker run --name=pdssp-planet-crs-registry -p 5000:5000 -v /tmp/conf:/conf pdssp/planet-crs-registry
 
 
-     ### Run the registry as both Http and Https
+Run the registry as both Http and Https
+=======================================
 
 Create the SSL certificate
+--------------------------
 
 .. code-block:: console
 
@@ -185,6 +194,7 @@ Create the SSL certificate
         $ mkcert -cert-file cert.pem -key-file key.pem 0.0.0.0 localhost 127.0.0.1 ::1
 
 Edit the configuration file
+---------------------------
 
 .. code-block:: console
 
@@ -192,38 +202,43 @@ Edit the configuration file
 
 And set the configuration file as follows:
 
-```
-[HTTP]
-host = 0.0.0.0
-port = 8080
+.. code-block:: ini
 
-[HTTPS]
-host = 0.0.0.0
-port = 5000
-ssl_keyfile = key.pem
-ssl_certfile = cert.pem
-```
+        [HTTP]
+        host = 0.0.0.0
+        port = 8080
+
+        [HTTPS]
+        host = 0.0.0.0
+        port = 5000
+        ssl_keyfile = key.pem
+        ssl_certfile = cert.pem
+
+
 Create the container
+--------------------
 
 .. code-block:: console
 
-        $ docker run --name=pdssp-planet_crs_registry -p 5000:5000 -p 8080:8080 -v /tmp/conf:/conf pdssp/planet_crs_registry
+        $ docker run --name=pdssp-planet-crs-registry -p 5000:5000 -p 8080:8080 -v /tmp/conf:/conf pdssp/planet-crs-registry
 
 
-### Stop the registry
-
-.. code-block:: console
-
-        $ docker stop pdssp-planet_crs_registry
-
-
-### Restart the registry
+Stop the registry
+=================
 
 .. code-block:: console
 
-        $ docker start pdssp-planet_crs_registry
+        $ docker stop pdssp-planet-crs-registry
 
 
+Restart the registry
+====================
+
+.. code-block:: console
+
+        $ docker start pdssp-planet-crs-registry
+
+---------
 Run tests
 ---------
 
@@ -231,18 +246,18 @@ Run tests
 
         $make tests
 
-
+------
 Author
 ------
 👤 **Jean-Christophe Malapert**
 
 
-
+---------------
 🤝 Contributing
 ---------------
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/pole-surfaces-planetaires/planet_crs_registry/issues). You can also take a look at the [contributing guide](https://github.com/pole-surfaces-planetaires/planet_crs_registry/blob/master/CONTRIBUTING.rst)
 
-
+----------
 📝 License
 ----------
 This project is [GNU Lesser General Public License v3](https://github.com/pole-surfaces-planetaires/planet_crs_registry/blob/master/LICENSE) licensed.
