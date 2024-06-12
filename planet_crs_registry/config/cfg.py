@@ -28,3 +28,4 @@ SMTP_PASSWD = environ.get("SMTP_PASSWD", None)
 CONTACT_EMAIL = "jean-christophe.malapert@cnes.fr"
 SLACK_TOKEN = environ.get("SLACK_TOKEN", None)
 SLACK_CHANNEL_ID = environ.get("SLACK_CHANNEL_ID", None)
+OTEL_EXPORTER_OTLP_ENDPOINT = environ.get("OTEL_EXPORTER_OTLP_ENDPOINT", None)

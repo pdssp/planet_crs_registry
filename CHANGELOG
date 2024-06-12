@@ -1,4 +1,54 @@
-### Fix dashboard and configg for GeoIP (HEAD -> Geomatys-feat/observability)
+### Refactor envrionment variables to set them all at cfg Update name of the docker image (HEAD -> main)
+>Wed, 12 Jun 2024 22:48:36 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Update README.rst
+>Wed, 12 Jun 2024 20:26:17 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: GitHub (noreply@github.com)
+
+Fix image and container names
+
+
+### Update README.rst
+>Wed, 12 Jun 2024 20:23:28 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: GitHub (noreply@github.com)
+
+Fix README
+
+
+### Update deploy.sh
+>Wed, 12 Jun 2024 20:00:34 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: GitHub (noreply@github.com)
+
+standardization of docker image and container names
+
+
+### Update build.sh
+>Wed, 12 Jun 2024 19:54:07 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: GitHub (noreply@github.com)
+
+
+
+
+### Fix dashboard and configg for GeoIP (Geomatys-feat/observability)
 >Wed, 12 Jun 2024 19:42:38 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
