@@ -1,0 +1,23 @@
+stream_over_http_enabled: true
+server:
+  http_listen_port: 3200
+  log_level: info
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+        http:
+
+compactor:
+  compaction:
+    block_retention: 24h
+
+storage:
+  trace:
+    backend: local
+    local:
+      path: /var/tempo/data/blocks
+    wal:
+      path: /var/tempo/data/wal

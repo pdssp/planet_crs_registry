@@ -1,0 +1,74 @@
+services:
+  api:
+    command:
+      - opentelemetry-instrument
+      - planet_crs_registry
+      - --conf_file=/conf/planet_crs_registry.conf
+    env_file:
+      - envs/otel.env
+
+  # Individual storage/indexing services
+  grafana-loki:
+    image: grafana/loki:3.0.0
+    command:
+      - "-config.file=/confs/loki.yaml"
+      # Required to enable "monolithic" mode: https://grafana.com/docs/loki/latest/get-started/deployment-modes/#monolithic-mode
+      - "-target=all"
+    volumes:
+      - "loki-data:/loki"
+      - "./confs/grafana/loki:/confs/:Z"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--output-document=-", "http://localhost:3100/ready"]
+
+  grafana-tempo:
+    image: grafana/tempo:2.4.2
+    command: [ "-config.file=/confs/tempo.yaml" ]
+    volumes:
+      - "./confs/grafana/tempo:/confs/:Z"
+      - "tempo-data:/var/tempo/"
+    healthcheck:
+      test: [ "CMD", "wget", "--quiet", "--output-document=-", "http://localhost:3200/ready" ]
+
+  # Middleware: collect and dispatch telemetry data
+  grafana-alloy:
+    image: grafana/alloy:v1.1.0
+    expose:
+      - 4317
+    ports:
+      - 12345:12345
+      # Note: activate ports below if you need to send telemetry data from your host
+      # - 4317:4317 # OTLP grpc ingestion
+      # - 4318:4318 # OTLP http ingestion
+    volumes:
+      - "./confs/grafana/alloy:/alloy/conf:Z"
+      - "alloy-data:/alloy/data"
+    command:
+      - run
+      - "--server.http.listen-addr=0.0.0.0:12345"
+      - "--storage.path=/alloy/data"
+      - "/alloy/conf/config.alloy"
+    depends_on:
+      grafana-loki:
+        condition: service_healthy
+      grafana-tempo:
+        condition: service_healthy
+
+  # Dashboard: visualize telemetry data
+  grafana:
+    image: grafana/grafana:11.0.0
+    volumes:
+      - ./confs/grafana/datasources/:/etc/grafana/provisioning/datasources/:Z
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor traceQLStreaming metricsSummary
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/healthz"]
+
+volumes:
+  alloy-data:
+  loki-data:
+  tempo-data:

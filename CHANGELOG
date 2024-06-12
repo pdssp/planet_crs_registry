@@ -1,4 +1,107 @@
-### Added Slack support for contacting the administrator (HEAD -> slack_support)
+### fix(Python): refactor otel/uvicorn binding to use "on_event('startup')" feature instead of lifespan. (HEAD -> feat/observability)
+>Wed, 12 Jun 2024 16:48:40 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+Use of lifespan broke tortoise shutdown (which use on_event("shutdown") in ws_router file.
+
+
+
+### refactor(Compose): change api configuration binding (origin/feat/observability)
+>Wed, 12 Jun 2024 14:14:28 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+Use bind mount instead of config block, to enhance retro-compatibility with older versions of docker-compose
+
+
+
+### doc(Compose): fix image and link
+>Mon, 10 Jun 2024 09:42:35 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### doc(compose): Changed code samples to use two backquotes instead of one (RST format).
+>Thu, 6 Jun 2024 17:06:16 +0200
+
+>Author: emuller (emuller@geomatys.com)
+
+>Commiter: emuller (emuller@geomatys.com)
+
+
+
+
+### doc(Compose): Add documentation to help using and understanding compose configuration
+>Thu, 6 Jun 2024 15:32:01 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### feat(Compose): Add an example dashboard for HTTP access statistics
+>Thu, 6 Jun 2024 11:28:43 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### feat(Python): activate uvicorn logging export using open-telemetry
+>Thu, 6 Jun 2024 10:28:26 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### feat(Compose): Add observability stack
+>Tue, 4 Jun 2024 18:31:27 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+Add an observability configuration using Open Telemetry + Grafana to monitor application traces and logs
+
+
+
+### feat(Compose): add a minimal compose configuration
+>Tue, 4 Jun 2024 16:18:56 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### fix(Docker): fix and document dev docker build
+>Tue, 4 Jun 2024 16:16:53 +0200
+
+>Author: Alexis Manin (alexis.manin@geomatys.com)
+
+>Commiter: Alexis Manin (alexis.manin@geomatys.com)
+
+
+
+
+### Added Slack support for contacting the administrator
 >Mon, 3 Jun 2024 15:33:53 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +111,7 @@
 
 
 
-### Fix dockerfile (origin/fix_dockerfile, fix_dockerfile)
+### Fix dockerfile
 >Fri, 31 May 2024 09:19:48 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -48,7 +151,7 @@
 
 
 
-### Implements #6 (origin/proposal001)
+### Implements #6
 >Thu, 30 May 2024 09:53:06 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -88,7 +191,7 @@
 
 
 
-### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README
+### fix(gml-generator): Added make command to generate GML, fixed Python 3.10 error, updated README (origin/fix/gml-generator, fix/gml-generator)
 >Wed, 15 May 2024 15:00:08 +0200
 
 >Author: Emile-Muller (emile.muller.contact@gmail.com)
@@ -218,7 +321,7 @@
 
 
 
-### Add a script to monitor performances Update dockerfile (tag: v0.9.4)
+### Add a script to monitor performances Update dockerfile
 >Mon, 22 May 2023 16:43:10 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -248,7 +351,7 @@
 
 
 
-### Fix problem with Ctrl+c Improve quality code Add tests (tag: v0.9.3)
+### Fix problem with Ctrl+c Improve quality code Add tests
 >Sun, 16 Oct 2022 23:32:58 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -278,7 +381,7 @@
 
 
 
-### Fix configuration file (tag: v0.9.2)
+### Fix configuration file
 >Thu, 13 Oct 2022 22:06:53 +0200
 
 >Author: Jean-Christophe Malapert (Jean-christophe.malapert@cnes.fr)
@@ -388,7 +491,7 @@
 
 
 
-### Remove IAU logo Add PADC logo (tag: v0.9.1)
+### Remove IAU logo Add PADC logo
 >Tue, 7 Jun 2022 11:23:35 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -438,7 +541,7 @@
 
 
 
-### Add new WKTs Update website (logo, the display of WKTs) (tag: v0.9.0)
+### Add new WKTs Update website (logo, the display of WKTs)
 >Mon, 9 May 2022 14:31:17 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

@@ -1,0 +1,12 @@
+name: planetary-crs-registry
+
+services:
+  api:
+    image: pdssp/planetary-crs-registry:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - "./confs/api/:/conf/:Z"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/ping" ]
+      timeout: 5s

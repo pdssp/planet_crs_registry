@@ -54,11 +54,19 @@ class PlanetCrsRegistryLib:
             "Reading the configuration file from %s", self.__path_to_conf
         )
         self.__config.read(self.__path_to_conf)
+
         self.__app = FastAPI(
             title=openapi_config.name,
             version=openapi_config.version,
             description=openapi_config.description,
         )
+
+        # Telemetry activation requires proper initialization through FastAPI startup mechanism.
+        # Do NOT try to move this configuration in `logging.conf` configuration file or in `initializer.py`,
+        # unless all initialization related code is migrated to FastAPI "lifespan" feature
+        @self.__app.on_event(event_type="startup")
+        async def _bind_telemetry_on_uvicorn_logs():
+            _init_uvicorn_log_telemetry()
 
     @staticmethod
     def _parse_level(level: str):
@@ -176,3 +184,41 @@ class PlanetCrsRegistryLib:
             logger.error(
                 f"Cannot start the Http server: {error}"
             )  # pylint: disable=W1203
+
+
+def _init_uvicorn_log_telemetry():
+    """Setup open-telemetry export for uvicorn logs.
+
+    This function activates logging export for logs produced by uvicorn.
+    Uvicorn logs contain important information (uncaught errors, HTTP access, etc.).
+    Therefore, they are the main source of information for telemetry.
+
+    NOTES:
+        - Instrumentation already export "traces", which provides rich metadata about HTTP accesses.
+          However, for now, GeoIP enrichment is only possible for logs (because of Grafana limitation).
+          Therefore, we need to export uvicorn access logs for now.
+        - Instrumentation should automatically do this configuration, but for a reason I cannot explain, it does not.
+          Therefore, we need this piece of code to force instrumentation.
+    """
+    otlp_endpoint = os.environ.get("OTEL_EXPORTER_OTLP_ENDPOINT", None)
+    if otlp_endpoint is None:
+        logger.info("No OTLP endpoint configured: log telemetry disabled")
+        return
+    else:
+        logger.info(f"OTLP endpoint configured: {otlp_endpoint}")
+
+    # Workaround: uvicorn access logs are not instrumented by default, surely because they're initialized too early.
+    # In such case, we have to manually register them on OpenTelemetry
+    try:
+        from opentelemetry.sdk._logs import LoggingHandler
+        from uvicorn.config import LOGGING_CONFIG as uvi_log_conf
+
+        for name, conf in uvi_log_conf["loggers"].items():
+            uvicorn_logger = logging.getLogger(name)
+            uvicorn_logger.addHandler(LoggingHandler(conf["level"]))
+            logger.info("Successully added telemetry to %s logger", name)
+    except Exception as e:
+        logger.warning(
+            "Cannot configure uvicorn loggers to with opentelemetry handler",
+            exc_info=e,
+        )
