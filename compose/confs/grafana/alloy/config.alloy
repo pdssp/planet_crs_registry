@@ -42,16 +42,16 @@ loki.process "transform" {
     source = "body"
   }
 
-  /* Uncomment this to activate geolocation from uvicorn access logs. It requires a GeoLite2 database in the alloy configuration directory.
+  /* Uncomment this to activate geolocation from uvicorn access logs. It requires a GeoLite2 database in the alloy configuration directory. */
   stage.geoip {
     // Source field providing IP to get location for
     source = "peer_address"
     // GeoIP database file to use for correlation
-    db = "/alloy/conf/geolite2-city.mmdb"
+    db = "/alloy/conf/GeoLite2-City.mmdb"
     // The precise type of database used (city or country)
     db_type = "city"
   }
-  */
+
 
   /* WARNING: no computed field is included in output until we call both stages below.
    * The first stage modify output log entry (main body) to produce a json with provided values.
