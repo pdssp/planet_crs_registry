@@ -630,6 +630,42 @@
                   }
                 },
                 "fieldName": "peer_address"
+              },
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": "^/asset.*"
+                  }
+                },
+                "fieldName": "uri"
+              },
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "/favicon.ico"
+                  }
+                },
+                "fieldName": "uri"
+              },
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "/"
+                  }
+                },
+                "fieldName": "uri"
+              },
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "/web"
+                  }
+                },
+                "fieldName": "uri"
               }
             ],
             "match": "any",
