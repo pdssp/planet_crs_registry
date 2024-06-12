@@ -1,12 +1,4 @@
 services:
-  api:
-    command:
-      - opentelemetry-instrument
-      - planet_crs_registry
-      - --conf_file=/conf/planet_crs_registry.conf
-    env_file:
-      - envs/otel.env
-
   # Individual storage/indexing services
   grafana-loki:
     image: grafana/loki:3.0.0
@@ -58,6 +50,9 @@ services:
     image: grafana/grafana:11.0.0
     volumes:
       - ./confs/grafana/datasources/:/etc/grafana/provisioning/datasources/:Z
+      - ./confs/grafana/dashboards/:/etc/grafana/provisioning/dashboards/:Z
+      - ./confs/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:Z
+
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin

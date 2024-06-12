@@ -1,4 +1,14 @@
-### Refactor envrionment variables to set them all at cfg Update name of the docker image (HEAD -> main)
+### Configure automatic import of dashboard Remove ping split observability.yaml in two parts : the crs registry app (crs_registry-server.yaml) and observability.yaml (HEAD -> main)
+>Thu, 13 Jun 2024 01:38:27 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Refactor envrionment variables to set them all at cfg Update name of the docker image
 >Wed, 12 Jun 2024 22:48:36 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

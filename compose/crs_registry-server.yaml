@@ -1,0 +1,8 @@
+services:
+  api:
+    command:
+      - opentelemetry-instrument
+      - planet_crs_registry
+      - --conf_file=/conf/planet_crs_registry.conf
+    env_file:
+      - envs/otel.env
