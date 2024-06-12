@@ -5,16 +5,8 @@ services:
     image: pdssp/planetary-crs-registry:latest
     ports:
       - 8080:8080
-    configs:
-      - source: api-conf
-        target: /conf/planet_crs_registry.conf
+    volumes:
+      - "./confs/api/:/conf/:Z"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8080/ping" ]
       timeout: 5s
-
-configs:
-  api-conf:
-    content: |
-      [HTTP]
-      host=0.0.0.0
-      port=8080

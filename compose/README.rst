@@ -2,6 +2,13 @@
 Compose
 =======
 
+Requirements
+============
+
+``docker-compose`` or ``podman-compose`` is required to launch the services.
+
+This configuration has been tested with version ``2.27.1`` of ``docker-compose`` and version ``1.1.0`` of ``podman-compose``.
+
 Variants
 ========
 
