@@ -27,15 +27,7 @@ To install Planet CRS Registry, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install planet_crs_registry
-
-This is the preferred method to install Planet CRS Registry, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+    $ docker pull pdssp/planetary-crs-registry # get the image
 
 
 ------------------------------------------
