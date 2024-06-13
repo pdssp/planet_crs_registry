@@ -27,6 +27,7 @@ from fastapi import FastAPI
 from uvicorn.config import LOGGING_CONFIG
 
 from ._version import __name_soft__
+from .config import cfg
 from .config import openapi_config
 from .initializer import init
 
@@ -200,7 +201,7 @@ def _init_uvicorn_log_telemetry():
         - Instrumentation should automatically do this configuration, but for a reason I cannot explain, it does not.
           Therefore, we need this piece of code to force instrumentation.
     """
-    otlp_endpoint = os.environ.get("OTEL_EXPORTER_OTLP_ENDPOINT", None)
+    otlp_endpoint = cfg.OTEL_EXPORTER_OTLP_ENDPOINT
     if otlp_endpoint is None:
         logger.info("No OTLP endpoint configured: log telemetry disabled")
         return

@@ -8,6 +8,7 @@ datasources:
     basicAuth: false
     isDefault: true
     editable: false
+    uid: loki
     jsonData:
       timeout: 5
       maxLines: 1000

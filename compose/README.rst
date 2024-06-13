@@ -15,6 +15,7 @@ Variants
 Current compose configuration uses `merge <https://github.com/compose-spec/compose-spec/blob/master/13-merge.md#merge-and-override>`_ capability to provide pluggable functionality:
 
 #. ``compose.yaml`` contains the core functionality: the *planetary-crs-registry* app, based on an in-memory SQLite database.
+#. ``crs_registry-server.yaml`` calls the decorator of the *planetary-crs-registry* app to send the telemetry
 #. ``observability.yaml`` add a *Grafana* based stack to collect and display telemetry.
 
 
@@ -27,7 +28,7 @@ $ docker-compose up
 
 To launch the application and monitoring, do::
 
-$ docker-compose -f compose.yaml -f observability.yaml up
+$ docker-compose -f compose.yaml -f crs_registry-server.yaml -f observability.yaml up
 
 
 Access
