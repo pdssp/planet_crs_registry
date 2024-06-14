@@ -10,4 +10,4 @@ Development Lead
 Contributors
 ------------
 
-None yet.
+* Martin Desruisseaux <martin.desruisseaux@geomatys.com>

@@ -19,7 +19,7 @@
 set search
 set ps
 
-search=`docker images | grep pdssp/planetary-crs-registry | wc -l`
+search=`docker images | grep pdssp/planet_crs_registry | wc -l`
 if [ $search = 0 ];
 then
 	# only the header - no image found
@@ -35,25 +35,25 @@ then
     # Check is SLACK_TOKEN is defined
     if [ -z "$SLACK_TOKEN" ]; then
         echo "The SLACK_TOKEN environment variable is not defined. Starting CRS registry without the ability to send messages to the administrator."
-		docker run --name=pdssp-planetary-crs-registry \
+		docker run --name=pdssp_planet_crs_registry \
 		-p 8080:8080 -p 5000:5000 \
-		pdssp/planetary-crs-registry
+		pdssp/planet_crs_registry
 		exit $?
 	else
-		docker run --name=pdssp-planetary-crs-registry \
+		docker run --name=pdssp_planet_crs_registry \
 		-p 8080:8080 -p 5000:5000 \
 		-e SLACK_TOKEN=$SLACK_TOKEN \
 		-e SLACK_CHANNEL_ID=C076N0N5N49 \
-		pdssp/planetary-crs-registry
+		pdssp/planet_crs_registry
 		exit $?
 	fi
 fi
 
-ps=`docker ps | grep pdssp-planetary-crs-registry | wc -l`
+ps=`docker ps | grep pdssp_planet_crs_registry | wc -l`
 if [ $ps = 0 ];
 then
 	echo "container available but not started, start it"
-	docker start pdssp-planetary-crs-registry
+	docker start pdssp_planet_crs_registry
 else
 	echo "container already started"
 fi

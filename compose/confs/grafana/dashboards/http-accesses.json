@@ -296,7 +296,7 @@
             "uid": "loki"
           },
           "editorMode": "code",
-          "expr": "{service_name=\"planetary-crs-registry\", geoip_continent_code=~\".+\"} | unpack",
+          "expr": "{service_name=\"planet_crs_registry\", geoip_continent_code=~\".+\"} | unpack",
           "queryType": "range",
           "refId": "A"
         }
@@ -426,7 +426,7 @@
             "uid": "loki"
           },
           "editorMode": "code",
-          "expr": "{service_name=\"planetary-crs-registry\", geoip_continent_code=~\".+\"} | unpack",
+          "expr": "{service_name=\"planet_crs_registry\", geoip_continent_code=~\".+\"} | unpack",
           "queryType": "range",
           "refId": "A"
         }
@@ -822,7 +822,7 @@
               "scope": "resource",
               "tag": "service.name",
               "value": [
-                "planetary-crs-registry"
+                "planet_crs_registry"
               ],
               "valueType": "string"
             }

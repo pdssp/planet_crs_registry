@@ -14,8 +14,8 @@ Variants
 
 Current compose configuration uses `merge <https://github.com/compose-spec/compose-spec/blob/master/13-merge.md#merge-and-override>`_ capability to provide pluggable functionality:
 
-#. ``compose.yaml`` contains the core functionality: the *planetary-crs-registry* app, based on an in-memory SQLite database.
-#. ``crs_registry-server.yaml`` calls the decorator of the *planetary-crs-registry* app to send the telemetry
+#. ``compose.yaml`` contains the core functionality: the *planet_crs_registry* app, based on an in-memory SQLite database.
+#. ``crs_registry-server.yaml`` calls the decorator of the *planet_crs_registry* app to send the telemetry
 #. ``observability.yaml`` add a *Grafana* based stack to collect and display telemetry.
 
 

@@ -1,8 +1,8 @@
-name: planetary-crs-registry
+name: planet_crs_registry
 
 services:
   api:
-    image: pdssp/planetary-crs-registry:latest
+    image: pdssp/planet_crs_registry:latest
     ports:
       - 8080:8080
     volumes:

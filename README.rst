@@ -27,7 +27,7 @@ To install Planet CRS Registry, run this command in your terminal:
 
 .. code-block:: console
 
-    $ docker pull pdssp/planetary-crs-registry # get the image
+    $ docker pull pdssp/planet_crs_registry # get the image
 
 
 ------------------------------------------
@@ -126,14 +126,14 @@ Docker
 
 .. code-block:: console
 
-        $ docker pull pdssp/planetary-crs-registry # get the image
+        $ docker pull pdssp/planet_crs_registry # get the image
 
 Run the registry as Http
 ========================
 
 .. code-block:: console
 
-        $ docker run -p 8080:8080 pdssp/planetary-crs-registry
+        $ docker run -p 8080:8080 pdssp/planet_crs_registry
 
 Run the registry as Https
 =========================
