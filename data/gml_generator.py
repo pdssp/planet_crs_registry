@@ -473,7 +473,9 @@ def generate_gml_file_from_wkt(
                     code, iau_version = matches
                     break
                 else:
-                    raise ValueError("Unexpected format in the 'ID' line.")
+                    raise ValueError(
+                        f"Unexpected format in the 'ID' line. : {line}"
+                    )
         else:
             raise ValueError("No 'ID' line found in the WKT.")
     except ValueError as e:

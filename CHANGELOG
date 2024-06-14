@@ -1,4 +1,14 @@
-### Change service name Add on contributor (HEAD -> main)
+### Update GML based on csv2wkt release (HEAD -> main)
+>Fri, 14 Jun 2024 20:02:35 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Change service name Add on contributor (origin/main, origin/HEAD)
 >Fri, 14 Jun 2024 12:31:47 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Pass arguments to dockerfile clening (origin/main, origin/HEAD)
+### Pass arguments to dockerfile clening
 >Thu, 13 Jun 2024 17:16:01 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
