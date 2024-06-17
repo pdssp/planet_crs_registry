@@ -1,0 +1,144 @@
+<gml:ProjectedCRS xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:srv1="http://www.isotc211.org/2005/srv" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0" xmlns:fra="http://www.cnig.gouv.fr/2005/fra" xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0" xmlns:gcol="http://www.isotc211.org/2005/gco" xmlns:gts="http://www.isotc211.org/2005/gts" gml:id="iau-crs-60540">
+  <gml:identifier codeSpace="IAU:2015">60540</gml:identifier>
+  <gml:name>Rhea (2015) - Sphere / Mollweide, clon = 0</gml:name>
+  <gml:scope>not known</gml:scope>
+  <gml:conversion>
+    <gml:Conversion gml:id="MollweideClon0">
+      <gml:identifier codeSpace="IAU:2015">60540</gml:identifier>
+      <gml:name>Mollweide, clon = 0</gml:name>
+      <gml:scope>not known</gml:scope>
+      <gml:method>
+        <gml:OperationMethod gml:id="Mollweide">
+          <gml:identifier codeSpace="NAIF">urn:ogc:def:method:NAIF:2015:605</gml:identifier>
+          <gml:name codeSpace="ESRI">Mollweide</gml:name>
+          <gml:name>Homalographic</gml:name>
+          <gml:name>Homolographic</gml:name>
+          <gml:name>Elliptical</gml:name>
+          <gml:name>Babinet</gml:name>
+          <gml:formulaCitation>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gcol:CharacterString>Planetary CRS formulas</gcol:CharacterString>
+              </gmd:title>
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gcol:DateTime>2024-04-25T09:00:00+02:00</gcol:DateTime>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="https://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
+              <gmd:otherCitationDetails>
+                <gcol:CharacterString>Document available online at http://voparis-vespa-crs.obspm.fr:8080/web/formula.html</gcol:CharacterString>
+              </gmd:otherCitationDetails>
+            </gmd:CI_Citation>
+          </gml:formulaCitation>
+        </gml:OperationMethod>
+      </gml:method>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9102">0.0</gml:value>
+          <gml:operationParameter xlink:href="#geotiff-parameter-3088"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9001">0.0</gml:value>
+          <gml:operationParameter xlink:href="#geotiff-parameter-3082"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9001">0.0</gml:value>
+          <gml:operationParameter xlink:href="#geotiff-parameter-3083"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+    </gml:Conversion>
+  </gml:conversion>
+  <gml:baseGeodeticCRS>
+    <gml:GeodeticCRS gml:id="iau-crs-60500">
+      <gml:identifier codeSpace="IAU:2015">60500</gml:identifier>
+      <gml:name>Rhea (2015) - Sphere</gml:name>
+      <gml:scope>not known</gml:scope>
+      <gml:ellipsoidalCS>
+        <gml:EllipsoidalCS gml:id="EllipsoidalCSNorthEast">
+          <gml:identifier codeSpace="NAIF">urn:ogc:def:cs:NAIF:2015:605</gml:identifier>
+          <gml:name>Ellipsoidal CS: North (&#176;), East (&#176;).</gml:name>
+          <gml:axis>
+            <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="GeodeticLatitude">
+              <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::9901</gml:identifier>
+              <gml:name>Geodetic latitude</gml:name>
+              <gml:axisAbbrev>&#966;</gml:axisAbbrev>
+              <gml:axisDirection codeSpace="EPSG">north</gml:axisDirection>
+              <gml:minimumValue>-90.0</gml:minimumValue>
+              <gml:maximumValue>90.0</gml:maximumValue>
+              <gml:rangeMeaning codeSpace="EPSG">exact</gml:rangeMeaning>
+            </gml:CoordinateSystemAxis>
+          </gml:axis>
+          <gml:axis>
+            <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="GeodeticLongitude">
+              <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::9902</gml:identifier>
+              <gml:name>Geodetic longitude</gml:name>
+              <gml:axisAbbrev>&#955;</gml:axisAbbrev>
+              <gml:axisDirection codeSpace="EPSG">east</gml:axisDirection>
+              <gml:minimumValue>-180.0</gml:minimumValue>
+              <gml:maximumValue>180.0</gml:maximumValue>
+              <gml:rangeMeaning codeSpace="EPSG">wraparound</gml:rangeMeaning>
+            </gml:CoordinateSystemAxis>
+          </gml:axis>
+        </gml:EllipsoidalCS>
+      </gml:ellipsoidalCS>
+      <gml:geodeticDatum>
+        <gml:GeodeticDatum gml:id="Rhea2015Sphere">
+          <gml:identifier codeSpace="NAIF">urn:ogc:def:datum:NAIF:2015:605</gml:identifier>
+          <gml:name>Rhea (2015) - Sphere</gml:name>
+          <gml:scope>not known</gml:scope>
+          <gml:anchorDefinition>Tore : 340 W</gml:anchorDefinition>
+          <gml:primeMeridian>
+            <gml:PrimeMeridian gml:id="ReferenceMeridian">
+              <gml:identifier codeSpace="NAIF">urn:ogc:def:meridian:NAIF:2015:605</gml:identifier>
+              <gml:name>Reference Meridian</gml:name>
+              <gml:greenwichLongitude uom="urn:ogc:def:uom:EPSG::9102">0.0</gml:greenwichLongitude>
+            </gml:PrimeMeridian>
+          </gml:primeMeridian>
+          <gml:ellipsoid>
+            <gml:Ellipsoid gml:id="Rhea2015Sphere-1">
+              <gml:identifier codeSpace="NAIF">urn:ogc:def:ellipsoid:NAIF:2015:605</gml:identifier>
+              <gml:name>Rhea (2015) - Sphere</gml:name>
+              <gml:semiMajorAxis uom="urn:ogc:def:uom:EPSG::9001">763500.0</gml:semiMajorAxis>
+              <gml:secondDefiningParameter>
+                <gml:SecondDefiningParameter>
+                  <gml:isSphere>true</gml:isSphere>
+                </gml:SecondDefiningParameter>
+              </gml:secondDefiningParameter>
+            </gml:Ellipsoid>
+          </gml:ellipsoid>
+        </gml:GeodeticDatum>
+      </gml:geodeticDatum>
+    </gml:GeodeticCRS>
+  </gml:baseGeodeticCRS>
+  <gml:cartesianCS>
+    <gml:CartesianCS gml:id="CartesianCSEastMNorthM">
+      <gml:identifier codeSpace="NAIF">urn:ogc:def:cs:NAIF:2015:605</gml:identifier>
+      <gml:name>Cartesian CS: East (m), North (m).</gml:name>
+      <gml:axis>
+        <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="Easting">
+          <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::9906</gml:identifier>
+          <gml:name>Easting</gml:name>
+          <gml:axisAbbrev>E</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="EPSG">east</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+      <gml:axis>
+        <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="Northing">
+          <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::9907</gml:identifier>
+          <gml:name>Northing</gml:name>
+          <gml:axisAbbrev>N</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="EPSG">north</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+    </gml:CartesianCS>
+  </gml:cartesianCS>
+</gml:ProjectedCRS>

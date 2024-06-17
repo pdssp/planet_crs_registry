@@ -1,4 +1,14 @@
-### Update with recent version of IAU based on csvforwkt (HEAD -> main)
+### Regenerate GML files (HEAD -> main)
+>Mon, 17 Jun 2024 21:58:04 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Update with recent version of IAU based on csvforwkt
 >Mon, 17 Jun 2024 12:10:12 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,17 @@
 
 
 
-### Update GML based on csv2wkt release (tag: v1.0.0, origin/main, origin/HEAD)
+### Update AUTHORS.rst
+>Mon, 17 Jun 2024 10:33:29 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: GitHub (noreply@github.com)
+
+Updates contributors list
+
+
+### Update GML based on csv2wkt release
 >Fri, 14 Jun 2024 20:02:35 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

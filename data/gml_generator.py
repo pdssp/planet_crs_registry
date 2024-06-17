@@ -510,7 +510,7 @@ def generate_gml_file_from_wkt(
             logging.debug("GML written to file")
 
     except jpype.JException as ex:
-        logging.error(f"Java error: {ex.message()}")
+        logging.error(f"Java error: {ex.message()} for {wkt}")
 
     except FileNotFoundError:
         raise FileNotFoundError("Error: File or directory not found.")

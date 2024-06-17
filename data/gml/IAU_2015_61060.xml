@@ -1,4 +1,4 @@
-<gml:ProjectedCRS xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:srv1="http://www.isotc211.org/2005/srv" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0" xmlns:fra="http://www.cnig.gouv.fr/2005/fra" xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0" xmlns:gcol="http://www.isotc211.org/2005/gco" xmlns:gts="http://www.isotc211.org/2005/gts" gml:id="iau-crs-61060">
+<gml:ProjectedCRS xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:srv1="http://www.isotc211.org/2005/srv" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0" xmlns:fra="http://www.cnig.gouv.fr/2005/fra" xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0" xmlns:gcol="http://www.isotc211.org/2005/gco" xmlns:gts="http://www.isotc211.org/2005/gts" gml:id="iau-crs-61060">
   <gml:identifier codeSpace="IAU:2015">61060</gml:identifier>
   <gml:name>Janus (2015) - Sphere / Tranverse Mercator</gml:name>
   <gml:scope>not known</gml:scope>
@@ -39,8 +39,6 @@
               </gmd:otherCitationDetails>
             </gmd:CI_Citation>
           </gml:formulaCitation>
-          <gml:sourceDimensions>2</gml:sourceDimensions>
-          <gml:targetDimensions>2</gml:targetDimensions>
           <gml:parameter>
             <gml:OperationParameter gml:id="epsg-parameter-8801">
               <gml:identifier codeSpace="IOGP">urn:ogc:def:parameter:EPSG::8801</gml:identifier>
