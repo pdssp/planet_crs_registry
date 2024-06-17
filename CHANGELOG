@@ -1,4 +1,14 @@
-### Update GML based on csv2wkt release (HEAD -> main)
+### Update with recent version of IAU based on csvforwkt (HEAD -> main)
+>Mon, 17 Jun 2024 12:10:12 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Update GML based on csv2wkt release (tag: v1.0.0, origin/main, origin/HEAD)
 >Fri, 14 Jun 2024 20:02:35 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Change service name Add on contributor (origin/main, origin/HEAD)
+### Change service name Add on contributor
 >Fri, 14 Jun 2024 12:31:47 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
