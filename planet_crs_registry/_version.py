@@ -17,18 +17,25 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Project metadata."""
-from pkg_resources import DistributionNotFound
-from pkg_resources import get_distribution
+import os
 
-__name_soft__ = "planet_crs_registry"
-try:
-    __version__ = get_distribution(__name_soft__).version
-except DistributionNotFound:
-    __version__ = "0.0.0"
-__title__ = "Planet CRS Registry"
-__description__ = "The coordinates reference system registry for solar bodies"
-__url__ = "https://github.com/pole-surfaces-planetaires/planet_crs_registry"
-__author__ = "Jean-Christophe Malapert"
-__author_email__ = "jean-christophe.malapert@cnes.fr"
-__license__ = "GNU Lesser General Public License v3"
+import toml
+
+project_root = os.path.dirname(os.path.dirname(__file__))
+pyproject_path = os.path.join(project_root, "pyproject.toml")
+
+# Charger les métadonnées depuis pyproject.toml
+with open(pyproject_path, "r") as file:
+    pyproject_content = toml.load(file)
+
+project_metadata = pyproject_content.get("project", {})
+
+__name_soft__ = project_metadata.get("name", "unknown")
+__version__ = project_metadata.get("version", "0.0.0")
+__title__ = project_metadata.get("name", "unknown")
+__description__ = project_metadata.get("description", "")
+__url__ = project_metadata.get("homepage", "")
+__author__ = project_metadata.get("authors", [{}])[0].get("name", "")
+__author_email__ = project_metadata.get("authors", [{}])[0].get("email", "")
+__license__ = project_metadata.get("license", {}).get("file", "")
 __copyright__ = "2021-2024, CNES (Jean-Christophe Malapert for PDSSP)"

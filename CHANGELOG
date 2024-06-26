@@ -1,4 +1,14 @@
-### Update packages version Fix bug when a solar system object is unknown. This will improve performances (HEAD -> main)
+### Migrate to toml (HEAD -> main)
+>Thu, 27 Jun 2024 01:27:34 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Update packages version Fix bug when a solar system object is unknown. This will improve performances
 >Wed, 26 Jun 2024 19:40:13 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

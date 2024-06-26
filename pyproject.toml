@@ -1,6 +1,5 @@
-[build-system]
-requires = ["setuptools", "wheel", "setuptools_scm"]
-build-backend = 'setuptools.build_meta'
+[tool.flit.scripts]
+planet_crs_registry = "planet_crs_registry.__main__:run"
 
 [tool.black]
 line-length = 79
@@ -19,10 +18,63 @@ exclude = '''
 )/
 '''
 
-[tool.flit.metadata]
-module = "planet_crs_registry"
-author = "Jean-Christophe Malapert"
-author-email = "jean-christophe.malapert@cnes.fr"
-home-page = "https://github.com/pole-surfaces-planetaires/planet_crs_registry"
-classifiers = [ "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",]
-description-file = "README.rst"
+[tool.poetry]
+name = "planet_crs_registry"
+readme = "README.rst"
+description = "The coordinates reference system registry for solar bodies"
+authors = ["Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>", ]
+license = "GNU Lesser General Public License v3"
+packages = [{include = "planet_crs_registry"}]
+homepage = "https://github.com/pole-surfaces-planetaires/planet_crs_registry"
+version = "1.0.0"
+include = ["AUTHORS.rst","CHANGELOG","CONTRIBUTING.rst","Dockerfile","LICENSE","Makefile","pyproject.toml","README.rst","requirements.txt","requirements-dev.txt","tox.ini","MANIFEST.in","docker/*","docs/*","scripts/*","**/conf/*", ".dockerignore", "data/*", "web/*", "templates/*"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiofiles = "^24.1.0"
+asyncpg = "^0.29.0"
+fastapi = "^0.111.0"
+httpx = "^0.27.0"
+jinja2 = "^3.1.4"
+opentelemetry-distro = "^0.46b0"
+opentelemetry-exporter-otlp-proto-grpc = "^1.25.0"
+opentelemetry-instrumentation-fastapi = "^0.46b0"
+pydantic = "^2.7.4"
+pydantic-xml = {extras = ["lxml"], version = "^2.11.0"}
+pydantic-settings = "^2.3.4"
+slack-sdk = "^3.30.0"
+tortoise-orm = "^0.21.3"
+uvicorn = "^0.30.1"
+toml = "^0.10.2"
+
+[tool.poetry.scripts]
+planet_crs_registry = "planet_crs_registry.__main__:run"
+
+[tool.poetry.group.dev.dependencies]
+toml = "^0.10.2"
+pre-commit = "^3.6.0"
+pre-commit-hooks = "^4.5.0"
+flit = "^3.9.0"
+flit-core = "^3.9.0"
+black = "^24.1.1"
+coverage = "^7.4.1"
+flake8 = "^7.0.0"
+mccabe = "^0.7.0"
+mypy = "^1.8.0"
+mypy-extensions = "^1.0.0"
+pylint = "^3.0.3"
+pytest = "^8.0.0"
+tox = "^4.12.1"
+Sphinx = "^7.2.6"
+pip-licenses = "^4.3.4"
+sphinx_rtd_theme = "^2.0.0"
+pur = "^7.3.1"
+sphinx-bootstrap-theme = "^0.8.1"
+sphinxcontrib-plantuml = "^0.27"
+pytest-html = "^4.1.1"
+dockerfile-parse = "^2.0.1"
+docker = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

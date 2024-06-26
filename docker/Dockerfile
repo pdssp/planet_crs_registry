@@ -56,14 +56,15 @@ RUN apt-get update && \
     apt-get install -y \
     software-properties-common apt-transport-https curl git python3-pip && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    pip install --upgrade pip setuptools && \
+    pip install --upgrade pip && \
+    pip install poetry && poetry config installer.max-workers 10 && poetry config virtualenvs.create false && \
     git clone "https://github.com/pdssp/planet_crs_registry.git" && \
     cd planet_crs_registry && \
     make && \
     mkdir -p /conf && \
     cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
 
-# Expose the http server on 8080
+    # Expose the http server on 8080
 EXPOSE 8080 5000
 
 # Mount config file
