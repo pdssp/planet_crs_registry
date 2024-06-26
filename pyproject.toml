@@ -26,7 +26,7 @@ authors = ["Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>", ]
 license = "GNU Lesser General Public License v3"
 packages = [{include = "planet_crs_registry"}]
 homepage = "https://github.com/pole-surfaces-planetaires/planet_crs_registry"
-version = "1.0.0"
+version = "1.1.0"
 include = ["AUTHORS.rst","CHANGELOG","CONTRIBUTING.rst","Dockerfile","LICENSE","Makefile","pyproject.toml","README.rst","requirements.txt","requirements-dev.txt","tox.ini","MANIFEST.in","docker/*","docs/*","scripts/*","**/conf/*", ".dockerignore", "data/*", "web/*", "templates/*"]
 
 [tool.poetry.dependencies]
