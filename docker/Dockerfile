@@ -57,7 +57,9 @@ RUN apt-get update && \
     software-properties-common apt-transport-https curl git python3-pip && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
     pip install --upgrade pip && \
-    pip install poetry && poetry config installer.max-workers 10 && poetry config virtualenvs.create false && \
+    pip install poetry && curl -sSL https://install.python-poetry.org | python3 - && \
+    export PATH=$PATH:/root/.local/bin/ && poetry config installer.max-workers 10 && \
+    poetry config virtualenvs.create false && \
     git clone "https://github.com/pdssp/planet_crs_registry.git" && \
     cd planet_crs_registry && \
     make && \
