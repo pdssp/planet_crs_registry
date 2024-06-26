@@ -55,9 +55,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y software-properties-common apt-transport-https curl git python3-pip
 
-RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    pip install --upgrade pip && \
-    pip install poetry && curl -sSL https://install.python-poetry.org | python3 -
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 RUN export PATH=$PATH:/root/.local/bin/ && poetry config installer.max-workers 10 && \
     git clone "https://github.com/pdssp/planet_crs_registry.git" && \

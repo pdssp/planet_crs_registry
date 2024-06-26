@@ -1,4 +1,14 @@
-### Test create docker ftom github (HEAD -> main)
+### Again a try (HEAD -> main)
+>Thu, 27 Jun 2024 01:53:59 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Test create docker ftom github (origin/main, origin/HEAD)
 >Thu, 27 Jun 2024 01:49:50 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Fix dockerfile (origin/main, origin/HEAD)
+### Fix dockerfile
 >Thu, 27 Jun 2024 01:41:40 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
