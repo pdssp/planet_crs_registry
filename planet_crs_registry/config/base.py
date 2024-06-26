@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Base Settings"""
-from pydantic import BaseSettings as BS
+from pydantic_settings import BaseSettings as BS
 
 
 class BaseSettings(BS):  # pylint: disable=too-few-public-methods

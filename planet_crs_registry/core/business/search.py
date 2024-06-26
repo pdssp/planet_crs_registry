@@ -38,6 +38,8 @@ from tortoise.expressions import Q
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
 
+logger = logging.getLogger(__name__)
+
 
 @dataclass
 class Navigation:
@@ -65,15 +67,43 @@ class QuerySearch:
         return self.__client
 
     async def _call_api(self, url: str) -> str:
-        """Call the API and returns the result.
+        """
+        Call the API and return the result.
+
+        This method sends an asynchronous GET request to the specified URL using the client's
+        `get` method. If the response indicates an error, an HTTPException is raised with
+        the status code and reason phrase from the response. Otherwise, the method logs the
+        status code at the error level and returns the response text.
 
         Args:
-            url (str): URL to query
+            url (str): The URL to query.
 
         Returns:
-            str: result of query response
+            str: The result of the query response.
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
-        result = await self.client.get(url)
+        try:
+            result = await self.client.get(url)
+            result.raise_for_status()  # Raises HTTPStatusError if the response status is 4xx or 5xx
+        except httpx.HTTPStatusError as http_err:
+            logger.error(f"HTTP error occurred: {http_err}")
+            raise HTTPException(
+                status_code=http_err.response.status_code,
+                detail=http_err.response.reason_phrase,
+            )
+        except Exception as err:
+            logger.error(f"Other error occurred: {err}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Internal Server Error",
+            )
+
+        logger.info(
+            f"Request to {url} succeeded with status code {result.status_code}"
+        )
+
         return result.text
 
     @staticmethod
@@ -117,32 +147,23 @@ class QuerySearch:
 
         Returns:
             Tuple[int, List]: total number of records, results in the page
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         count_records: int = 0
-        result: List = list()
-        is_over = False
-        while not is_over:
-            try:
-                parameters = "" if params is None else f"?{urlencode(params)}"
-                count_records = int(
-                    await self._call_api(
-                        f"{base_url}ws/{endpoint}/count{parameters}"
-                    )
-                )
-                offset = limit * (page - 1)
-                params = {} if params is None else params
-                params["offset"] = offset
-                params["limit"] = limit
-                parameters = "" if params is None else f"?{urlencode(params)}"
-                result = self._filter_records(
-                    await self._call_api(
-                        f"{base_url}ws/{endpoint}{parameters}"
-                    )
-                )
-                is_over = True
-            except Exception as exp:  # pylint: disable=W0703
-                logging.error(exp)
-                time.sleep(0.2)
+        parameters = "" if params is None else f"?{urlencode(params)}"
+        count_records = int(
+            await self._call_api(f"{base_url}ws/{endpoint}/count{parameters}")
+        )
+        offset = limit * (page - 1)
+        params = {} if params is None else params
+        params["offset"] = offset
+        params["limit"] = limit
+        parameters = "" if params is None else f"?{urlencode(params)}"
+        result: List = self._filter_records(
+            await self._call_api(f"{base_url}ws/{endpoint}{parameters}")
+        )
         return count_records, result
 
     async def query_wkts(
@@ -157,6 +178,9 @@ class QuerySearch:
 
         Returns:
             Tuple[int, List]: total number of records, results in the page
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         result = await self._query_records(base_url, "wkts", page, limit)
         return result
@@ -174,6 +198,9 @@ class QuerySearch:
 
         Returns:
             Tuple[int, List]: total number of records, results in the page
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         result = await self._query_records(
             base_url, f"versions/{version}", page, limit
@@ -212,6 +239,9 @@ class QuerySearch:
 
         Returns:
             Tuple[int, List]: total number of records, results in the page
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         result = await self._query_records(
             base_url,
@@ -230,18 +260,13 @@ class QuerySearch:
 
         Returns:
             List[int]: list of versions
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
-        result: List[int] = list()
-        is_over = False
-        while not is_over:
-            try:
-                result = json.loads(
-                    await self._call_api(f"{base_url}ws/versions")
-                )
-                is_over = True
-            except Exception as exp:  # pylint: disable=W0703
-                logging.error(exp)
-                time.sleep(0.2)
+        result: List[int] = json.loads(
+            await self._call_api(f"{base_url}ws/versions")
+        )
         return result
 
     @staticmethod
@@ -405,7 +430,7 @@ class QueryRepresentation:
     def get_404(self, request: Request):
         """404 error page"""
         return self.templates.TemplateResponse(
-            "404.html", {"request": request}
+            "404.html", {"request": request}, status.HTTP_404_NOT_FOUND
         )
 
     def get_about_us(self, request: Request):
@@ -440,6 +465,9 @@ class QueryRepresentation:
 
         Returns:
             object: Representation of the template output
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         base_url = request.base_url
         count, result = await self.search.query_wkts(
@@ -472,11 +500,15 @@ class QueryRepresentation:
 
         Returns:
             object: Representation of the template output
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         base_url = request.base_url
         count, result = await self.search.query_version(
             str(base_url), version_id, page, limit
         )
+
         pagination = Navigation(count, page, limit)
         return await self._replace_in_template(
             request,
@@ -500,6 +532,9 @@ class QueryRepresentation:
 
         Returns:
             object: Representation of the template output
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         base_url = request.base_url
         count, result = await self.search.query_name(
@@ -532,6 +567,9 @@ class QueryRepresentation:
 
         Returns:
             object: Representation of the template output
+
+        Raises:
+            HTTPException: If the response indicates an error (status code >= 400).
         """
         base_url = request.base_url
         count, result = await self.search.query_search_terms(

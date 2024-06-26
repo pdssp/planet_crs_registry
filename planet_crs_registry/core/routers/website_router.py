@@ -151,13 +151,23 @@ async def formula(request: Request):
 @router.get("/web/index.html")
 @router.get("/web/")
 async def web_index(request: Request):
-    """Root path if the web server"""
+    """
+    Root path if the web server
+
+    Raises:
+        HTTPException: If the response indicates an error (status code >= 400).
+    """
     return await query_rep.get_versions(request)
 
 
 @router.get("/web/all_ids.html")
 async def get_all_wkts(request: Request, page: int = 1, limit: int = 100):
-    """Create a table of the all WKTs"""
+    """
+    Create a table of the all WKTs
+
+    Raises:
+        HTTPException: If the response indicates an error (status code >= 400).
+    """
     return await query_rep.get_all_wkts(request, page, limit)
 
 
@@ -178,6 +188,9 @@ async def search(
 
     Returns:
         object : The representation related to the output of the search query
+
+    Raises:
+        HTTPException: If the response indicates an error (status code >= 400).
     """
     return await query_rep.get_all_wkts_search(
         request, search_term_kw, page, limit
@@ -198,16 +211,21 @@ async def get_all_wkts_name_or_version(
         name_or_version (str): planet name or version
         page (int, optional): Current page to display. Defaults to 1.
         limit (int, optional): Number of records per page. Defaults to 100.
+
+    Raises:
+        HTTPException: If the response indicates an error (status code >= 400).
     """
     result: Union[List[int], Any, List[WKT_model]]
-    if name_or_version.isnumeric() and int(name_or_version) == 404:
+    try:
+        if name_or_version.isnumeric():
+            result = await query_rep.get_all_wkts_version(
+                request, int(name_or_version), page, limit
+            )
+        else:
+            result = await query_rep.get_all_wkts_name(
+                request, name_or_version, page, limit
+            )
+    except HTTPException:
         result = query_rep.get_404(request)
-    elif name_or_version.isnumeric():
-        result = await query_rep.get_all_wkts_version(
-            request, int(name_or_version), page, limit
-        )
-    else:
-        result = await query_rep.get_all_wkts_name(
-            request, name_or_version, page, limit
-        )
+
     return result

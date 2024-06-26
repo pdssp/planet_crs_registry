@@ -1,17 +1,18 @@
-aiofiles==23.1.0
-asyncpg==0.29.0
-fastapi==0.95.2
-httpx==0.24.1
-jinja2==3.1.2
+aiofiles
+asyncpg
+fastapi
+httpx
+jinja2
 # TODO: in the future, we might move that in pyproject.toml as an optional "otel" dependency group (it requires moving complete dependency management system there, though)
 opentelemetry-distro
 opentelemetry-exporter-otlp-proto-grpc
 opentelemetry-instrumentation-fastapi
-pydantic==1.10.2
-pydantic-xml[lxml]==0.2.2
+pydantic
+pydantic-xml[lxml]
+pydantic_settings
 python-dotenv==0.21.0
 setuptools-scm==7.0.5
 slack_sdk==3.27.2
-tortoise-orm==0.19.3
+tortoise-orm
 types-setuptools==65.4.0.0
-uvicorn==0.22
+uvicorn
