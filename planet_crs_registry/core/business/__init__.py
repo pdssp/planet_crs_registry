@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Business - Business classes"""
+from .crs_response import ExceptionReportResponse
 from .crs_response import GmlResponse
 from .crs_response import IdentifiersResponse
 from .database import SqlDatabase
@@ -32,5 +33,6 @@ __all__ = [
     "query_rep",
     "root_directory",
     "IdentifiersResponse",
+    "ExceptionReportResponse",
     "GmlResponse",
 ]

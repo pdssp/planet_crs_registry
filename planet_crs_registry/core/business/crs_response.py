@@ -22,6 +22,9 @@ from typing import Any
 
 from fastapi import Response
 
+from ..models import ExceptionItem
+from ..models import ExceptionReport
+from ..models import ExceptionText
 from ..models import Identifiers
 from planet_crs_registry.config.cfg import IS_PROD  # pylint: disable=C0411
 
@@ -41,6 +44,30 @@ class IdentifiersResponse(Response):
             result = content.to_xml()
         else:
             result = Identifiers(identifiers=content).to_xml()
+        return result
+
+
+class ExceptionReportResponse(Response):
+    """Creates the ExceptionReport response of the IAU web service."""
+
+    media_type = "application/xml"
+
+    def render(self, content: Any) -> bytes:
+        # self.status_code = 404
+        result: bytes
+        if content is None:
+            result = b""
+        elif isinstance(content, bytes):
+            result = content
+        elif isinstance(content, ExceptionReport):
+            result = content.to_xml()
+        else:
+            result = ExceptionReport(
+                exception=ExceptionItem(
+                    exceptionCode="InternalComponentError",
+                    exceptionText=ExceptionText(text=content),
+                )
+            ).to_xml()
         return result
 
 

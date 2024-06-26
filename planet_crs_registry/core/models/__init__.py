@@ -20,6 +20,10 @@
 Models - database and pydantic models of API entities.
 """
 from .pydantic import ContactEmail
+from .pydantic import ExceptionItem
+from .pydantic import ExceptionReport
+from .pydantic import ExceptionReport_Pydantic
+from .pydantic import ExceptionText
 from .pydantic import Identifiers
 from .pydantic import Identifiers_Pydantic
 from .pydantic import Wkt_Pydantic
@@ -32,5 +36,9 @@ __all__ = [
     "CenterCs",
     "ContactEmail",
     "Identifiers",
+    "ExceptionReport",
+    "ExceptionItem",
+    "ExceptionText",
     "Identifiers_Pydantic",
+    "ExceptionReport_Pydantic",
 ]

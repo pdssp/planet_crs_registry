@@ -30,9 +30,11 @@ from tortoise import Tortoise
 from tortoise.contrib.fastapi import HTTPNotFoundError
 from tortoise.functions import Lower
 
+from ..business import ExceptionReportResponse
 from ..business import GmlResponse
 from ..business import IdentifiersResponse
 from ..business import query_search
+from ..models import ExceptionReport_Pydantic
 from ..models import Identifiers_Pydantic
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
@@ -487,7 +489,6 @@ async def search_count(
     description="Lists the IAU versions",
     response_class=IdentifiersResponse,
     responses={
-        status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
         status.HTTP_200_OK: {"model": Identifiers_Pydantic},
     },
     include_in_schema=True,
@@ -512,8 +513,8 @@ async def get_iau_versions() -> IdentifiersResponse:
     description="Lists of bodies for a given IAU version",
     response_class=IdentifiersResponse,
     responses={
-        status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
         status.HTTP_200_OK: {"model": Identifiers_Pydantic},
+        status.HTTP_404_NOT_FOUND: {"model": ExceptionReport_Pydantic},
     },
     tags=["OGC Bridge"],
 )
@@ -530,15 +531,20 @@ async def get_iau_wkts(
     Returns:
         IdentifiersResponse: the list of IAU CRS code as XML response
     """
-    number: int = await version_count(iau_version)
-    wkts: List[WKT_model] = await get_version(iau_version, number, 0)
-    identifier_list = list()
-    for wkt in wkts:
-        if "TRIAXIAL" not in wkt.wkt:
-            identifier_list.append(
-                f"http://www.opengis.net/def/crs/IAU/{iau_version}/{wkt.code}"
-            )
-    return IdentifiersResponse(content=identifier_list)
+    try:
+        number: int = await version_count(iau_version)
+        wkts: List[WKT_model] = await get_version(iau_version, number, 0)
+        identifier_list = list()
+        for wkt in wkts:
+            if "TRIAXIAL" not in wkt.wkt:
+                identifier_list.append(
+                    f"http://www.opengis.net/def/crs/IAU/{iau_version}/{wkt.code}"
+                )
+        return IdentifiersResponse(content=identifier_list)
+    except HTTPException as http_err:
+        return ExceptionReportResponse(
+            content=http_err.detail, status_code=404
+        )
 
 
 @router.get(

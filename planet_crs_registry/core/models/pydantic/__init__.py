@@ -20,6 +20,10 @@
 Pydantic models.
 """
 from .email import ContactEmail
+from .ogc_bridge import ExceptionItem
+from .ogc_bridge import ExceptionReport
+from .ogc_bridge import ExceptionReport_Pydantic
+from .ogc_bridge import ExceptionText
 from .ogc_bridge import Identifiers
 from .ogc_bridge import Identifiers_Pydantic
 from .wkt import Wkt_Pydantic
@@ -28,5 +32,9 @@ __all__ = [
     "Wkt_Pydantic",
     "ContactEmail",
     "Identifiers",
+    "ExceptionReport",
+    "ExceptionItem",
+    "ExceptionText",
     "Identifiers_Pydantic",
+    "ExceptionReport_Pydantic",
 ]

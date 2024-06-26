@@ -19,6 +19,7 @@
 """Models for making the OGC bridge from opengis to IAU CRS registry."""
 from typing import List
 
+import pydantic_xml
 from pydantic import create_model  # pylint: disable=E0611
 from pydantic import HttpUrl  # pylint: disable=E0611
 from pydantic_xml import BaseXmlModel  # type: ignore
@@ -40,7 +41,53 @@ class Identifiers(  # type: ignore
     identifiers: List[HttpUrl] = element(tag="identifier")
 
 
+class ExceptionText(
+    BaseXmlModel,
+    ns="ows",
+    tag="ExceptionText",
+    nsmap={
+        "ows": "http://www.opengis.net/ows/2.0",
+    },
+):
+    text: str
+
+
+class ExceptionItem(
+    BaseXmlModel,
+    tag="Exception",
+    nsmap={
+        "ows": "http://www.opengis.net/ows/2.0",
+    },
+):
+    exceptionCode: str = pydantic_xml.attr()
+    exceptionText: ExceptionText
+
+
+class ExceptionReport(
+    BaseXmlModel,
+    ns="ows",
+    tag="ExceptionReport",
+    nsmap={
+        "ows": "http://www.opengis.net/ows/2.0",
+        "xsd": "http://www.w3.org/2001/XMLSchema-instance",
+        "xlink": "http://www.w3.org/1999/xlink",
+    },
+):
+    version: str = pydantic_xml.attr(default="2.0.0")
+    schema_location: str = pydantic_xml.attr(
+        name="schemaLocation",
+        ns="xsd",
+        default="http://www.opengis.net/ows/2.0 http://schemas.opengis.net/ows/2.0/owsExceptionReport.xsd",
+    )
+    exception: ExceptionItem
+
+
 Identifiers_Pydantic = create_model(
     "identifiers",
     __base__=Identifiers,
+)
+
+ExceptionReport_Pydantic = create_model(
+    "ExceptionReport",
+    __base__=ExceptionReport,
 )

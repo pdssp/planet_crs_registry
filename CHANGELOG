@@ -1,4 +1,14 @@
-### Migrate to toml (HEAD -> main)
+### Handle ows:ExceptionReport (HEAD -> main)
+>Thu, 27 Jun 2024 01:28:05 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Migrate to toml
 >Thu, 27 Jun 2024 01:27:34 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
