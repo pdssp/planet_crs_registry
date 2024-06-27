@@ -1,4 +1,14 @@
-### Fix dockerfile (HEAD -> main)
+### FixDokerfile (HEAD -> main)
+>Thu, 27 Jun 2024 04:12:56 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Fix dockerfile (origin/main, origin/HEAD)
 >Thu, 27 Jun 2024 03:58:42 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Again a try (origin/main, origin/HEAD)
+### Again a try
 >Thu, 27 Jun 2024 01:53:59 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
