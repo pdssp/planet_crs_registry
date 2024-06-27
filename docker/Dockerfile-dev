@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-FROM ubuntu:latest
+FROM python:3.10 as python-base
 
 LABEL maintainer="Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>"
 
@@ -23,14 +23,23 @@ LABEL maintainer="Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>"
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
+ARG SMTP_HOST
+ARG SMTP_PORT
+ARG SMTP_LOGIN
+ARG SMTP_PASSWD
+ARG SLACK_TOKEN
+ARG SLACK_CHANNEL_ID
+ARG OTEL_EXPORTER_OTLP_ENDPOINT
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Environment variable for the use of SQLite
-ENV API_TEST "True"
+# Environment variables
+ENV API_TEST="True" \
+    USE_DOCKER="True" \
+    GML_PATH="/planet_crs_registry/data/gml" \
+    PATH="${PATH}:/root/.local/bin/"
 
-# Environment variable for the use of docker
-ENV USE_DOCKER "True"
+
 
 # Labels (based on http://label-schema.org/rc1/)
 LABEL \
@@ -47,17 +56,17 @@ LABEL \
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y \
-    software-properties-common apt-transport-https curl git python3-pip
+    software-properties-common apt-transport-https curl git
 
 COPY . /planet_crs_registry
+WORKDIR /planet_crs_registry
 
-RUN cd planet_crs_registry && \
-    export API_TEST=True &&\
-    make && \
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    poetry check && \
+    poetry install --no-interaction --no-cache --only=main && \
     mkdir -p /conf && \
     cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
 
-ENV GML_PATH=/planet_crs_registry/data/gml
 
 # Expose the http server on 8080
 EXPOSE 8080 5000
@@ -68,4 +77,4 @@ VOLUME ["/conf"]
 # Health check
 HEALTHCHECK CMD curl --fail http://localhost:8080/ping || exit 1
 
-CMD planet_crs_registry --conf_file /conf/planet_crs_registry.conf
+CMD /planet_crs_registry/.venv/bin/planet_crs_registry --conf_file /conf/planet_crs_registry.conf

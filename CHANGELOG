@@ -1,4 +1,14 @@
-### Again a try (HEAD -> main)
+### Fix dockerfile (HEAD -> main)
+>Thu, 27 Jun 2024 03:58:42 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Again a try (origin/main, origin/HEAD)
 >Thu, 27 Jun 2024 01:53:59 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Test create docker ftom github (origin/main, origin/HEAD)
+### Test create docker ftom github
 >Thu, 27 Jun 2024 01:49:50 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

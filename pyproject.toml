@@ -74,6 +74,10 @@ sphinxcontrib-plantuml = "^0.27"
 pytest-html = "^4.1.1"
 dockerfile-parse = "^2.0.1"
 docker = "^7.0.0"
+jpype1 = "^1.5.0"
+lxml = "^5.2.2"
+requests = "^2.32.3"
+tqdm = "^4.66.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
-FROM ubuntu:latest
+FROM python:3.10 as python-base
 
 LABEL maintainer="Jean-Christophe Malapert <jean-christophe.malapert@cnes.fr>"
 
@@ -33,11 +33,13 @@ ARG OTEL_EXPORTER_OTLP_ENDPOINT
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Environment variable for the use of SQLite and Docker
-ENV API_TEST=True \
-    USE_DOCKER=True \
-    PIP_BREAK_SYSTEM_PACKAGES=1 \
-    GML_PATH=/planet_crs_registry/data/gml
+# Environment variables
+ENV API_TEST="True" \
+    USE_DOCKER="True" \
+    GML_PATH="/planet_crs_registry/data/gml" \
+    PATH="${PATH}:/root/.local/bin/"
+
+
 
 # Labels (based on http://label-schema.org/rc1/)
 LABEL \
@@ -53,18 +55,20 @@ LABEL \
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y software-properties-common apt-transport-https curl git python3-pip
+    apt-get install -y \
+    software-properties-common apt-transport-https curl git && \
+    git clone "https://github.com/pdssp/planet_crs_registry.git"
 
-RUN curl -sSL https://install.python-poetry.org | python3 -
+WORKDIR /planet_crs_registry
 
-RUN export PATH=$PATH:/root/.local/bin/ && poetry config installer.max-workers 10 && \
-    git clone "https://github.com/pdssp/planet_crs_registry.git" && \
-    cd planet_crs_registry && \
-    make && \
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    poetry check && \
+    poetry install --no-interaction --no-cache --only=main && \
     mkdir -p /conf && \
     cp planet_crs_registry/conf/planet_crs_registry.conf /conf/
 
-    # Expose the http server on 8080
+
+# Expose the http server on 8080
 EXPOSE 8080 5000
 
 # Mount config file
@@ -73,4 +77,4 @@ VOLUME ["/conf"]
 # Health check
 HEALTHCHECK CMD curl --fail http://localhost:8080/ping || exit 1
 
-CMD planet_crs_registry --conf_file /conf/planet_crs_registry.conf
+CMD /planet_crs_registry/.venv/bin/planet_crs_registry --conf_file /conf/planet_crs_registry.conf
