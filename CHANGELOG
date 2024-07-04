@@ -1,4 +1,14 @@
-### Fix docker compose (HEAD -> main)
+### Add patch version (HEAD -> main)
+>Thu, 4 Jul 2024 16:07:08 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Fix docker compose (tag: 1.1.1)
 >Thu, 4 Jul 2024 16:05:41 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
