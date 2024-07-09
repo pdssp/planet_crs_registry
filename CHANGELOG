@@ -1,4 +1,14 @@
-### Set an error message for IAU bridge when an error happens as expected by OGC Naming Update Tests Fix code to load project metadata (HEAD -> main)
+### Upgrade software version (HEAD -> main)
+>Tue, 9 Jul 2024 16:37:12 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Set an error message for IAU bridge when an error happens as expected by OGC Naming Update Tests Fix code to load project metadata
 >Tue, 9 Jul 2024 16:33:43 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
