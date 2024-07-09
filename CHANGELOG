@@ -1,4 +1,14 @@
-### Add patch version (HEAD -> main)
+### Set an error message for IAU bridge when an error happens as expected by OGC Naming Update Tests Fix code to load project metadata (HEAD -> main)
+>Tue, 9 Jul 2024 16:33:43 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add patch version (origin/main, origin/HEAD)
 >Thu, 4 Jul 2024 16:07:08 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -18,7 +28,7 @@
 
 
 
-### FixDokerfile (origin/main, origin/HEAD)
+### FixDokerfile
 >Thu, 27 Jun 2024 04:12:56 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

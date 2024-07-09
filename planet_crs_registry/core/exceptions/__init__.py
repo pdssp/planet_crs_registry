@@ -19,5 +19,6 @@
 # Some exception, handlers
 """Exceptions"""
 from .handlers import custom_404_exception_handler
+from .handlers import custom_ws_exception_handler
 
-__all__ = ["custom_404_exception_handler"]
+__all__ = ["custom_404_exception_handler", "custom_ws_exception_handler"]

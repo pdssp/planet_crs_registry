@@ -18,9 +18,14 @@
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Handler for those exceptions."""
 from fastapi import Request
+from fastapi import status
 from fastapi.exception_handlers import http_exception_handler
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import RedirectResponse
+
+from ..business.crs_response import ExceptionReportResponse
 
 
 async def custom_404_exception_handler(
@@ -37,9 +42,34 @@ async def custom_404_exception_handler(
         the handler of others http status
     """
     result: object
-    if exc.status_code == 404:
+    if exc.status_code == status.HTTP_404_NOT_FOUND and (
+        "/web" in request.url.path
+        or "/email" in request.url.path
+        or "/ping" in request.url.path
+    ):
         result = RedirectResponse(url="/web/404.html")
     else:
         # Just use FastAPI's built-in handler for other errors
         result = await http_exception_handler(request, exc)
     return result
+
+
+async def custom_ws_exception_handler(
+    request: Request, exc: RequestValidationError
+):
+    """Custom 404 page.
+
+    Args:
+        request (Request): Request
+        exc (RequestValidationError): The specific handler for the exception
+
+    Returns:
+        Union[ExceptionReportResponse, JSONResponse]: OGC IAU bridge error or JSON error
+    """
+    if "IAU" in request.url.path:
+        return ExceptionReportResponse(
+            content=exc.errors()[0]["msg"],
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
+    else:
+        return await request_validation_exception_handler(request, exc)

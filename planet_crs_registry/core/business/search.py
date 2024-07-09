@@ -430,7 +430,9 @@ class QueryRepresentation:
     def get_404(self, request: Request):
         """404 error page"""
         return self.templates.TemplateResponse(
-            "404.html", {"request": request}, status.HTTP_404_NOT_FOUND
+            request=request,
+            name="404.html",
+            status_code=status.HTTP_404_NOT_FOUND,
         )
 
     def get_about_us(self, request: Request):

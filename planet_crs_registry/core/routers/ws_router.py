@@ -543,7 +543,11 @@ async def get_iau_wkts(
         return IdentifiersResponse(content=identifier_list)
     except HTTPException as http_err:
         return ExceptionReportResponse(
-            content=http_err.detail, status_code=404
+            content=http_err.detail, status_code=status.HTTP_404_NOT_FOUND
+        )
+    except Exception as http_err:
+        return ExceptionReportResponse(
+            content=http_err.detail, status_code=status.HTTP_404_NOT_FOUND
         )
 
 
@@ -552,8 +556,10 @@ async def get_iau_wkts(
     summary="Get the GML representation for a given WKT",
     description="The GML representation for a given WKT",
     responses={
-        status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
-        status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPNotFoundError},
+        status.HTTP_404_NOT_FOUND: {"model": ExceptionReport_Pydantic},
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {
+            "model": ExceptionReport_Pydantic
+        },
     },
     tags=["OGC Bridge"],
 )
@@ -585,14 +591,14 @@ async def get_iau_gml(
         return GmlResponse(content=iau_version_code.replace(":", "_"))
     except Exception as error:
         if "crs not found" in str(error):
-            raise HTTPException(
+            return ExceptionReportResponse(
+                content="{iau_version_code} not found",
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"{iau_version_code} not found",
-            ) from error
-        raise HTTPException(
+            )
+        return ExceptionReportResponse(
+            content=f"Error when retrieving {iau_version_code} as GML - {error}",
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error when retrieving {iau_version_code} as GML - {error}",
-        ) from error
+        )
 
 
 @router.on_event("startup")

@@ -28,14 +28,15 @@ pyproject_path = os.path.join(project_root, "pyproject.toml")
 with open(pyproject_path, "r") as file:
     pyproject_content = toml.load(file)
 
-project_metadata = pyproject_content.get("project", {})
+project_tool = pyproject_content.get("tool", {})
+project_metadata = project_tool.get("poetry", {})
 
 __name_soft__ = project_metadata.get("name", "unknown")
 __version__ = project_metadata.get("version", "0.0.0")
 __title__ = project_metadata.get("name", "unknown")
 __description__ = project_metadata.get("description", "")
 __url__ = project_metadata.get("homepage", "")
-__author__ = project_metadata.get("authors", [{}])[0].get("name", "")
-__author_email__ = project_metadata.get("authors", [{}])[0].get("email", "")
-__license__ = project_metadata.get("license", {}).get("file", "")
+__author__ = project_metadata.get("authors", [{}])[0]
+__author_email__ = project_metadata.get("authors", [{}])[0]
+__license__ = project_metadata.get("license", "")
 __copyright__ = "2021-2024, CNES (Jean-Christophe Malapert for PDSSP)"

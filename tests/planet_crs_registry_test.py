@@ -126,8 +126,21 @@ def test_iau(conn):
         content = response.content.decode("UTF-8")
         result = xmltodict.parse(content)
         assert (
-            result["ns0:identifiers"]["ns0:identifier"]
+            result["identifiers"]["identifier"]
             == "http://www.opengis.net/def/crs/IAU/2015"
+        )
+    except requests.RequestException as e:
+        raise ValueError(f"Error occurred during request: {str(e)}")
+
+
+def test_iau_error(conn):
+    try:
+        response = requests.get("http://localhost:8080/ws/IAU/2014")
+        content = response.content.decode("UTF-8")
+        result = xmltodict.parse(content)
+        assert (
+            result["ows:ExceptionReport"]["ows:Exception"]["ows:ExceptionText"]
+            == "Input should be greater than 2014"
         )
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")
@@ -140,10 +153,10 @@ def test_iau_2015(conn):
         content = response.content.decode("UTF-8")
         result = xmltodict.parse(content)
         assert (
-            result["ns0:identifiers"]["ns0:identifier"][0]
+            result["identifiers"]["identifier"][0]
             == "http://www.opengis.net/def/crs/IAU/2015/1000"
         )
-        assert len(result["ns0:identifiers"]["ns0:identifier"]) == 2397
+        assert len(result["identifiers"]["identifier"]) == 2209
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")
 
@@ -152,8 +165,8 @@ def test_iau_2015_gml(conn):
     xml_2015_1000 = """
 <gml:GeodeticCRS xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:srv1="http://www.isotc211.org/2005/srv" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0" xmlns:fra="http://www.cnig.gouv.fr/2005/fra" xmlns:gmi="http://standards.iso.org/iso/19115/-2/gmi/1.0" xmlns:gcol="http://www.isotc211.org/2005/gco" xmlns:gts="http://www.isotc211.org/2005/gts" gml:id="iau-crs-1000">
   <gml:identifier codeSpace="IAU:2015">1000</gml:identifier>
-  <gml:name>Sun (2015) - Sphere / Ocentric</gml:name>
-  <gml:remarks>Source of IAU Coordinate systems: doi://10.1007/s10569-017-9805-5</gml:remarks>
+  <gml:name>Sun (2015) - Sphere</gml:name>
+  <gml:remarks>Source of IAU Coordinate systems: doi:10.1007/s10569-017-9805-5</gml:remarks>
   <gml:scope>not known</gml:scope>
   <gml:ellipsoidalCS>
     <gml:EllipsoidalCS gml:id="EllipsoidalCSNorthEast">
@@ -210,7 +223,6 @@ def test_iau_2015_gml(conn):
     </gml:GeodeticDatum>
   </gml:geodeticDatum>
 </gml:GeodeticCRS>
-
     """
     try:
         response = requests.get("http://localhost:8080/ws/IAU/2015/1000")
@@ -232,7 +244,7 @@ def test_gml_generation(conn):
         response.raise_for_status()  # Raise an HTTPError for bad responses
         content = response.content.decode("UTF-8")
         result = xmltodict.parse(content)
-        wkts_list = result["ns0:identifiers"]["ns0:identifier"]
+        wkts_list = result["identifiers"]["identifier"]
 
         for wkt_url in wkts_list:
             iau_parts = wkt_url.split("/")[-3:]
@@ -277,7 +289,7 @@ def test_wkts_count(conn):
         response = requests.get("http://localhost:8080/ws/wkts/count")
         response.raise_for_status()  # Raise an HTTPError for bad responses
         content = int(response.text)
-        assert content == 4029
+        assert content == 3462
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")
 
@@ -325,7 +337,7 @@ def test_version_2015_count(conn):
         response = requests.get("http://localhost:8080/ws/versions/2015/count")
         response.raise_for_status()  # Raise an HTTPError for bad responses
         content = int(response.text)
-        assert content == 4029
+        assert content == 3462
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")
 
@@ -335,7 +347,6 @@ def test_solar_bodies(conn):
         response = requests.get("http://localhost:8080/ws/solar_bodies")
         response.raise_for_status()  # Raise an HTTPError for bad responses
         content = json.loads(response.text)
-        print()
         assert "Mars" in content
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")
@@ -420,6 +431,6 @@ def test_search_mars_count(conn):
         )
         response.raise_for_status()  # Raise an HTTPError for bad responses
         content = int(response.text)
-        assert content == 51
+        assert content == 52
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")

@@ -217,7 +217,9 @@ async def get_all_wkts_name_or_version(
     """
     result: Union[List[int], Any, List[WKT_model]]
     try:
-        if name_or_version.isnumeric():
+        if name_or_version == "404":
+            result = query_rep.get_404(request)
+        elif name_or_version.isnumeric():
             result = await query_rep.get_all_wkts_version(
                 request, int(name_or_version), page, limit
             )

@@ -20,6 +20,7 @@
 import os
 
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from tortoise.contrib.starlette import register_tortoise
@@ -27,6 +28,7 @@ from tortoise.contrib.starlette import register_tortoise
 from .config import tortoise_config
 from .core.business import root_directory
 from .core.exceptions import custom_404_exception_handler
+from .core.exceptions import custom_ws_exception_handler
 from .core.routers import router_web_site
 from .core.routers import router_ws
 
@@ -62,6 +64,9 @@ def init_routers(app: FastAPI):
     """
     app.add_exception_handler(
         StarletteHTTPException, custom_404_exception_handler
+    )
+    app.add_exception_handler(
+        RequestValidationError, custom_ws_exception_handler
     )
     app.include_router(
         router_ws,
