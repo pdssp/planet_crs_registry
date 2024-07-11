@@ -20,9 +20,11 @@
 import os
 
 from fastapi import FastAPI
+from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.middleware.base import BaseHTTPMiddleware
 from tortoise.contrib.starlette import register_tortoise
 
 from .config import tortoise_config
@@ -31,6 +33,16 @@ from .core.exceptions import custom_404_exception_handler
 from .core.exceptions import custom_ws_exception_handler
 from .core.routers import router_web_site
 from .core.routers import router_ws
+
+
+# Middleware pour gérer les en-têtes X-Forwarded-Proto
+class ForwardedMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        forwarded_proto = request.headers.get("X-Forwarded-Proto")
+        if forwarded_proto:
+            request.scope["scheme"] = forwarded_proto
+        response = await call_next(request)
+        return response
 
 
 def init(app: FastAPI):
@@ -68,6 +80,7 @@ def init_routers(app: FastAPI):
     app.add_exception_handler(
         RequestValidationError, custom_ws_exception_handler
     )
+    app.add_middleware(ForwardedMiddleware)
     app.include_router(
         router_ws,
         prefix="/ws",
