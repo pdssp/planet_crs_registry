@@ -1,4 +1,14 @@
-### Update version of the sofware (HEAD -> main)
+### Change the scheme of the OGC URL according to the scheme of the client (HEAD -> main)
+>Thu, 11 Jul 2024 23:42:28 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Update version of the sofware (origin/main, origin/HEAD)
 >Tue, 9 Jul 2024 16:38:07 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -28,7 +38,7 @@
 
 
 
-### Add patch version (origin/main, origin/HEAD)
+### Add patch version
 >Thu, 4 Jul 2024 16:07:08 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)

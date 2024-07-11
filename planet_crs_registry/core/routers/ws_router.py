@@ -24,6 +24,7 @@ from typing import Optional
 from fastapi import APIRouter
 from fastapi import Path
 from fastapi import Query
+from fastapi import Request
 from fastapi import status
 from starlette.exceptions import HTTPException
 from tortoise import Tortoise
@@ -494,16 +495,19 @@ async def search_count(
     include_in_schema=True,
     tags=["OGC Bridge"],
 )
-async def get_iau_versions() -> IdentifiersResponse:
+async def get_iau_versions(request: Request) -> IdentifiersResponse:
     """Returns the list of IAU versions.
 
     Returns:
         IdentifiersResponse: IAU versions
     """
     versions: List[int] = await get_versions()
+    scheme: str = request.url.scheme
     identifier_list: List = list()
     for version in versions:
-        identifier_list.append(f"http://www.opengis.net/def/crs/IAU/{version}")
+        identifier_list.append(
+            f"{scheme}://www.opengis.net/def/crs/IAU/{version}"
+        )
     return IdentifiersResponse(content=identifier_list)
 
 
@@ -519,6 +523,7 @@ async def get_iau_versions() -> IdentifiersResponse:
     tags=["OGC Bridge"],
 )
 async def get_iau_wkts(
+    request: Request,
     iau_version: int = Path(description="Version of the WKT", gt=2014),
 ) -> IdentifiersResponse:
     """Returns the list of IAU CRS code for a given version.
@@ -532,13 +537,14 @@ async def get_iau_wkts(
         IdentifiersResponse: the list of IAU CRS code as XML response
     """
     try:
+        scheme: str = request.url.scheme
         number: int = await version_count(iau_version)
         wkts: List[WKT_model] = await get_version(iau_version, number, 0)
         identifier_list = list()
         for wkt in wkts:
             if "TRIAXIAL" not in wkt.wkt:
                 identifier_list.append(
-                    f"http://www.opengis.net/def/crs/IAU/{iau_version}/{wkt.code}"
+                    f"{scheme}://www.opengis.net/def/crs/IAU/{iau_version}/{wkt.code}"
                 )
         return IdentifiersResponse(content=identifier_list)
     except HTTPException as http_err:
