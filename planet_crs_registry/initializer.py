@@ -35,16 +35,6 @@ from .core.routers import router_web_site
 from .core.routers import router_ws
 
 
-# Middleware pour gérer les en-têtes X-Forwarded-Proto
-class ForwardedMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next):
-        forwarded_proto = request.headers.get("X-Forwarded-Proto")
-        if forwarded_proto:
-            request.scope["scheme"] = forwarded_proto
-        response = await call_next(request)
-        return response
-
-
 def init(app: FastAPI):
     """
     Init routers and etc.
@@ -80,7 +70,6 @@ def init_routers(app: FastAPI):
     app.add_exception_handler(
         RequestValidationError, custom_ws_exception_handler
     )
-    app.add_middleware(ForwardedMiddleware)
     app.include_router(
         router_ws,
         prefix="/ws",

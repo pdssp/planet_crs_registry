@@ -1,4 +1,14 @@
-### Add a middleware to update the schema of the request (HEAD -> main)
+### Set https as scheme (HEAD -> main)
+>Fri, 12 Jul 2024 01:17:20 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add a middleware to update the schema of the request (origin/main, origin/HEAD)
 >Fri, 12 Jul 2024 00:03:44 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Release a minor version to support https (origin/main, origin/HEAD)
+### Release a minor version to support https
 >Thu, 11 Jul 2024 23:46:05 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
