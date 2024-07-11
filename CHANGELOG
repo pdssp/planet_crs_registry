@@ -1,4 +1,14 @@
-### Change the scheme of the OGC URL according to the scheme of the client (HEAD -> main)
+### Release a minor version to support https (HEAD -> main)
+>Thu, 11 Jul 2024 23:46:05 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Change the scheme of the OGC URL according to the scheme of the client (tag: 1.3.0, origin/main, origin/HEAD)
 >Thu, 11 Jul 2024 23:42:28 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Update version of the sofware (origin/main, origin/HEAD)
+### Update version of the sofware
 >Tue, 9 Jul 2024 16:38:07 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
