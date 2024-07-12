@@ -1,4 +1,14 @@
-### Add documentation Change output of some services to have both plaintext representation and WKT string without special characters for formatting (HEAD -> main)
+### New release 2.0.0 (HEAD -> main)
+>Fri, 12 Jul 2024 17:04:49 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### Add documentation Change output of some services to have both plaintext representation and WKT string without special characters for formatting (tag: 2.0.0, origin/main, origin/HEAD)
 >Fri, 12 Jul 2024 17:02:01 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Set https as scheme (tag: 1.3.0, origin/main, origin/HEAD)
+### Set https as scheme (tag: 1.3.0)
 >Fri, 12 Jul 2024 01:17:20 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
