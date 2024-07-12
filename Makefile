@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := init
-.PHONY: add_req_prod add_req_dev add_major_version add_minor_version add_patch_version add_premajor_version add_preminor_version add_prepatch_version add_prerelease_version prepare-dev install-dev data help lint tests coverage upload-prod-pypi upload-test-pypi update_req update_req_dev pyclean doc doc-pdf visu-doc-pdf visu-doc tox licences check_update update_latest_dev update_latest_main show_deps_main show_deps_dev show_obsolete
+.PHONY: add_req_prod add_req_dev add_major_version add_minor_version add_patch_version add_premajor_version add_preminor_version add_prepatch_version add_prerelease_version prepare-dev install-dev data help lint tests coverage upload-prod-pypi upload-test-pypi update_req update_req_dev pyclean doc doc-pdf visu-doc-pdf visu-doc tox licences check_update update_latest_dev update_latest_main show_deps_main show_deps_dev show_obsolete publish
 VENV = ".venv"
 VENV_RUN = ".planet_crs_registry"
 
@@ -223,6 +223,7 @@ generate-gml:
 	rm -rf venv
 
 publish:
+	docker/build.sh
 	docker image tag pdssp/planet_crs_registry:latest pdssp/planet_crs_registry:$$(poetry version -s)
 	docker push pdssp/planet_crs_registry:$$(poetry version -s)
 	docker push pdssp/planet_crs_registry:latest

@@ -1,4 +1,14 @@
-### New release 2.0.0 (HEAD -> main)
+### Add task to publish (HEAD -> main)
+>Fri, 12 Jul 2024 17:08:47 +0200
+
+>Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+>Commiter: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
+
+
+
+
+### New release 2.0.0 (origin/main, origin/HEAD)
 >Fri, 12 Jul 2024 17:04:49 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
@@ -8,7 +18,7 @@
 
 
 
-### Add documentation Change output of some services to have both plaintext representation and WKT string without special characters for formatting (tag: 2.0.0, origin/main, origin/HEAD)
+### Add documentation Change output of some services to have both plaintext representation and WKT string without special characters for formatting (tag: 2.0.0)
 >Fri, 12 Jul 2024 17:02:01 +0200
 
 >Author: Jean-Christophe Malapert (jean-christophe.malapert@cnes.fr)
