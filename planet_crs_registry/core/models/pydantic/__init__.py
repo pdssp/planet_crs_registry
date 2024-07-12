@@ -27,6 +27,7 @@ from .ogc_bridge import ExceptionText
 from .ogc_bridge import Identifiers
 from .ogc_bridge import Identifiers_Pydantic
 from .wkt import Wkt_Pydantic
+from .wkt import Wkt_Pydantic_With_Cleaned_WKT
 
 __all__ = [
     "Wkt_Pydantic",
@@ -37,4 +38,5 @@ __all__ = [
     "ExceptionText",
     "Identifiers_Pydantic",
     "ExceptionReport_Pydantic",
+    "Wkt_Pydantic_With_Cleaned_WKT",
 ]

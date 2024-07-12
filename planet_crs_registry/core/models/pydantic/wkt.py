@@ -17,8 +17,18 @@
 # You should have received a copy of the GNU Lesser General Public License v3
 # along with Planet CRS Registry.  If not, see <https://www.gnu.org/licenses/>.
 """Serialization of the data model"""
+from pydantic import field_validator
 from tortoise.contrib.pydantic import pydantic_model_creator
 
 from ..tortoise import WKT
 
 Wkt_Pydantic = pydantic_model_creator(WKT, name="WKT")
+
+
+class Wkt_Pydantic_With_Cleaned_WKT(Wkt_Pydantic):
+    @field_validator("wkt", mode="before")
+    def clean_wkt(cls, value):
+        # Remove line breaks and tabs, and extra spaces, \" and " at the being/end
+        value = value.replace("\n", "").replace("\t", "")
+        value = " ".join(value.split())
+        return value

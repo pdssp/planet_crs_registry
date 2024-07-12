@@ -20,11 +20,13 @@
 import logging
 from typing import List
 from typing import Optional
+from typing import Union
 
 from fastapi import APIRouter
 from fastapi import Path
 from fastapi import Query
 from fastapi import status
+from fastapi.responses import PlainTextResponse
 from starlette.exceptions import HTTPException
 from tortoise import Tortoise
 from tortoise.contrib.fastapi import HTTPNotFoundError
@@ -38,6 +40,7 @@ from ..models import ExceptionReport_Pydantic
 from ..models import Identifiers_Pydantic
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
+from ..models import Wkt_Pydantic_With_Cleaned_WKT
 
 logger = logging.getLogger(__name__)
 
@@ -57,29 +60,36 @@ OFFSET_QUERY = Query(
 @router.get(
     "/wkts",
     summary="Get information about WKTs.",
-    response_model=List[Wkt_Pydantic],  # type: ignore
+    response_model=Union[List[Wkt_Pydantic_With_Cleaned_WKT], List[Wkt_Pydantic]],  # type: ignore
     description="Lists all WKTs regardless of version",
     tags=["Browse by WKT"],
 )
 async def get_wkts(
-    limit: Optional[int] = LIMIT_QUERY, offset: Optional[int] = OFFSET_QUERY
-) -> List[Wkt_Pydantic]:  # type: ignore
+    limit: Optional[int] = LIMIT_QUERY,
+    offset: Optional[int] = OFFSET_QUERY,
+    is_clean_formatting: Optional[bool] = True,
+) -> Union[List[Wkt_Pydantic_With_Cleaned_WKT], List[Wkt_Pydantic]]:  # type: ignore
     """Lists all WKTs regardless of version.
 
     The number of WKTs to display is paginated.
 
     Args:
-        limit (Optional[int], optional): Number of records to display.
-        Defaults to 50.
-        offset (Optional[int], optional): Number of record from which we start
-        to display. Defaults to 0.
+        limit (Optional[int], optional): Number of records to display. Defaults to 50.
+        offset (Optional[int], optional): Number of record from which we start to display. Defaults to 0.
+        is_clean_formatting (bool, optional): If True removes the formatting else False. Defaults to False.
+
 
     Returns:
-        List[Wkt_Pydantic]: The JSON representation of the list of all WKTs
+        Union[List[Wkt_Pydantic_With_Cleaned_WKT],List[Wkt_Pydantic]]: The JSON representation of the list of all WKTs
     """
-    return await Wkt_Pydantic.from_queryset(
-        WKT_model.all().limit(limit).offset(offset)  # type: ignore
-    )
+    if is_clean_formatting:
+        return await Wkt_Pydantic_With_Cleaned_WKT.from_queryset(
+            WKT_model.all().limit(limit).offset(offset)  # type: ignore
+        )
+    else:
+        return await Wkt_Pydantic.from_queryset(
+            WKT_model.all().limit(limit).offset(offset)  # type: ignore
+        )
 
 
 @router.get(
@@ -101,7 +111,7 @@ async def wkts_count() -> int:
 @router.get(
     "/wkts/{wkt_id}",
     summary="Get a WKT",
-    response_model=str,
+    response_class=PlainTextResponse,
     responses={status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError}},
     description="Retrieve a WKT for a given WKT ID.",
     tags=["Browse by WKT"],
@@ -121,7 +131,10 @@ async def get_wkt(
     Returns:
         str: The WKT representation
     """
-    wkt_obj: WKT_model = await query_search.get_wkt_obj(wkt_id)
+    wkt_obj: WKT_model = await query_search.get_wkt_obj(
+        wkt_id, is_clean_formatting=True
+    )
+    print(wkt_obj.wkt)
     return wkt_obj.wkt
 
 
@@ -221,7 +234,7 @@ async def version_count(
     summary="Get a WKT for a given version.",
     description="Retrieve a WKT",
     tags=["Browse by WKT version"],
-    response_model=str,
+    response_class=PlainTextResponse,
     responses={
         status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
         status.HTTP_400_BAD_REQUEST: {"model": HTTPNotFoundError},
@@ -246,7 +259,9 @@ async def get_wkt_version(
     Returns:
         str: The WKT representation
     """
-    wkt_obj: WKT_model = await query_search.get_wkt_obj(wkt_id)
+    wkt_obj: WKT_model = await query_search.get_wkt_obj(
+        wkt_id, is_clean_formatting=True
+    )
     if wkt_obj.version != version_id:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -390,7 +405,7 @@ async def get_solar_body_count(
     summary="Get a WKT for a given solar body.",
     description="Retrieve a WKT",
     tags=["Browse by solar body"],
-    response_model=str,
+    response_class=PlainTextResponse,
     responses={
         status.HTTP_404_NOT_FOUND: {"model": HTTPNotFoundError},
         status.HTTP_400_BAD_REQUEST: {"model": HTTPNotFoundError},
@@ -415,7 +430,9 @@ async def get_wkt_body(
     Returns:
         str: The WKT representation
     """
-    wkt_obj: WKT_model = await query_search.get_wkt_obj(wkt_id)
+    wkt_obj: WKT_model = await query_search.get_wkt_obj(
+        wkt_id, is_clean_formatting=True
+    )
     if wkt_obj.solar_body.lower() != solar_body.lower():
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -441,19 +458,23 @@ async def search(
     search_term_kw: str,
     limit: int = LIMIT_QUERY,
     offset: int = OFFSET_QUERY,
+    is_clean_formatting: Optional[bool] = True,
 ) -> List[WKT_model]:
     """Search WKTs for a given keyword.
 
     Args:
         search_term_kw (str): Term to search
         limit (int, optional):  Number of records to display. Defaults to LIMIT_QUERY.
-        offset (int, optional): Number of records from which we start to display. \
-            Defaults to OFFSET_QUERY.
+        offset (int, optional): Number of records from which we start to display. Defaults to OFFSET_QUERY.
+        is_clean_formatting (bool, optional): If True removes the formatting else False. Defaults to False.
+
 
     Returns:
         List[WKT_model]: WKTs matching the keyword
     """
-    return await query_search.search_term(search_term_kw, limit, offset)
+    return await query_search.search_term(
+        search_term_kw, limit, offset, is_clean_formatting
+    )
 
 
 @router.get(

@@ -148,6 +148,18 @@ async def formula(request: Request):
     return query_rep.get_formula(request)
 
 
+@router.get("/web/how_to_use_ids.html")
+async def how_to_use_ids(request: Request):
+    """how to use ids page"""
+    return query_rep.get_how_to_use_ids(request)
+
+
+@router.get("/web/how_to_decode_wkt2.html")
+async def how_to_decode_wkt2(request: Request):
+    """how to decode wkt2"""
+    return query_rep.get_how_to_decode_wkt2(request)
+
+
 @router.get("/web/index.html")
 @router.get("/web/")
 async def web_index(request: Request):

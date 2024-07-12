@@ -25,6 +25,7 @@ import time
 from dataclasses import dataclass
 from typing import Dict
 from typing import List
+from typing import Optional
 from typing import Tuple
 from urllib.parse import urlencode
 
@@ -37,6 +38,7 @@ from tortoise.expressions import Q
 
 from ..models import WKT_model
 from ..models import Wkt_Pydantic
+from ..models import Wkt_Pydantic_With_Cleaned_WKT
 
 logger = logging.getLogger(__name__)
 
@@ -160,6 +162,7 @@ class QuerySearch:
         params = {} if params is None else params
         params["offset"] = offset
         params["limit"] = limit
+        params["is_clean_formatting"] = False
         parameters = "" if params is None else f"?{urlencode(params)}"
         result: List = self._filter_records(
             await self._call_api(f"{base_url}ws/{endpoint}{parameters}")
@@ -271,20 +274,25 @@ class QuerySearch:
 
     @staticmethod
     async def search_term(
-        search_term_kw: str, limit: int = 50, offset: int = 0
+        search_term_kw: str,
+        limit: int = 50,
+        offset: int = 0,
+        is_clean_formatting: Optional[bool] = False,
     ) -> List[WKT_model]:
         """Search term in wkt ot id.
 
         Args:
             search_term_kw (str): keyword to search
             limit (int, optional): number of records in the page. Defaults to 50.
-            offset (int, optional): Number of records to skip at the beginning.
-            Defaults to 0.
+            offset (int, optional): Number of records to skip at the beginning. Defaults to 0.
+            is_clean_formatting (bool, optional): If True removes the formatting else False. Defaults to False.
+
 
         Returns:
             List[WKT_model]: Lost of WKTs matching the keyword
         """
-        return (
+
+        results = (
             await WKT_model.filter(
                 Q(wkt__contains=search_term_kw)
                 | Q(id__contains=search_term_kw)
@@ -292,6 +300,11 @@ class QuerySearch:
             .limit(limit)
             .offset(offset)
         )
+
+        if is_clean_formatting:
+            for result in results:
+                result.wkt = QuerySearch.clean_wkt_formatting(result.wkt)
+        return results
 
     @staticmethod
     async def search_term_count(search_term_kw: str) -> int:
@@ -308,11 +321,14 @@ class QuerySearch:
         ).count()
 
     @staticmethod
-    async def get_wkt_obj(wkt_id: str) -> WKT_model:
+    async def get_wkt_obj(
+        wkt_id: str, is_clean_formatting: bool = False
+    ) -> WKT_model:
         """Retrieves the WKT representation from the database based on its id.
 
         Args:
             wkt_id (str): WKT id
+            is_clean_formatting (bool, optional): If True removes the formatting else False. Defaults to False.
 
         Raises:
             HTTPException: WKT not found in the database
@@ -326,8 +342,19 @@ class QuerySearch:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"{wkt_id} not found",
             )
-        wkt_obj: WKT_model = await Wkt_Pydantic.from_tortoise_orm(obj)  # type: ignore
+        wkt_obj: WKT_model
+        if is_clean_formatting:
+            wkt_obj = await Wkt_Pydantic_With_Cleaned_WKT.from_tortoise_orm(obj)  # type: ignore
+        else:
+            wkt_obj = await Wkt_Pydantic.from_tortoise_orm(obj)  # type: ignore
         return wkt_obj
+
+    @staticmethod
+    def clean_wkt_formatting(wkt: str) -> str:
+        # Remove line breaks and tabs, and extra spaces, \" and " at the being/end
+        value = wkt.replace("\n", "").replace("\t", "")
+        value = " ".join(value.split())
+        return value
 
 
 class QueryRepresentation:
@@ -445,6 +472,18 @@ class QueryRepresentation:
         """Formula page"""
         return self.templates.TemplateResponse(
             "formula.html", {"request": request}
+        )
+
+    def get_how_to_use_ids(self, request: Request):
+        """How to use ids page"""
+        return self.templates.TemplateResponse(
+            "how_to_use_ids.html", {"request": request}
+        )
+
+    def get_how_to_decode_wkt2(self, request: Request):
+        """how to decode wkt2"""
+        return self.templates.TemplateResponse(
+            "how_to_decode_wkt2.html", {"request": request}
         )
 
     async def get_versions(self, request: Request):

@@ -127,7 +127,7 @@ def test_iau(conn):
         result = xmltodict.parse(content)
         assert (
             result["identifiers"]["identifier"]
-            == "http://www.opengis.net/def/crs/IAU/2015"
+            == "https://www.opengis.net/def/crs/IAU/2015"
         )
     except requests.RequestException as e:
         raise ValueError(f"Error occurred during request: {str(e)}")
@@ -154,7 +154,7 @@ def test_iau_2015(conn):
         result = xmltodict.parse(content)
         assert (
             result["identifiers"]["identifier"][0]
-            == "http://www.opengis.net/def/crs/IAU/2015/1000"
+            == "https://www.opengis.net/def/crs/IAU/2015/1000"
         )
         assert len(result["identifiers"]["identifier"]) == 2209
     except requests.RequestException as e:

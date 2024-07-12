@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- [if IE
+      ]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    /><![endif] -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="assets/img/ico/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/img/ico/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/img/ico/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/img/ico/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" href="assets/img/ico/apple-touch-icon-57x57.png" />
+
+    <title>How to Use IAU Identifiers in PROJ</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/animate.css" rel="stylesheet" />
+    <link href="assets/css/plugins.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/pe-icons.css" rel="stylesheet" />
+  </head>
+
+  <body id="page-top" class="index">
+    <div class="master-wrapper">
+      <div class="preloader">
+        <div class="preloader-img">
+          <span class="loading-animation animate-flicker"><img src="assets/img/loading.GIF" alt="loading" /></span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="navbar navbar-default navbar-fixed-top fadeInDown" data-wow-delay="0.5s">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navigation">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand smoothie logo logo-light" href="."><img src="assets/img/logo.png" alt="logo" /></a>
+            <a class="navbar-brand smoothie logo logo-dark" href="."><img src="assets/img/logo_reverse.png" alt="logo" /></a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="dark-wrapper opaqued parallax" data-parallax="scroll" data-image-src="assets/img/bg/bg6.jpg" data-speed="0.7">
+        <div class="section-inner pad-top-200">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 mt30 wow text-center">
+                <h2 class="section-heading">How to Use IAU Identifiers in PROJ</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="welcome">
+        <div class="section-inner nopaddingbottom">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 mb100 wow">
+                <h2>Scenario: Use OGC identifier in PROJ</h2>
+                <p>To use IAU identifiers in PROJ, you can use the following Python code:</p>
+                <pre>
+                  <code>
+                    >>> from pyproj import CRS
+                    >>> CRS('urn:ogc:def:crs:IAU:2015:19900')
+                    &lt;Geographic 2D CRS: IAU_2015:19900&gt;
+                    Name: Mercury (2015) - Sphere / Ocentric
+
+                    Axis Info [ellipsoidal]:
+                    - Lat[north]: Geodetic latitude (degree)
+                    - Lon[east]: Geodetic longitude (degree)
+
+                    Area of Use:
+                    - undefined
+
+                    Datum: Mercury (2015)
+                    - Sphere
+                    - Ellipsoid: Mercury (2015) - Sphere - Prime Meridian: Reference Meridian
+                  </code>
+                </pre>
+                <p>This code creates a Coordinate Reference System (CRS) object using the `pyproj` library and the specified IAU identifier.</p>
+              </div>
+              <div class="col-lg-12 mb100 wow">
+                <h2>Scenario: Querying for Mercury Identifiers and Creating an OGC Identifier</h2>
+                <p>Follow these steps to search for Mercury identifiers and create an OGC identifier:</p>
+
+                <h3>Step 1: Search for Mercury Identifiers</h3>
+                <p>Make a query to search for identifiers related to Mercury:</p>
+                <pre>
+                  <code>GET https://voparis-vespa-crs.obspm.fr/ws/search?search_term_kw=mercury&limit=50&offset=0</code>
+                </pre>
+                <p>The response will be a JSON array of WKT models. For example:</p>
+                <pre>
+                  <code>
+                    [
+                        {
+                            "created_at":"2024-07-09T14:18:23.888614Z",
+                            "id":"IAU:2015:19900",
+                            "version":2015,
+                            "code":19900,
+                            "solar_body":"Mercury",
+                            "datum_name":"Mercury (2015) - Sphere",
+                            "ellipsoid_name":"Mercury (2015) - Sphere",
+                            "projection_name":"No projection",
+                            "wkt":"GEOGCRS[\"Mercury (2015) - Sphere \", DATUM[\"Mercury (2015) - Sphere\", ELLIPSOID[\"Mercury (2015) - Sphere\", 2440530, 0,LENGTHUNIT[\"metre\", 1, ID[\"EPSG\", 9001]]],ANCHOR[\"Hun Kal : 20 W\"]], PRIMEM[\"Reference Meridian\", 0, ANGLEUNIT[\"degree\", 0.0174532925199433, ID[\"EPSG\", 9122]]],CS[ellipsoidal, 2], AXIS[\"geodetic latitude (Lat)\", north, ORDER[1], ANGLEUNIT[\"degree\", 0.0174532925199433]], AXIS[\"geodetic longitude (Lon)\", east, ORDER[2], ANGLEUNIT[\"degree\", 0.0174532925199433]],ID[\"IAU\", 19900, 2015],REMARK[\"Use semi-major radius as sphere radius for interoperability. Source of IAU Coordinate systems: doi:10.1007/s10569-017-9805-5\"]]"
+                        },
+                        ...
+                    ]
+                  </code>
+                </pre>
+
+                <h3>Step 2: Extract the Identifier Details</h3>
+                <p>From the response, extract the details of the WKT identifier from WKT string. For instance:</p>
+                <ul>
+                  <li>
+                    <b>Namespace:</b> IAU
+                  </li>
+                  <li>
+                    <b>ID:</b> 19900
+                  </li>
+                  <li>
+                    <b>Version:</b> 2015
+                  </li>
+                </ul>
+
+                <h3>Step 3: Create the OGC Identifier</h3>
+                <p>Using the retrieved details, create the OGC identifier in Python:</p>
+                <pre>
+                  <code>
+                    >>> id = "19900"
+                    >>> version = "2015"
+                    >>> namespace = "IAU"
+                    >>> ogc_identifier = f"urn:ogc:def:crs:{namespace}:{version}:{id}"
+                    >>> print(ogc_identifier)
+                    urn:ogc:def:crs:IAU:2015:19900
+                  </code>
+                </pre>
+                <p>Then, you can use this OGC identifier with PROJ:</p>
+                <pre>
+                  <code>
+                    >>> from pyproj import CRS
+                    >>> CRS('urn:ogc:def:crs:IAU:2015:19900')
+                    &lt;Geographic 2D CRS: IAU_2015:19900&gt;
+                    Name: Mercury (2015) - Sphere / Ocentric
+
+                    Axis Info [ellipsoidal]:
+                    - Lat[north]: Geodetic latitude (degree)
+                    - Lon[east]: Geodetic longitude (degree)
+
+                    Area of Use:
+                    - undefined
+
+                    Datum: Mercury (2015)
+                    - Sphere
+                    - Ellipsoid: Mercury (2015) - Sphere - Prime Meridian: Reference Meridian
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="white-wrapper">
+        <div class="container">
+          <div class="row">
+            <hr class="thin-hr" />
+
+            <div class="col-md-12 text-center wow">
+              <span class="copyright">Copyright 2021-2024. CNES (Jean-Christophe Malapert for PDSSP)</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/init.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- [if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif] -->
+  </body>
+</html>

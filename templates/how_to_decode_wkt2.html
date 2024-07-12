@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- [if IE
+      ]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    /><![endif] -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="assets/img/ico/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/img/ico/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/img/ico/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/img/ico/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" href="assets/img/ico/apple-touch-icon-57x57.png" />
+
+    <title>How to Decode WKT2</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/animate.css" rel="stylesheet" />
+    <link href="assets/css/plugins.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/pe-icons.css" rel="stylesheet" />
+  </head>
+
+  <body id="page-top" class="index">
+    <div class="master-wrapper">
+      <div class="preloader">
+        <div class="preloader-img">
+          <span class="loading-animation animate-flicker"><img src="assets/img/loading.GIF" alt="loading" /></span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="navbar navbar-default navbar-fixed-top fadeInDown" data-wow-delay="0.5s">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navigation">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand smoothie logo logo-light" href="."><img src="assets/img/logo.png" alt="logo" /></a>
+            <a class="navbar-brand smoothie logo logo-dark" href="."><img src="assets/img/logo_reverse.png" alt="logo" /></a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="dark-wrapper opaqued parallax" data-parallax="scroll" data-image-src="assets/img/bg/bg6.jpg" data-speed="0.7">
+        <div class="section-inner pad-top-200">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 mt30 wow text-center">
+                <h2 class="section-heading">How to Use IAU Identifiers in PROJ</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="welcome">
+        <div class="section-inner nopaddingbottom">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 mb100 wow">
+                <p>The Well-Known Text (WKT) format is a text markup language for representing coordinate reference systems (CRS). Here we will decode two examples of WKT: one for a Geographic Coordinate Reference System (GEOGCRS) and one for a Projected Coordinate Reference System (PROJCRS).</p>
+
+                <div class="example">
+                    <h2>Example 1: GEOGCRS for Mars (2015) - Sphere</h2>
+                    <pre>
+                GEOGCRS["Mars (2015) - Sphere ",
+                    DATUM["Mars (2015) - Sphere",
+                        ELLIPSOID["Mars (2015) - Sphere", 3396190, 0,
+                            LENGTHUNIT["metre", 1, ID["EPSG", 9001]]],
+                        ANCHOR["Viking 1 lander : 47.95137 W"]],
+                    PRIMEM["Reference Meridian", 0,
+                        ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]],
+                    CS[ellipsoidal, 2],
+                        AXIS["geodetic latitude (Lat)", north,
+                            ORDER[1],
+                            ANGLEUNIT["degree", 0.0174532925199433]],
+                        AXIS["geodetic longitude (Lon)", east,
+                            ORDER[2],
+                            ANGLEUNIT["degree", 0.0174532925199433]],
+                    ID["IAU", 49900, 2015],
+                    REMARK["Use semi-major radius as sphere radius for interoperability. Source of IAU Coordinate systems: doi:10.1007/s10569-017-9805-5"]]
+                    </pre>
+                    <p><strong>Explanation:</strong></p>
+                    <ul>
+                        <li><strong>GEOGCRS["Mars (2015) - Sphere "]</strong>: This specifies a geographic coordinate reference system named "Mars (2015) - Sphere".</li>
+                        <li><strong>DATUM["Mars (2015) - Sphere"]</strong>: The datum used is "Mars (2015) - Sphere".
+                            <ul>
+                                <li><strong>ELLIPSOID["Mars (2015) - Sphere", 3396190, 0, LENGTHUNIT["metre", 1, ID["EPSG", 9001]]]</strong>: The ellipsoid for Mars has a semi-major axis of 3,396,190 meters and an eccentricity of 0 (indicating a sphere).</li>
+                                <li><strong>ANCHOR["Viking 1 lander : 47.95137 W"]</strong>: The anchor point is the Viking 1 lander located at 47.95137 degrees west.</li>
+                            </ul>
+                        </li>
+                        <li><strong>PRIMEM["Reference Meridian", 0, ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]]</strong>: The prime meridian is the reference meridian at 0 degrees.</li>
+                        <li><strong>CS[ellipsoidal, 2]</strong>: The coordinate system is ellipsoidal with 2 axes.
+                            <ul>
+                                <li><strong>AXIS["geodetic latitude (Lat)", north, ORDER[1], ANGLEUNIT["degree", 0.0174532925199433]]</strong>: The first axis is geodetic latitude, pointing north, with an angle unit in degrees.</li>
+                                <li><strong>AXIS["geodetic longitude (Lon)", east, ORDER[2], ANGLEUNIT["degree", 0.0174532925199433]]</strong>: The second axis is geodetic longitude, pointing east, with an angle unit in degrees.</li>
+                            </ul>
+                        </li>
+                        <li><strong>ID["IAU", 49900, 2015]</strong>: The identifier is IAU 49900, defined in 2015.</li>
+                        <li><strong>REMARK</strong>: Additional information about the coordinate system source.</li>
+                    </ul>
+                </div>
+
+                <div class="example">
+                    <h2>Example 2: PROJCRS for Mars (2015) - Sphere / Sinusoidal, clon = 0</h2>
+                    <pre>
+                PROJCRS["Mars (2015) - Sphere / Sinusoidal, clon = 0",
+                    BASEGEOGCRS["Mars (2015) - Sphere",
+                        DATUM["Mars (2015) - Sphere",
+                        ELLIPSOID["Mars (2015) - Sphere", 3396190, 0,
+                            LENGTHUNIT["metre", 1, ID["EPSG", 9001]]],
+                        ANCHOR["Viking 1 lander : 47.95137 W"]],
+                        PRIMEM["Reference Meridian", 0,
+                            ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]],
+                        ID["IAU", 49900, 2015]],
+                    CONVERSION["Sinusoidal, clon = 0",
+                        METHOD["Sinusoidal",
+                            ID["PROJ", "SINUSOIDAL"]],
+                        PARAMETER["Longitude of natural origin", 0,
+                            ANGLEUNIT["degree",0.0174532925199433,ID["EPSG", 9122]],
+                            ID["EPSG", 8802]],
+                        PARAMETER["False easting", 0,
+                            LENGTHUNIT["metre",1,ID["EPSG", 9001]],
+                            ID["EPSG", 8806]],
+                        PARAMETER["False northing", 0,
+                            LENGTHUNIT["metre",1,ID["EPSG", 9001]],
+                            ID["EPSG", 8807]]],
+                    CS[Cartesian, 2],
+                        AXIS["Easting (E)", east,
+                            ORDER[1],
+                            LENGTHUNIT["metre", 1]],
+                        AXIS["Northing (N)", north,
+                            ORDER[2],
+                            LENGTHUNIT["metre", 1]],
+                    ID["IAU", 49920, 2015]]
+                    </pre>
+                    <p><strong>Explanation:</strong></p>
+                    <ul>
+                        <li><strong>PROJCRS["Mars (2015) - Sphere / Sinusoidal, clon = 0"]</strong>: This specifies a projected coordinate reference system named "Mars (2015) - Sphere / Sinusoidal, clon = 0".</li>
+                        <li><strong>BASEGEOGCRS["Mars (2015) - Sphere"]</strong>: The base geographic CRS is "Mars (2015) - Sphere".
+                            <ul>
+                                <li><strong>DATUM["Mars (2015) - Sphere"]</strong>: The datum used is "Mars (2015) - Sphere".
+                                    <ul>
+                                        <li><strong>ELLIPSOID["Mars (2015) - Sphere", 3396190, 0, LENGTHUNIT["metre", 1, ID["EPSG", 9001]]]</strong>: The ellipsoid for Mars has a semi-major axis of 3,396,190 meters and an eccentricity of 0 (indicating a sphere).</li>
+                                        <li><strong>ANCHOR["Viking 1 lander : 47.95137 W"]</strong>: The anchor point is the Viking 1 lander located at 47.95137 degrees west.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>PRIMEM["Reference Meridian", 0, ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]]]</strong>: The prime meridian is the reference meridian at 0 degrees.</li>
+                                <li><strong>ID["IAU", 49900, 2015]</strong>: The identifier is IAU 49900, defined in 2015.</li>
+                            </ul>
+                        </li>
+                        <li><strong>CONVERSION["Sinusoidal, clon = 0"]</strong>: The conversion method is "Sinusoidal" with a central longitude (clon) of 0.
+                            <ul>
+                                <li><strong>METHOD["Sinusoidal", ID["PROJ", "SINUSOIDAL"]]</strong>: The method used is "Sinusoidal".</li>
+                                <li><strong>PARAMETER["Longitude of natural origin", 0, ANGLEUNIT["degree", 0.0174532925199433, ID["EPSG", 9122]], ID["EPSG", 8802]]</strong>: The longitude of natural origin is 0 degrees.</li>
+                                <li><strong>PARAMETER["False easting", 0, LENGTHUNIT["metre", 1, ID["EPSG", 9001]], ID["EPSG", 8806]]</strong>: The false easting is 0 meters.</li>
+                                <li><strong>PARAMETER["False northing", 0, LENGTHUNIT["metre", 1, ID["EPSG", 9001]], ID["EPSG", 8807]]</strong>: The false northing is 0 meters.</li>
+                            </ul>
+                        </li>
+                        <li><strong>CS[Cartesian, 2]</strong>: The coordinate system is Cartesian with 2 axes.
+                            <ul>
+                                <li><strong>AXIS["Easting (E)", east, ORDER[1], LENGTHUNIT["metre", 1]]</strong>: The first axis is easting, pointing east, with a length unit in meters.</li>
+                                <li><strong>AXIS["Northing (N)", north, ORDER[2], LENGTHUNIT["metre", 1]]</strong>: The second axis is northing, pointing north, with a length unit in meters.</li>
+                            </ul>
+                        </li>
+                        <li><strong>ID["IAU", 49920, 2015]</strong>: The identifier is IAU 49920, defined in 2015.</li>
+                    </ul>
+                    <p><strong>For more details on Well-Known Text (WKT) representation, refer to the <u><a href="https://www.ogc.org/standard/wkt-crs/" target="_blank">OGC WKT CRS standard</a></u>.</strong></p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="white-wrapper">
+        <div class="container">
+          <div class="row">
+            <hr class="thin-hr" />
+
+            <div class="col-md-12 text-center wow">
+              <span class="copyright">Copyright 2021-2024. CNES (Jean-Christophe Malapert for PDSSP)</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/init.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- [if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif] -->
+  </body>
+</html>

@@ -27,13 +27,14 @@ from .pydantic import ExceptionText
 from .pydantic import Identifiers
 from .pydantic import Identifiers_Pydantic
 from .pydantic import Wkt_Pydantic
+from .pydantic import Wkt_Pydantic_With_Cleaned_WKT
 from .tortoise import CenterCs
 from .tortoise import WKT as WKT_model
 
 __all__ = [
     "WKT_model",
     "Wkt_Pydantic",
-    "CenterCs",
+    "Wkt_Pydantic_With_Cleaned_WKT" "CenterCs",
     "ContactEmail",
     "Identifiers",
     "ExceptionReport",

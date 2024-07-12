@@ -221,3 +221,8 @@ generate-gml:
 	venv/bin/pip install -r requirements_gml.txt
 	venv/bin/python data/gml_generator.py
 	rm -rf venv
+
+publish:
+	docker image tag pdssp/planet_crs_registry:latest pdssp/planet_crs_registry:$$(poetry version -s)
+	docker push pdssp/planet_crs_registry:$$(poetry version -s)
+	docker push pdssp/planet_crs_registry:latest
