@@ -202,7 +202,7 @@ class SqlDatabase:
                 "id": f"IAU:{record.iau_version}:{record.iau_code}",
                 "version": int(record.iau_version),
                 "code": int(record.iau_code),
-                "solar_body": re.match(r"[^\s]+", record.datum).group(0),
+                "solar_body": re.match(r"^(.*?)\s*\(", record.datum).group(1),
                 "datum_name": record.datum,
                 "ellipsoid_name": record.ellipsoid,
                 "projection_name": record.projcrs,
